@@ -18,6 +18,14 @@ player_losses = {
     'destroyers': 0
 }
 
+enemy_losses = {
+    'battleships': 0,
+    'battlecruisers': 0,
+    'heavy cruisers': 0,
+    'light cruisers': 0,
+    'destroyers': 0
+}
+
 ship_firepower = {
     'battleship': 20,
     'battlecruiser': 15,
@@ -32,6 +40,17 @@ ship_crew = {
     'heavy cruiser': 500,
     'light cruiser': 300,
     'destroyer': 100,
+}
+
+tactical_library = {
+    'approach one': 'total concentration',  # aim to hit 20% of enemy force,
+    'approach two': 'major concentration',  # aim to hit 33% of enemy,
+    'approach three': 'moderate concentration',  # aim to hit 50% of enemy,
+    'approach four': 'mass attack',  # aim to hit 100% of enemy, will destroy
+    'approach five': 'missile barrage',  # fire missiles
+    'approach six': 'lay a minefield',  # lay mines and draw enemy in
+    'approach seven': 'send fast units',  # BCs, LCs, destroyers
+    'approach eight': 'send heavy units'  # battleships, heavy cruisers
 }
 
 total_firepower = (
@@ -89,14 +108,12 @@ def new_game(player_name):
         player_fleet_status()
     else:
         print('Very well Admiral')
-    
     print('Do you want to see a breakdown of the capabilities of component of the fleet?')
     fleet_capabilities_decision = input('Please press y to see what each part of your fleet is capable of, or n to move on\n')
     if fleet_capabilities_decision == 'y':
         ship_capabilities()
     else:
         print('Indeed - a good naval officer should know the capabilities of their ships by heart')
-    
     mission_one(player_name)
 
 
