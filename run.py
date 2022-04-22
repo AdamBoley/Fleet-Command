@@ -2,41 +2,50 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+player_ships = {
+    'battleships': 20,
+    'battlecruisers': 25,
+    'heavy cruisers': 50,
+    'light cruisers': 75,
+    'destroyers': 150,
+}
 
-# Player fleet strength variable:
-player_battleships = 20
-player_battlecruisers = 25
-player_heavy_cruisers = 50
-player_light_cruisers = 75
-player_destroyers = 150
+ship_firepower = {
+    'battleship': 20,
+    'battlecruiser': 15,
+    'heavy cruiser': 8,
+    'light cruiser': 5,
+    'destroyer': 2,
+}
 
+ship_crew = {
+    'battleship': 2000,
+    'battlecruiser': 1500,
+    'heavy cruiser': 500,
+    'light cruiser': 300,
+    'destroyer': 100,
+}
 
+total_firepower = (
+    (player_ships['battleships'] * ship_firepower['battleship'])
+    + (player_ships['battlecruisers'] * ship_firepower['battlecruiser'])
+    + (player_ships['heavy cruisers'] * ship_firepower['heavy cruiser'])
+    + (player_ships['light cruisers'] * ship_firepower['light cruiser'])
+    + (player_ships['destroyers'] * ship_firepower['destroyer'])
+)
 
-battleship_firepower = 20
-battlecruiser_firepower = 15
-heavy_cruiser_firepower = 8
-light_cruiser_firepower = 5
-destroyer_firepower = 2
+total_crew = (
+    (player_ships['battleships'] * ship_crew['battleship'])
+    + (player_ships['battlecruisers'] * ship_crew['battlecruiser'])
+    + (player_ships['heavy cruisers'] * ship_crew['heavy cruiser'])
+    + (player_ships['light cruisers'] * ship_crew['light cruiser'])
+    + (player_ships['destroyers'] * ship_crew['destroyer'])
+)
 
-total_firepower = ((player_battleships * battleship_firepower)
-                    + (player_battlecruisers * battlecruiser_firepower)
-                    + (player_heavy_cruisers * heavy_cruiser_firepower)
-                    + (player_light_cruisers * light_cruiser_firepower)
-                    + (player_destroyers * destroyer_firepower))
-
-battleship_crew = 2000
-battlecruiser_crew = 1500
-heavy_cruiser_crew = 500
-light_cruiser_crew = 300
-destroyer_crew = 100
-
-total_crew = ((player_battleships * battleship_crew)
-                + (player_battlecruisers * battlecruiser_crew)
-                + (player_heavy_cruisers * heavy_cruiser_crew)
-                + (player_light_cruisers * light_cruiser_crew)
-                + (player_destroyers * destroyer_crew))
-
-marines = (40 * (player_battlecruisers + player_battleships))
+marines = (
+    (player_ships['battleships'] * 40)
+    + (player_ships['battlecruisers'] * 40)
+)
 
 
 def new_game(player_name):
@@ -66,14 +75,14 @@ def player_fleet_status():
     """
     Function that can be called anytime to display the current status of the player's fleet
     """
-    print(f'We currently have {player_battleships} battleships')
-    print(f'We currently have {player_battlecruisers} battlecruisers')
-    print(f'We currently have {player_heavy_cruisers} heavy cruisers')
-    print(f'We currently have {player_light_cruisers} light cruisers')
-    print(f'We currently have {player_destroyers} destroyers')
-    print(f'Given the current number of ships, we currently have {total_firepower} turrets')
-    print(f'We currently have {total_crew} crew')
-    print(f'We currently have {marines} marines')
+    print(f"We currently have {player_ships['battleships']} battleships")
+    print(f"We currently have {player_ships['battlecruisers']} battlecruisers")
+    print(f"We currently have {player_ships['heavy cruisers']} heavy cruisers")
+    print(f"We currently have {player_ships['light cruisers']} light cruisers")
+    print(f"We currently have {player_ships['destroyers']} destroyers")
+    print(f"Given the current number of ships, we currently have {total_firepower} turrets")
+    print(f"We currently have {total_crew} crew")
+    print(f"We currently have {marines} marines")
 
 
 def ship_capabilities():
@@ -81,17 +90,17 @@ def ship_capabilities():
     Function that displays the capabilities of each class of ship
     """
     print('Battleships are the monsters of space combat - heavily armoured and heavily armed.')
-    print(f'Both Alliance and Syndicate battleships have {battleship_firepower} particle beam turrets\n')
+    print(f"Both Alliance and Syndicate battleships have {ship_firepower['battleship']} particle beam turrets\n")
     print('Battlecruisers are the cavalry of space combat - faster, but less heavily armoured and armed that battleships')
-    print(f'Both Alliance and Syndicate battlecruisers have {battlecruiser_firepower} turrets\n')
+    print(f"Both Alliance and Syndicate battlecruisers have {ship_firepower['battlecruiser']} turrets\n")
     print('Heavy Cruisers are the largest escorts')
-    print(f'Heavy cruisers have {heavy_cruiser_firepower} turrets\n')
+    print(f"Heavy cruisers have {ship_firepower['heavy cruiser']} turrets\n")
     print('Light cruisers are mid-weight escorts')
-    print(f'Light cruisers have {light_cruiser_firepower} turrets\n')
+    print(f"Light cruisers have {ship_firepower['light cruiser']} turrets\n")
     print('Destroyers are the lightest, least capable escorts, but can be effective in large numbers.')
-    print(f'Destroyers have {destroyer_firepower} turrets\n')
+    print(f"Destroyers have {ship_firepower['destroyer']} turrets\n")
     print('Crew are used for operating ships.')
-    print('Marines are used for boarding enemy ships and conducting ground assaults.')
+    print("Marines are used for boarding enemy ships and conducting ground assaults.")
 
 
 def main():
