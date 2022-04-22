@@ -2,6 +2,10 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+from random import randint
+
+# print(random.randint(1, 10))
+
 player_ships = {
     'battleships': 20,
     'battlecruisers': 25,
