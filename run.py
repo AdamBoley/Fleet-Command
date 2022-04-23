@@ -30,6 +30,7 @@ ship_firepower = {
     'escort': 5,
 }
 
+
 tactical_library = {
     'approach 1': 'attack 25% of the enemy',
     'approach 2': 'attack 50% of the enemy',
@@ -37,7 +38,7 @@ tactical_library = {
     'approach 4': 'attack all of the enemy'
 }
 
-total_firepower = (
+player_total_firepower = (
     (player_ships['battleships'] * ship_firepower['battleship'])
     + (player_ships['cruisers'] * ship_firepower['cruiser'])
     + (player_ships['escorts'] * ship_firepower['escort'])
@@ -76,12 +77,14 @@ def mission_one(player_name):
         'cruisers': 15,
         'escorts': 50
     }
+    enemy_firepower = enemy_firepower_calculator(enemy_group_one)
 
     print(f'Admiral {player_name}, sensors have detected a group of enemy warships at the jump point!')
     print('The tactical suite is updating now - this group looks small')
 
     for key, value in enemy_group_one.items():
         print(f'The enemy have {value} {key}')
+    print(f'The enemy have {enemy_firepower} turrets')
     print('Based on that, I assess this is a scouting unit')
     print('Admiral, if we choose, we should be able to take them easily!')
     print('Admiral, what are you orders?')
@@ -107,7 +110,7 @@ def player_fleet_status():
     """
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
-    print(f"Given the current number of ships, we currently have {total_firepower} turrets")
+    print(f"Given the current number of ships, we currently have {player_total_firepower} turrets")
 
 
 def ship_capabilities():
@@ -122,10 +125,26 @@ def ship_capabilities():
     print(f"Escorts have {ship_firepower['escort']} turrets\n")
 
 
-def firepower_comparison():
+def firepower_comparator(player_total_firepower, enemy_total_firepower):
     """
     Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
     """
+
+
+def enemy_firepower_calculator(enemy_strength):
+    """
+    function to calculate the firepower rating of an enemy fleet
+    """
+    battleship_firepower = 20
+    cruiser_firepower = 10
+    escort_firepower = 5
+
+    enemy_firepower = ((enemy_strength['battleships'] * battleship_firepower)
+                        + (enemy_strength['cruisers'] * cruiser_firepower)
+                        + (enemy_strength['escorts'] * escort_firepower))
+    return enemy_firepower
+
+
 
 def main():
     """
