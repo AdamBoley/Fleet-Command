@@ -96,6 +96,10 @@ def mission_one(player_name):
         for key, value in tactical_library.items():
             print(f'{key} - We can {value}')
         print('Roth: What will we do?')
+
+        firepower_difference = firepower_comparator(player_total_firepower, enemy_firepower)
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
             
 
 
@@ -125,11 +129,12 @@ def ship_capabilities():
     print(f"Escorts have {ship_firepower['escort']} turrets\n")
 
 
-def firepower_comparator(player_total_firepower, enemy_total_firepower):
+def firepower_comparator(player_total_firepower, enemy_firepower):
     """
     Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
     """
-
+    firepower_difference = player_total_firepower - enemy_firepower
+    return firepower_difference
 
 def enemy_firepower_calculator(enemy_strength):
     """
