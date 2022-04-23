@@ -8,94 +8,40 @@ from random import randint
 
 player_ships = {
     'battleships': 20,
-    'battlecruisers': 25,
-    'heavy cruisers': 50,
-    'light cruisers': 75,
-    'destroyers': 150,
+    'cruisers': 50,
+    'escorts': 150,
 }
 
 player_losses = {
     'battleships': 0,
-    'battlecruisers': 0,
-    'heavy cruisers': 0,
-    'light cruisers': 0,
-    'destroyers': 0
+    'cruisers': 0,
+    'escorts': 0,
 }
 
 enemy_losses = {
     'battleships': 0,
-    'battlecruisers': 0,
-    'heavy cruisers': 0,
-    'light cruisers': 0,
-    'destroyers': 0
+    'cruisers': 0,
+    'escorts': 0,
 }
 
 ship_firepower = {
     'battleship': 20,
-    'battlecruiser': 15,
-    'heavy cruiser': 8,
-    'light cruiser': 5,
-    'destroyer': 2,
-}
-
-ship_crew = {
-    'battleship': 2000,
-    'battlecruiser': 1500,
-    'heavy cruiser': 500,
-    'light cruiser': 300,
-    'destroyer': 100,
+    'cruiser': 10,
+    'escort': 5,
 }
 
 tactical_library = {
-    'approach one': 'total concentration',  # aim to hit 20% of enemy force,
-    'approach two': 'major concentration',  # aim to hit 33% of enemy,
-    'approach three': 'moderate concentration',  # aim to hit 50% of enemy,
-    'approach four': 'mass attack',  # aim to hit 100% of enemy, will destroy
-    'approach five': 'missile barrage',  # fire missiles
-    'approach six': 'lay a minefield',  # lay mines and draw enemy in
-    'approach seven': 'send fast units',  # BCs, LCs, destroyers
-    'approach eight': 'send heavy units'  # battleships, heavy cruisers
+    'approach 1': 'attack 25% of the enemy',
+    'approach 2': 'attack 50% of the enemy',
+    'approach 3': 'attack 66% of the enemy',
+    'approach 4': 'attack all of the enemy'
 }
 
 total_firepower = (
     (player_ships['battleships'] * ship_firepower['battleship'])
-    + (player_ships['battlecruisers'] * ship_firepower['battlecruiser'])
-    + (player_ships['heavy cruisers'] * ship_firepower['heavy cruiser'])
-    + (player_ships['light cruisers'] * ship_firepower['light cruiser'])
-    + (player_ships['destroyers'] * ship_firepower['destroyer'])
+    + (player_ships['cruisers'] * ship_firepower['cruiser'])
+    + (player_ships['escorts'] * ship_firepower['escort'])
 )
-
-total_crew = (
-    (player_ships['battleships'] * ship_crew['battleship'])
-    + (player_ships['battlecruisers'] * ship_crew['battlecruiser'])
-    + (player_ships['heavy cruisers'] * ship_crew['heavy cruiser'])
-    + (player_ships['light cruisers'] * ship_crew['light cruiser'])
-    + (player_ships['destroyers'] * ship_crew['destroyer'])
-)
-
-marines = (
-    (player_ships['battleships'] * 40)
-    + (player_ships['battlecruisers'] * 40)
-)
-
-mines = (
-    (player_ships['battleships'] * 10)
-    + (player_ships['battlecruisers'] * 6)
-)
-
-missiles = (
-    (player_ships['battleships'] * 20)
-    + (player_ships['battlecruisers'] * 15)
-    + (player_ships['heavy cruisers'] * 5)
-)
-
-fleet_assets = {
-    'Marines': marines,
-    'Mines': mines,
-    'Missiles': missiles
-}
-
-experience = 1
 
 
 def new_game(player_name):
@@ -127,10 +73,8 @@ def mission_one(player_name):
     """
     enemy_group_one = {
         'battleships': 4,
-        'battlecruisers': 4,
-        'heavy cruisers': 12,
-        'light cruisers': 20,
-        'destroyers': 50
+        'cruisers': 15,
+        'escorts': 50
     }
 
     print(f'Admiral {player_name}, sensors have detected a group of enemy warships at the jump point!')
@@ -146,6 +90,11 @@ def mission_one(player_name):
         print('You: We engage! All hands - battle stations!')
         print('Roth: How should we approach this engagement?')
         print('You: We have several options')
+        for key, value in tactical_library.items():
+            print(f'{key} - We can {value}')
+        print('Roth: What will we do?')
+            
+
 
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
@@ -159,9 +108,6 @@ def player_fleet_status():
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {total_firepower} turrets")
-    print(f"We currently have {total_crew} crew")
-    for key, value in fleet_assets.items():
-        print((f'We currently have {value} {key}'))
 
 
 def ship_capabilities():
@@ -170,21 +116,16 @@ def ship_capabilities():
     """
     print('Battleships are the monsters of space combat - heavily armoured and heavily armed')
     print(f"Battleships have {ship_firepower['battleship']} particle beam turrets")
-    print('Battleships carry a large number of missiles and mines\n')
-    print('Battlecruisers are the cavalry of space combat - faster, but are less heavily armoured and armed that battleships')
-    print(f"Battlecruisers have {ship_firepower['battlecruiser']} turrets")
-    print('Battlecruisers carry a large number of missiles and mines\n')
-    print("Battleships and battlecruisers carry the fleets' Marines\n")
-    print('Heavy Cruisers are the largest escorts')
-    print(f"Heavy cruisers have {ship_firepower['heavy cruiser']} turrets")
-    print('Heavy cruisers also carry a small number of missiles\n')
-    print('Light cruisers are mid-weight escorts')
-    print(f"Light cruisers have {ship_firepower['light cruiser']} turrets\n")
-    print('Destroyers are the lightest, least capable escorts, but can be effective in large numbers')
-    print(f"Destroyers have {ship_firepower['destroyer']} turrets\n")
-    print('Crew are used for operating ships')
-    print("Marines are used for boarding enemy ships and conducting ground assaults")
+    print('Cruisers are midweight combatants')
+    print(f"Cruisers have {ship_firepower['cruiser']} turrets")
+    print('Escorts are light screening ships, effective in numbers')
+    print(f"Escorts have {ship_firepower['escort']} turrets\n")
 
+
+def firepower_comparison():
+    """
+    Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
+    """
 
 def main():
     """

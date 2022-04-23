@@ -80,6 +80,9 @@ Users must be able to meaningfully influence the outcome of the game - users mus
 
 Justify in-repo approach, no spreadsheet
 
+Early on in development, I realised that the project was probably being too ambitious in scope, so I reduced the classes of ships from 5 (battleships, battlecruisers, heavy cruisers, light cruisers and destroyers) down to 3 (battleships, cruisers, escorts)
+I also removed references to marines, crew, missiles and mines, instead focusing on getting the core mechanics of the game working, with a view to implementing these later if time permitted. The dictionaries containing marines, crew, mines and missiles were moved to a separate file for reference
+
 # Future Work
 
 # Bugs
