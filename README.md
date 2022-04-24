@@ -85,7 +85,9 @@ I also removed references to marines, crew, missiles and mines, instead focusing
 
 in the fight_engagement function, math.ceil was used so that enemy ship total were consistently rounded up rather than down, as I foresaw endless rounding down causing battles to go on for far longer than they needed to. The actual difference in firepower is minimal
 
-When calculating player (and enemy?) battleship losses, I decided to use the math.floor method instead of math.ceiling. I justified this as the effect of a battleship's heavier armour allowing it tank hits that destroy other ships
+When calculating player battleship losses, I decided to use the math.floor method instead of math.ceil. I also decided to divide the effective_enemy_firepower by 5. I justified this as the effect of a battleship's heavier armour allowing it tank hits that destroy other ships.
+
+When calculating player cruiser losses, I decided to divide effective_enemy_firepower by 2, and I justified this as the effect of a cruiser's armour allowing it to take more damage. I left the player's escort losses unmodified to reflect their relative lack of armour making them unable to sustain much damage. 
 
 
 # Future Work

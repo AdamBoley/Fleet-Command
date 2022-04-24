@@ -140,25 +140,56 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Engaging per your orders Admiral!')
             
             if effective_firepower_difference > 1000:
-                print('Our local firepower advantage was huge! Many enemy ships destroyed!')
+                print('Roth: Our local firepower advantage was huge! Almost all of the targetted enemy ships are destroyed!')
                 enemy_group_strength = {
-                   'battleships': (enemy_group_strength['battleships'] - math.floor(effective_enemy_strength['battleships'] * (player_firepower / 1000))),
-                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * (player_firepower / 2000))),
-                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * (player_firepower / 2000)))
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.90)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.90)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.90))
                 }
+
+                global enemy_losses
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.90),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.90),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.90)
+                }
+
                 global player_ships
                 player_ships = {
-                    'battleships': player_ships['battleships'] - math.floor(effective_enemy_firepower / 2000),
-                    'cruisers': player_ships['cruisers'] - math.ceil(effective_enemy_firepower / 2000),
-                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower / 2000)
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.01),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.01),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.01)
                 }
+                
+                global player_losses
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.01),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.01),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.01)
+                }
+
+            elif effective_firepower_difference >= 500:
+                print('Roth: Our local firepower advantage was considerable. A large number of the targeted enemy ships are destroyed')
+                
+
+            elif effective_firepower_difference < 500:
+                print('Roth: Our local firepower advantage was minor. A moderate number of enemy ships are destroyed')
+                
             
             for key, value in enemy_group_strength.items():
                 print(f'The enemy now has {value} {key}')
             
             for key, value in player_ships.items():
                 print(f'We now have {value} {key}')
-
+            
+            """
+            for key, value in enemy_losses.items():
+                print(f'The enemy have lost {value} {key} in total')
+            
+            for key, value in player_losses.items():
+                print(f'We have lost {value} {key} in total')
+            INCLUDED FOR CHECKING PURPOSES ONLY
+            """
         
         elif tactic == '2':
             print('You: We will aim to hit half of their ships in our firing run')
