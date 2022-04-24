@@ -1,7 +1,7 @@
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
-
+import math
 from random import randint
 
 # print(random.randint(1, 10))
@@ -32,13 +32,13 @@ ship_firepower = {
 
 
 tactical_library = {
-    'approach 1': 'attack 25% of the enemy',
-    'approach 2': 'attack 50% of the enemy',
-    'approach 3': 'attack 66% of the enemy',
-    'approach 4': 'attack all of the enemy'
+    '1': 'attack 25% of the enemy',
+    '2': 'attack 50% of the enemy',
+    '3': 'attack 66% of the enemy',
+    '4': 'attack all of the enemy'
 }
 
-player_total_firepower = (
+player_firepower = (
     (player_ships['battleships'] * ship_firepower['battleship'])
     + (player_ships['cruisers'] * ship_firepower['cruiser'])
     + (player_ships['escorts'] * ship_firepower['escort'])
@@ -81,32 +81,112 @@ def mission_one(player_name):
 
     print(f'Admiral {player_name}, sensors have detected a group of enemy warships at the jump point!')
     print('The tactical suite is updating now - this group looks small')
-
     for key, value in enemy_group_one.items():
         print(f'The enemy have {value} {key}')
-    print(f'The enemy have {enemy_firepower} turrets')
+    print(f'The enemy ships have a total of {enemy_firepower} turrets')
     print('Based on that, I assess this is a scouting unit')
+    
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    print(f'Roth: We have {firepower_difference} more turrets than they do')
+    
     print('Admiral, if we choose, we should be able to take them easily!')
-    print('Admiral, what are you orders?')
+    print('Admiral, shall we engage?')
     engage_decision_mission_one = input('Press y to engage the enemy, or n to find worthier prey:\n')
     if engage_decision_mission_one == 'y':
         print('You: We engage! All hands - battle stations!')
-        print('Roth: How should we approach this engagement?')
-        print('You: We have several options')
-        for key, value in tactical_library.items():
-            print(f'{key} - We can {value}')
-        print('Roth: What will we do?')
-
-        firepower_difference = firepower_comparator(player_total_firepower, enemy_firepower)
-        print(f'Roth: We have {firepower_difference} more turrets than they do')
-
-            
-
-
+        fight_battle(enemy_firepower, player_firepower, enemy_group_one)
+        
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
 
+
+def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
+    """
+    Function that is called when the player decides to fight an enemy in a mission
+    """
+    print('Roth: How shall we engage?')
+
+    def fight_engagement(enemy_firepower, player_firepower, enemy_group_strength):
+        """
+        A long, complex function that is called for each firing run
+        """
+
+        print('You: we have several options:')
+        for key, value in tactical_library.items():
+            print(f'{key} - We can {value}')
+        
+        tactic = input('Type a number from 1 to 4 to select your tactic:\n')
+        if tactic == '1':
+            print('You: We will aim to hit 25% of them in our firing run')
+            print('Roth: A sound plan - maximum concentration of force')
+            for key, value in enemy_group_strength.items():
+                print(f'We will be facing {math.ceil(value / 4)} {key}')
+
+            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] / 4) * 20)
+                                            + (math.ceil(enemy_group_strength['cruisers'] / 4) * 10)
+                                            + (math.ceil(enemy_group_strength['escorts'] / 4) * 5))
+            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
+            effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            
+        
+        elif tactic == '2':
+            print('You: We will aim to hit half of their ships in our firing run')
+            for key, value in enemy_group_strength.items():
+                print(f'We will be facing {math.ceil(value / 2)} {key}')
+
+            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] / 2) * 20)
+                                            + (math.ceil(enemy_group_strength['cruisers'] / 2) * 10)
+                                            + (math.ceil(enemy_group_strength['escorts'] / 2) * 5))
+            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
+            effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+        
+        elif tactic == '3':
+            print('You: We will aim to hit two-thirds of them in our firing run')
+            for key, value in enemy_group_strength.items():
+                print(f'We will be facing {math.ceil(value * 0.66)} {key}')
+
+            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] * 0.66) * 20)
+                                            + (math.ceil(enemy_group_strength['cruisers'] * 0.66) * 10)
+                                            + (math.ceil(enemy_group_strength['escorts'] * 0.66) * 5))
+            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
+            effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+        
+        elif tactic == '4':
+            print('You: Maximum attack! Target all enemy ships!')
+            effective_enemy_firepower = enemy_firepower
+            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
+            effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
     
+    fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+
+
+
+def firepower_comparator(player_firepower, enemy_firepower):
+    """
+    Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
+    """
+    firepower_difference = player_firepower - enemy_firepower
+    return firepower_difference
+
+
+def enemy_firepower_calculator(enemy_strength):
+    """
+    function to calculate the firepower rating of an enemy fleet
+    """
+    battleship_firepower = 20
+    cruiser_firepower = 10
+    escort_firepower = 5
+    # possibly refactor this to use the firepower dictionary
+    # Can you multiply the values of two dictionaries?
+    enemy_firepower = ((enemy_strength['battleships'] * battleship_firepower)
+                        + (enemy_strength['cruisers'] * cruiser_firepower)
+                        + (enemy_strength['escorts'] * escort_firepower))
+    return enemy_firepower
+
 
 def player_fleet_status():
     """
@@ -114,7 +194,7 @@ def player_fleet_status():
     """
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
-    print(f"Given the current number of ships, we currently have {player_total_firepower} turrets")
+    print(f"Given the current number of ships, we currently have {player_firepower} turrets")
 
 
 def ship_capabilities():
@@ -129,25 +209,7 @@ def ship_capabilities():
     print(f"Escorts have {ship_firepower['escort']} turrets\n")
 
 
-def firepower_comparator(player_total_firepower, enemy_firepower):
-    """
-    Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
-    """
-    firepower_difference = player_total_firepower - enemy_firepower
-    return firepower_difference
 
-def enemy_firepower_calculator(enemy_strength):
-    """
-    function to calculate the firepower rating of an enemy fleet
-    """
-    battleship_firepower = 20
-    cruiser_firepower = 10
-    escort_firepower = 5
-
-    enemy_firepower = ((enemy_strength['battleships'] * battleship_firepower)
-                        + (enemy_strength['cruisers'] * cruiser_firepower)
-                        + (enemy_strength['escorts'] * escort_firepower))
-    return enemy_firepower
 
 
 

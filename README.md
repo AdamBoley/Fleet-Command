@@ -83,6 +83,9 @@ Justify in-repo approach, no spreadsheet
 Early on in development, I realised that the project was probably being too ambitious in scope, so I reduced the classes of ships from 5 (battleships, battlecruisers, heavy cruisers, light cruisers and destroyers) down to 3 (battleships, cruisers, escorts)
 I also removed references to marines, crew, missiles and mines, instead focusing on getting the core mechanics of the game working, with a view to implementing these later if time permitted. The dictionaries containing marines, crew, mines and missiles were moved to a separate file for reference
 
+in the fight_engagement function, math.ceil was used so that enemy ship total were consistently rounded up rather than down, as I foresaw endless rounding down causing battles to go on for far longer than they needed to. The actual difference in firepower is minimal
+
+
 # Future Work
 
 # Bugs
