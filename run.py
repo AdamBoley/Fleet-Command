@@ -110,6 +110,8 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         """
         A long, complex function that is called for each firing run
         """
+        for key, value in enemy_group_strength.items():
+            print(f'The enemy have {value} {key}')
 
         print('You: we have several options:')
         for key, value in tactical_library.items():
@@ -119,48 +121,121 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         if tactic == '1':
             print('You: We will aim to hit 25% of them in our firing run')
             print('Roth: A sound plan - maximum concentration of force')
-            for key, value in enemy_group_strength.items():
-                print(f'We will be facing {math.ceil(value / 4)} {key}')
+            effective_enemy_strength = {
+                'battleships': math.ceil(enemy_group_strength['battleships'] / 4),
+                'cruisers': math.ceil(enemy_group_strength['cruisers'] / 4),
+                'escorts': math.ceil(enemy_group_strength['escorts'] / 4)
+            }
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] / 4) * 20)
-                                            + (math.ceil(enemy_group_strength['cruisers'] / 4) * 10)
-                                            + (math.ceil(enemy_group_strength['escorts'] / 4) * 5))
+            effective_enemy_firepower = (
+                (effective_enemy_strength['battleships'] * 20)
+                + (effective_enemy_strength['cruisers'] * 10)
+                + (effective_enemy_strength['escorts'] * 5))
+
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            print('Roth: Engaging per your orders Admiral!')
             
+            if effective_firepower_difference > 1000:
+                print('Our local firepower advantage was huge! Many enemy ships destroyed!')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.floor(effective_enemy_strength['battleships'] * (player_firepower / 1000))),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * (player_firepower / 2000))),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * (player_firepower / 2000)))
+                }
+                global player_ships
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor(effective_enemy_firepower / 2000),
+                    'cruisers': player_ships['cruisers'] - math.ceil(effective_enemy_firepower / 2000),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower / 2000)
+                }
+            
+            for key, value in enemy_group_strength.items():
+                print(f'The enemy now has {value} {key}')
+            
+            for key, value in player_ships.items():
+                print(f'We now have {value} {key}')
+
         
         elif tactic == '2':
             print('You: We will aim to hit half of their ships in our firing run')
-            for key, value in enemy_group_strength.items():
-                print(f'We will be facing {math.ceil(value / 2)} {key}')
+            
+            effective_enemy_strength = {
+                'battleships': math.ceil(enemy_group_strength['battleships'] / 2),
+                'cruisers': math.ceil(enemy_group_strength['cruisers'] / 2),
+                'escorts': math.ceil(enemy_group_strength['escorts'] / 2)
+            }
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] / 2) * 20)
-                                            + (math.ceil(enemy_group_strength['cruisers'] / 2) * 10)
-                                            + (math.ceil(enemy_group_strength['escorts'] / 2) * 5))
+            effective_enemy_firepower = (
+                (effective_enemy_strength['battleships'] * 20)
+                + (effective_enemy_strength['cruisers'] * 10)
+                + (effective_enemy_strength['escorts'] * 5))
+
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            print('Roth: Engaging per your orders Admiral!')
         
         elif tactic == '3':
             print('You: We will aim to hit two-thirds of them in our firing run')
-            for key, value in enemy_group_strength.items():
-                print(f'We will be facing {math.ceil(value * 0.66)} {key}')
+            
+            effective_enemy_strength = {
+                'battleships': math.ceil(enemy_group_strength['battleships'] * 0.66),
+                'cruisers': math.ceil(enemy_group_strength['cruisers'] * 0.66),
+                'escorts': math.ceil(enemy_group_strength['escorts'] * 0.66)
+            }
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = ((math.ceil(enemy_group_strength['battleships'] * 0.66) * 20)
-                                            + (math.ceil(enemy_group_strength['cruisers'] * 0.66) * 10)
-                                            + (math.ceil(enemy_group_strength['escorts'] * 0.66) * 5))
+            effective_enemy_firepower = (
+                (effective_enemy_strength['battleships'] * 20)
+                + (effective_enemy_strength['cruisers'] * 10)
+                + (effective_enemy_strength['escorts'] * 5))
+
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            print('Roth: Engaging per your orders Admiral!')
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
-            effective_enemy_firepower = enemy_firepower
+            
+            effective_enemy_strength = {
+                'battleships': (enemy_group_strength['battleships']),
+                'cruisers': (enemy_group_strength['cruisers']),
+                'escorts': (enemy_group_strength['escorts'])
+            }
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: We will be facing {value} {key}')
+
+            effective_enemy_firepower = (
+                (effective_enemy_strength['battleships'] * 20)
+                + (effective_enemy_strength['cruisers'] * 10)
+                + (effective_enemy_strength['escorts'] * 5))
+
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
-    
+            print('Roth: Engaging per your orders Admiral!')
+
+        if enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
+            print('Roth: The enemy group has still active ships Admiral!')
+            print('Roth: Shall we re-engage?')
+            reengage_decision = input('Press y to re-engage the enemy, or n to leave them for follow-on forces:\n')
+            if reengage_decision == 'y':
+                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+            elif reengage_decision == 'n':
+                print('You: We have done enough damage, and I do not want to risk our ships further')
+        
+        elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
+            print('Roth: We have destroyed all enemy ships, Admiral')
+            print('We are clear to move on')
+
     fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
 
 

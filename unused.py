@@ -24,3 +24,12 @@ fleet_assets = {
 }
 
 experience = 1
+
+
+
+
+enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - effective_enemy_strength['battleships']),
+                   'cruisers': (enemy_group_strength['cruisers'] - effective_enemy_strength['cruisers']),
+                   'escorts': (enemy_group_strength['escorts'] - effective_enemy_strength['escorts'])
+                }
