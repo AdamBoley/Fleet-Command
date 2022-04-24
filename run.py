@@ -110,6 +110,10 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         """
         A long, complex function that is called for each firing run
         """
+        global enemy_losses
+        global player_ships
+        global player_losses
+
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
 
@@ -147,21 +151,18 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                    'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.90))
                 }
 
-                global enemy_losses
                 enemy_losses = {
                     'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.90),
                     'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.90),
                     'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.90)
                 }
-
-                global player_ships
+                
                 player_ships = {
                     'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.01),
                     'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.01),
                     'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.01)
                 }
-                
-                global player_losses
+                                
                 player_losses = {
                     'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.01),
                     'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.01),
@@ -170,11 +171,55 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             elif effective_firepower_difference >= 500:
                 print('Roth: Our local firepower advantage was considerable. A large number of the targeted enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.80)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.80)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.80))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.80),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.80),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.80)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.02),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.02),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.02)
+                }
                 
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.02),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.02),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.02)
+                }
 
             elif effective_firepower_difference < 500:
                 print('Roth: Our local firepower advantage was minor. A moderate number of enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.70)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.70)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.70))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.70),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.70),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.70)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.03),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.03),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.03)
+                }
                 
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.03),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.03),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.03)
+                }
             
             for key, value in enemy_group_strength.items():
                 print(f'The enemy now has {value} {key}')
@@ -211,6 +256,90 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
             print('Roth: Engaging per your orders Admiral!')
+
+            if effective_firepower_difference > 1000:
+                print('Roth: Our local firepower advantage was huge! Almost all of the targetted enemy ships are destroyed!')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.70)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.70)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.70))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.70),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.70),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.70)
+                }
+                
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.05),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.05),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.05)
+                }
+                                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.05),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.05),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.05)
+                }
+
+            elif effective_firepower_difference >= 500:
+                print('Roth: Our local firepower advantage was considerable. A large number of the targeted enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.60)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.60)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.60))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.60),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.60),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.60)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.10),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.10),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.10)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.10),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.10),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.10)
+                }
+
+            elif effective_firepower_difference < 500:
+                print('Roth: Our local firepower advantage was minor. A moderate number of enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.50)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.50)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.50))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.50),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.50),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.50)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.15),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.15),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.15)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.15),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.15),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.15)
+                }
+            
+            for key, value in enemy_group_strength.items():
+                print(f'The enemy now has {value} {key}')
+            
+            for key, value in player_ships.items():
+                print(f'We now have {value} {key}')
         
         elif tactic == '3':
             print('You: We will aim to hit two-thirds of them in our firing run')
@@ -232,6 +361,90 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
             print('Roth: Engaging per your orders Admiral!')
+
+            if effective_firepower_difference > 1000:
+                print('Roth: Our local firepower advantage was huge! Almost all of the targetted enemy ships are destroyed!')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.60)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.60)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.60))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.50),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.50),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.50)
+                }
+                
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.10),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.10),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.10)
+                }
+                                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.10),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.10),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.10)
+                }
+
+            elif effective_firepower_difference >= 500:
+                print('Roth: Our local firepower advantage was considerable. A large number of the targeted enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.50)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.50)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.50))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.50),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.50),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.50)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.15),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.15),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.15)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.15),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.15),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.15)
+                }
+
+            elif effective_firepower_difference < 500:
+                print('Roth: Our local firepower advantage was minor. A moderate number of enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.40)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.40)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.40))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.40),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.40),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.40)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.20),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.20),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.20)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.20),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.20),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.20)
+                }
+            
+            for key, value in enemy_group_strength.items():
+                print(f'The enemy now has {value} {key}')
+            
+            for key, value in player_ships.items():
+                print(f'We now have {value} {key}')
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
@@ -253,6 +466,90 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
             print('Roth: Engaging per your orders Admiral!')
+
+            if effective_firepower_difference > 1000:
+                print('Roth: Our local firepower advantage was huge! Almost all of the targeted enemy ships are destroyed!')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.40)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.40)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.40))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.40),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.40),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.40)
+                }
+                
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.20),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.20),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.20)
+                }
+                                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.20),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.2),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.20)
+                }
+
+            elif effective_firepower_difference >= 500:
+                print('Roth: Our local firepower advantage was considerable. A large number of the targeted enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.30)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.30)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.30))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.30),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.30),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.30)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.25),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.25),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.25)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.25),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.25),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.25)
+                }
+
+            elif effective_firepower_difference < 500:
+                print('Roth: Our local firepower advantage was minor. A moderate number of enemy ships are destroyed')
+                enemy_group_strength = {
+                   'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * 0.20)),
+                   'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * 0.20)),
+                   'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * 0.20))
+                }
+
+                enemy_losses = {
+                    'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * 0.20),
+                    'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * 0.20),
+                    'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * 0.20)
+                }
+
+                player_ships = {
+                    'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * 0.30),
+                    'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * 0.30),
+                    'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * 0.3)
+                }
+                
+                player_losses = {
+                    'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * 0.3),
+                    'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * 0.3),
+                    'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * 0.3)
+                }
+            
+            for key, value in enemy_group_strength.items():
+                print(f'The enemy now has {value} {key}')
+            
+            for key, value in player_ships.items():
+                print(f'We now have {value} {key}')
 
         if enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
             print('Roth: The enemy group has still active ships Admiral!')
