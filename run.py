@@ -98,6 +98,34 @@ def mission_one(player_name):
         
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
+    
+    mission_two(player_name)
+
+
+def mission_two(player_name):
+    """
+    Mission Two - heavier combat, requires the player to use their
+    experience from Mission One to win
+    """
+    print('Roth: Arriving at Salamis in 3....2...1')
+    print('Roth: Looks like the enemy is here in strength, Admiral')
+    enemy_group_two = {
+        'battleships': 12,
+        'cruisers': 30,
+        'escorts': 100
+    }
+    enemy_firepower = enemy_firepower_calculator(enemy_group_two)
+    for key, value in enemy_group_two.items():
+        print(f'The enemy group has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_two = input('press y to engage, or n to disengage')
+    if engage_decision_mission_two == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, player_firepower, enemy_group_two)
+    elif engage_decision_mission_two == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
 
 
 def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
