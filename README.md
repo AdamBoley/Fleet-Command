@@ -122,6 +122,8 @@ When calculating player cruiser losses, I decided to divide effective_enemy_fire
 
 Early on in development, as I was focused on getting the core mechanics of the game working, I left out data validation when constructing the IF / ELSE conditional statements. During testing, this led to failures when I accidentally pressed the wrong keys. 
 
+Commit #23 added functionality to the update_player_ships to check if the calculations had returned negative, and if so, to correct these to 0, since you cannot have a negative number of ships. If the player ran out of ships, i.e. they were all destroyed in a loop of the fight_engagement function, an IF statment added at the end of the fight_engagement function displayed a series of messages saying that the player had failed, and offered to restart the game. This actual caused a failure, since the new_game function was called, which required a player_name argument to be passed in. Since the player_name variable was not present in the fight_engagement function, the code failed. I decided to commit anyway, so as to dedicate the next commit to fixing the problem and hence adhere to best practices to keep commits atomic. Hence, the code contained in commit #23 will not work. Commit #24 fixed the bug by reworking the main and new_game functions. 
+
 # Technologies
 
 Github

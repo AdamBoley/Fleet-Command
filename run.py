@@ -50,31 +50,40 @@ player_firepower = (
     + (player_ships['escorts'] * ship_firepower['escort'])
 )
 
+player_name = ''
+flagship_name = ''
 
-def new_game(player_name):
+
+def new_game():
     """
     Starts a new game
     """
-    print(f'Good morning Admiral {player_name}, I am Captain Roth, your staff officer')
-    print('Welcome aboard the battleship Indomitable, Admiral')
-    print('The Indomitable is your command ship')
-    print('From here, you can see the status of the fleet and make tactical decisions in battle')
-    print('do you want to see the status of the fleet now?')
+    global player_name
+    global flagship_name
+    player_name = input('Please enter your name:\n')
+    flagship_name = input('Please enter the name of your flagship:\n')
+    print(f'Roth: Good morning Admiral {player_name}')
+    print('Roth: I am Captain Roth, your staff officer')
+    print(f'Roth: Welcome aboard the battleship {flagship_name}, Admiral')
+    print(f'Roth: The {flagship_name} is your command ship')
+    print('Roth: From here you can issue orders to your fleet in battle')
+    print('Roth: I will keep you updated with pertinent information')
+    print('Roth: Do you want to see the status of the fleet now?')
     fleet_status_decision = input('Please press y to see fleet status or n to move on:\n') # gonna need some input checking here
     if fleet_status_decision == 'y':
         player_fleet_status()
     else:
-        print('Very well Admiral')
-    print('Do you want to see a breakdown of the capabilities of component of the fleet?')
+        print('Roth: Very well Admiral')
+    print('Do you want to see the capabilities of component of the fleet?')
     fleet_capabilities_decision = input('Please press y to see what each part of your fleet is capable of, or n to move on\n')
     if fleet_capabilities_decision == 'y':
         ship_capabilities()
     else:
         print('Indeed - a good naval officer should know the capabilities of their ships by heart')
-    mission_one(player_name)
+    mission_one()
 
 
-def mission_one(player_name):
+def mission_one():
     """
     Mission one - light combat, simple decisions, intended as an introduction to the game
     """
@@ -105,10 +114,10 @@ def mission_one(player_name):
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
     
-    mission_two(player_name)
+    mission_two()
 
 
-def mission_two(player_name):
+def mission_two():
     """
     Mission Two - heavier combat, requires the player to use their
     experience from Mission One to win
@@ -608,15 +617,18 @@ def main():
     Contains main program functions
     """
     print('Welcome to Fleet Command, a space battle simulator game')
-    player_name = input('Please enter your name:\n')
-    print(f'Greetings Admiral {player_name}\n')
+    
     print('The Alliance, a confederation of democratically-ruled star-systems, has been at war with the autocratic Syndicate Worlds for 20 years\n')
     print('The war shows no sign of ending, as both sides are locked in a stalemate\n')
-    print('You are a promising young naval officer, and you have just been given command of a fleet\n')
-    print('The Syndicate Worlds have gathered a mighty fleet, and have attacked at multiple points\n')
-    print(f'{player_name}, you have been charged with defending the Alliance\n')
+    print('Do you want to start a new game?')
+    new_game_decision = input('Press y to start the game:\n')
+    if new_game_decision == 'y':
+        print('You are a promising young naval officer, and you have just been given command of a fleet\n')
+        print('The Syndicate Worlds have gathered a mighty fleet, and have attacked at multiple points\n')
+        print('You have been charged with defending the Alliance\n')
 
-    new_game(player_name)
+        new_game()
+    
 
 
 main()
