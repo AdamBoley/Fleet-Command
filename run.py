@@ -478,6 +478,11 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
             elif reengage_decision == 'n':
                 print('You: We have done enough damage, and I do not want to risk our ships further')
+                enemy_bypassed = update_enemy_bypassed(enemy_group_strength)
+                """
+                for key, value in enemy_bypassed.items():
+                    print(f'We have bypassed {value} {key}')
+                """
         
         elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
             print('Roth: We have destroyed all enemy ships, Admiral')
@@ -525,6 +530,16 @@ def enemy_firepower_calculator(enemy_strength):
                         + (enemy_strength['cruisers'] * cruiser_firepower)
                         + (enemy_strength['escorts'] * escort_firepower))
     return enemy_firepower
+
+
+def update_enemy_bypassed(enemy_group_strength):
+    global enemy_bypassed
+    enemy_bypassed = {
+        'battleships': enemy_group_strength['battleships'],
+        'cruisers': enemy_group_strength['cruisers'],
+        'escorts': enemy_group_strength['escorts']
+    }
+    return enemy_bypassed
 
 
 def player_fleet_status():
