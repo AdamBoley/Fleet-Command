@@ -225,10 +225,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = (
-                (effective_enemy_strength['battleships'] * 20)
-                + (effective_enemy_strength['cruisers'] * 10)
-                + (effective_enemy_strength['escorts'] * 5))
+            effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
@@ -304,10 +301,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = (
-                (effective_enemy_strength['battleships'] * 20)
-                + (effective_enemy_strength['cruisers'] * 10)
-                + (effective_enemy_strength['escorts'] * 5))
+            effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
@@ -377,10 +371,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = (
-                (effective_enemy_strength['battleships'] * 20)
-                + (effective_enemy_strength['cruisers'] * 10)
-                + (effective_enemy_strength['escorts'] * 5))
+            effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
@@ -449,10 +440,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
-            effective_enemy_firepower = (
-                (effective_enemy_strength['battleships'] * 20)
-                + (effective_enemy_strength['cruisers'] * 10)
-                + (effective_enemy_strength['escorts'] * 5))
+            effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
@@ -533,6 +521,13 @@ def firepower_comparator(player_firepower, enemy_firepower):
     firepower_difference = player_firepower - enemy_firepower
     return firepower_difference
 
+
+def calculate_effective_enemy_firepower(effective_enemy_strength):
+    effective_enemy_firepower = (
+                (effective_enemy_strength['battleships'] * 20)
+                + (effective_enemy_strength['cruisers'] * 10)
+                + (effective_enemy_strength['escorts'] * 5))
+    return effective_enemy_firepower
 
 def enemy_firepower_calculator(enemy_strength):
     """
