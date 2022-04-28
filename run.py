@@ -174,6 +174,25 @@ def update_player_ships(effective_enemy_firepower, losses_factor):
         'cruisers': player_ships['cruisers'] - math.ceil((effective_enemy_firepower / 2) * losses_factor),
         'escorts': player_ships['escorts'] - math.ceil(effective_enemy_firepower * losses_factor)
     }
+    if player_ships['battleships'] < 0:
+        player_ships = {
+            'battleships': 0,
+            'cruisers': player_ships['cruisers'],
+            'escorts': player_ships['escorts']
+        }
+    if player_ships['cruisers'] < 0:
+        player_ships = {
+            'battleships': player_ships['battleships'],
+            'cruisers': 0,
+            'escorts': player_ships['escorts']
+        }
+    if player_ships['escorts'] < 0:
+        player_ships = {
+            'battleships': player_ships['battleships'],
+            'cruisers': player_ships['cruisers'],
+            'escorts': 0
+        }
+
     return player_ships
 
 
@@ -470,7 +489,19 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         INCLUDED FOR CHECKING PURPOSES ONLY
         """
 
-        if enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
+        if player_ships['battleships'] == 0 and player_ships['cruisers'] == 0 and player_ships['escorts'] == 0:
+            print('Roth: Shields failing Admiral!')
+            print('Roth: Multiple hull breaches!')
+            print('Roth: The reactor is melting down!')
+            print('Roth: Oh Sh......')
+            print('Your tactical decisions have led to the destruction of your fleet')
+            new_game_decision = input('Would you like to try again?\n')
+            if new_game_decision =='y':
+                new_game()
+            elif new_game_decision == 'n':
+                main()
+
+        elif enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
             print('Roth: The enemy group has still active ships Admiral!')
             print('Roth: Shall we re-engage?')
             reengage_decision = input('Press y to re-engage the enemy, or n to leave them for follow-on forces:\n')
@@ -487,7 +518,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
             print('Roth: We have destroyed all enemy ships, Admiral')
             print('Roth: We are clear to move on')
-
+        
     fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
 
 
@@ -533,6 +564,11 @@ def enemy_firepower_calculator(enemy_strength):
 
 
 def update_enemy_bypassed(enemy_group_strength):
+    """
+    Updates global enemy_bypassed dictionary
+    Keeps track of the number of enemy ships that have 
+    been bypassed
+    """
     global enemy_bypassed
     enemy_bypassed = {
         'battleships': enemy_group_strength['battleships'],
