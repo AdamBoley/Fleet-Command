@@ -271,22 +271,6 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
                 
                 player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
-                
-            for key, value in enemy_group_strength.items():
-                print(f'The enemy now has {value} {key}')
-            
-            for key, value in player_ships.items():
-                print(f'We now have {value} {key}')
-            
-            """
-            for key, value in enemy_losses.items():
-                print(f'The enemy have lost {value} {key} in total')
-            
-            for key, value in player_losses.items():
-                print(f'We have lost {value} {key} in total')
-            
-            INCLUDED FOR CHECKING PURPOSES ONLY
-            """
         
         elif tactic == '2':
             print('You: We will hit half of their ships in our firing run')
@@ -348,13 +332,6 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
                 
                 player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
-                
-            
-            for key, value in enemy_group_strength.items():
-                print(f'The enemy now has {value} {key}')
-            
-            for key, value in player_ships.items():
-                print(f'We now have {value} {key}')
         
         elif tactic == '3':
             print('You: We will aim to hit three-quarters of them in our firing run')
@@ -416,12 +393,6 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
                 
                 player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
-            
-            for key, value in enemy_group_strength.items():
-                print(f'The enemy now has {value} {key}')
-            
-            for key, value in player_ships.items():
-                print(f'We now have {value} {key}')
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
@@ -482,12 +453,22 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
                 
                 player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+
+        for key, value in enemy_group_strength.items():
+            print(f'The enemy now has {value} {key}')
             
-            for key, value in enemy_group_strength.items():
-                print(f'The enemy now has {value} {key}')
-            
-            for key, value in player_ships.items():
-                print(f'We now have {value} {key}')
+        for key, value in player_ships.items():
+            print(f'We now have {value} {key}')
+        
+        """
+        for key, value in enemy_losses.items():
+            print(f'The enemy have lost {value} {key} in total')
+        
+        for key, value in player_losses.items():
+            print(f'We have lost {value} {key} in total')
+        
+        INCLUDED FOR CHECKING PURPOSES ONLY
+        """
 
         if enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
             print('Roth: The enemy group has still active ships Admiral!')
