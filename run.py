@@ -52,6 +52,7 @@ player_firepower = (
 
 player_name = ''
 flagship_name = ''
+player_supplies = 100
 
 
 def new_game():
@@ -233,6 +234,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         global enemy_losses
         global player_ships
         global player_losses
+        global player_supplies
 
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
@@ -482,6 +484,9 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 
                 player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
 
+        player_supplies -= 1
+        print(f'We now have {player_supplies} supplies')
+
         for key, value in enemy_group_strength.items():
             print(f'The enemy now has {value} {key}')
             
@@ -504,6 +509,19 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: The reactor is melting down!')
             print('Roth: Oh Sh......')
             print('Your tactical decisions have led to the destruction of your fleet')
+            new_game_decision = input('Would you like to try again?\n')
+            if new_game_decision =='y':
+                new_game()
+            elif new_game_decision == 'n':
+                main()
+
+        elif player_supplies == 0:
+            print('Roth: Admiral, our ships are out of fuel and ammunition!')
+            print('Roth: Enemy ships closing in!')
+            print('Roth: We cannot fight back!')
+            print('You: Very well, broadcast surrender')
+            print('You have run out of supplies and have lost the game')
+            print('Next time, keep an eye on your supply levels and conserve them')
             new_game_decision = input('Would you like to try again?\n')
             if new_game_decision =='y':
                 new_game()
@@ -594,6 +612,7 @@ def player_fleet_status():
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
+    print(f'We currently have {player_supplies} supplies')
 
 
 def ship_capabilities():
