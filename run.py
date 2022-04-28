@@ -217,11 +217,9 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         if tactic == '1':
             print('You: We will aim to hit 25% of them in our firing run')
             print('Roth: A sound plan - maximum concentration of force')
-            effective_enemy_strength = {
-                'battleships': math.ceil(enemy_group_strength['battleships'] / 4),
-                'cruisers': math.ceil(enemy_group_strength['cruisers'] / 4),
-                'escorts': math.ceil(enemy_group_strength['escorts'] / 4)
-            }
+            target_factor = 0.25
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
@@ -291,13 +289,11 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             """
         
         elif tactic == '2':
-            print('You: We will aim to hit half of their ships in our firing run')
+            print('You: We will hit half of their ships in our firing run')
+            target_factor = 0.50
             
-            effective_enemy_strength = {
-                'battleships': math.ceil(enemy_group_strength['battleships'] / 2),
-                'cruisers': math.ceil(enemy_group_strength['cruisers'] / 2),
-                'escorts': math.ceil(enemy_group_strength['escorts'] / 2)
-            }
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
@@ -362,12 +358,10 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         
         elif tactic == '3':
             print('You: We will aim to hit three-quarters of them in our firing run')
+            target_factor = 0.75
             
-            effective_enemy_strength = {
-                'battleships': math.ceil(enemy_group_strength['battleships'] * 0.75),
-                'cruisers': math.ceil(enemy_group_strength['cruisers'] * 0.75),
-                'escorts': math.ceil(enemy_group_strength['escorts'] * 0.75)
-            }
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
@@ -431,12 +425,10 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
+            target_factor = 1
             
-            effective_enemy_strength = {
-                'battleships': (enemy_group_strength['battleships']),
-                'cruisers': (enemy_group_strength['cruisers']),
-                'escorts': (enemy_group_strength['escorts'])
-            }
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
 
@@ -528,6 +520,16 @@ def calculate_effective_enemy_firepower(effective_enemy_strength):
                 + (effective_enemy_strength['cruisers'] * 10)
                 + (effective_enemy_strength['escorts'] * 5))
     return effective_enemy_firepower
+
+
+def calculate_effective_enemy_strength(enemy_group_strength, target_factor):
+    effective_enemy_strength = {
+        'battleships': math.ceil(enemy_group_strength['battleships'] * target_factor),
+        'cruisers': math.ceil(enemy_group_strength['cruisers'] * target_factor),
+        'escorts': math.ceil(enemy_group_strength['escorts'] * target_factor)
+    }
+    return effective_enemy_strength
+
 
 def enemy_firepower_calculator(enemy_strength):
     """
