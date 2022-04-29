@@ -90,13 +90,19 @@ Each mission function then contains an input and a related IF / ELSE statement t
 
 However, if the player chooses to engage, the fight_battle function is called. This is the core mechanic of the game, and is what allows the game to simulate space combat. 
 
-The fight_battle function contains the fight_engagement function, which is where the user actually makes tactical decisions. Firstly, the user is prompted to enter a number between 1 and 4 to select their tactic. The difference in firepower rating between the player's ships and the number of enemy ships that the player has chosen to engage are then compared. Based on the difference in firepower ratings, one of several IF / ELIF statements is triggered, which mathematically simulates an engagement. 
+The fight_battle function contains the fight_engagement function, which is where the user actually makes tactical decisions. Firstly, the user is prompted to enter a number between 1 and 4 to select the tactic they want to use, which determines the number of enemy ships the player's fleet will face. The difference in firepower rating between the player's ships and the number of enemy ships that the player has chosen to engage is then calculated.  
 
-Within each IF / ELSE statements, two variables are declared - firepower_factor and losses_factor. The firepower_factor determines the percentage of targeted enemy ships that are destroyed. The losses_factor determines the number of player ships that are destroyed. 
+Two variables are then calculated - firepower_factor and losses_factor. Firepower_factor is calculated by dividing effective_firepower_difference by player_firepower, and is intended to model the combat power of the player's fleet. Losses_factor is calculated by dividing the effective_enemy_firepower by the effective_firepower_difference, and then furthering dividing by a number that depends on the tactic selected. 
 
-Both of these variables are passed to a series of 4 functions - update_enemy_group_strength, update_enemy_losses, update_player_ships and update_player_losses. Each of these functions calculates the number of ships destroyed and updates the respective dictionary(update_enemy_group_strength updates the enemy_group_strength dictionary, and so on), and then returns the updated dictionary to the fight_engagement function. 
+Two functions are then called - update_enemy and update_player. The update_enemy function updates the enemy_group_strength dictionary and the global enemy_losses dictionary, and then returns the updated enemy_group_strength dictionary. The update_player function updates the global player_ships and global player_losses dictionaries, and then returns the updated player_ships dictionary. 
 
-The outcome of the engagement is then printed to the terminal, with the player's ships and the enemy's ships displayed. The fight_battle function then checks to see if the current enemy group has any ships remaining. If so, the player is offered choice to either re-engage the enemy or disengage. If the disengage choice is selected, the mission function ends, and the next mission begins. If the re-engage choice is selected, the fight_engagement function is called again, and is passed the updated values of the player_ships and enemy_group_strength dictionaries. This looping set-up effectively allows the game to continuously offer the player the choice of re-engaging without additional functions. 
+The outcome of the engagement is then printed to the terminal, with the player's ships and the enemy's ships displayed. The fight_battle function then checks to see if the current enemy group has any ships remaining. If so, the player is offered choice to either re-engage the enemy or disengage. If the disengage choice is selected, the enemy ships that have been ignored are added to the global enemy_bypassed dictionary, the mission function ends, and the next mission begins. 
+
+If the re-engage choice is selected, the fight_engagement function is called again, and is passed the updated values of the player_ships and enemy_group_strength dictionaries. This looping set-up effectively allows the game to continuously offer the player the choice of re-engaging without additional functions. Once all values in the enemy_group_strength dictionary have been reduced to 0 (i.e, all enemy ships destroyed), the fight_battle function ends and then the mission ends, and the next mission is started. 
+
+The fight_battle function also reduces the player's supply count by 1, and checks to see if the player has supplies remaining. If the player runs out of supplies, the game ends. The fight_battle function also checks whether the player has run out of ships, and if so, the game ends.
+
+
 
 # Development choices
 
@@ -107,16 +113,18 @@ As a result, I decided to store all data used in the game (ship numbers, firepow
 Early on in development, I realised that the project was probably being too ambitious in scope, so I reduced the classes of ships from 5 (battleships, battlecruisers, heavy cruisers, light cruisers and destroyers) down to 3 (battleships, cruisers, escorts)
 I also removed references to marines, crew, missiles and mines, instead focusing on getting the core mechanics of the game working, with a view to implementing these later if time permitted. The dictionaries containing marines, crew, mines and missiles were moved to a separate file for reference. 
 
-In the fight_engagement function, the math.ceil method was used so that enemy ship losses were consistently rounded up rather than down, as I foresaw endless rounding down causing battles to go on for far longer than they needed to, potentially driving a user to boredom. The actual difference in firepower is minimal. 
+In the update_enemy function, the math.ceil method was used so that enemy ship losses were consistently rounded up rather than down, as I foresaw endless rounding down causing battles to go on for far longer than they needed to, potentially driving a user to boredom. The actual difference in firepower is minimal. 
 
-The decision to use separate 4 functions to update the enemy_group_strength, enemy_losses, player_ships and player_losses was taken when I realised that the fight_engagement function had become very large, with much repetition. By declaring the firepower_factor and losses_factor in each IF / ELSE statment, calling the update functions and passing in these variables, I dramatically reduced the size of the fight_engagement function and made it easier to tweak the calculations. Now, I need only change the values of the firepower_factor and losses_factor variables to modify the outcomes of player decisions in the fight_engagement function. In addition, should I decide on a new approach for doing the calculations, I need only change a single function, not the same calculation many times. 
+The decision to use 2 functions to update the enemy_group_strength, enemy_losses, player_ships and player_losses dictionaries was taken when I realised that the fight_engagement function had become very large, with much repetition. 
 
-When calculating player battleship losses, I decided to use the math.floor method instead of math.ceil. I also decided to divide the effective_enemy_firepower by 5. I justified this as the effect of a battleship's heavier armour allowing it tank hits that destroy other ships.
-
-When calculating player cruiser losses, I decided to divide effective_enemy_firepower by 2, and I justified this as the effect of a cruiser's armour allowing it to take more damage. I left the player's escort losses unmodified to reflect their relative lack of armour making them unable to sustain much damage. 
+The decision to refactor the fight_engagement function so that the firepower_factor and losses_factor variables were calculated dynamically rather than being static depending on tactic and the value of the effective_firepower_difference variable was taken when I realised that adding IF / ELIF statements to capture a sufficient number of situations would make the function very large and difficult to tweak. The dynamic calculation solution is both smaller and far more elegant, with only the bare minimum of repetition. The dynamic calculation approach also models an engagement more realistically - when one side possesses overwhelming strength in numbers or firepower, it suffers very few casualties because enemy firepower is spread out over a large number of targets. When numbers are more even, the player suffers more casualties, which is an incentive to the player to whittle down the enemy numbers before 'going in for the kill', so to speak. 
 
 
 # Future Work
+
+armour rating
+
+random number generator 
 
 # Bugs
 

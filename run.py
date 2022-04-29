@@ -274,7 +274,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 7
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -299,7 +299,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 5
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -324,7 +324,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 3
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -357,7 +357,8 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: The reactor is melting down!')
             print('Roth: Oh Sh......')
             print('Your tactical decisions have led to the destruction of your fleet')
-            new_game_decision = input('Would you like to try again?\n')
+            print('Would you like to try again?')
+            new_game_decision = input('Press y to try again or n to quit')
             if new_game_decision == 'y':
                 new_game()
             elif new_game_decision == 'n':
@@ -370,8 +371,9 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('You: Very well, broadcast surrender')
             print('You have run out of supplies and have lost the game')
             print('Next time, keep an eye on your supply levels and conserve them')
-            new_game_decision = input('Would you like to try again?\n')
-            if new_game_decision =='y':
+            print('Would you like to try again?')
+            new_game_decision = input('Press y to try again or n to quit')
+            if new_game_decision == 'y':
                 new_game()
             elif new_game_decision == 'n':
                 main()
