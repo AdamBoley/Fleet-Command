@@ -145,6 +145,11 @@ def mission_two():
 
 
 def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, enemy_losses):
+    """
+    Updates enemy_group_strength dictionary
+    Updates global enemy_losses dictionary
+    Returns updated enemy_group_strength dictionary too fight_engagement
+    """
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor)),
         'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor)),
@@ -159,6 +164,13 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
 
 
 def update_player(effective_enemy_firepower, losses_factor):
+    """
+    Updates global player_losses dictionary
+    Updates global player_ships dictionary
+    Checks if player_ships dictionary contains negative values, 
+    and corrects to 0 if so
+    Returns updated player_ships dictionary
+    """
     global player_losses
     player_losses = {
         'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * losses_factor),
@@ -194,7 +206,8 @@ def update_player(effective_enemy_firepower, losses_factor):
 
 def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
     """
-    Function that is called when the player decides to fight an enemy in a mission
+    Function that is called when the player
+    decides to fight an enemy in a mission
     """
     print('Roth: How shall we engage?')
 
@@ -476,10 +489,10 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
     fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
 
 
-
 def firepower_comparator(player_firepower, enemy_firepower):
     """
-    Called each time player fleet and enemy fleet fight. Compares firepower ratings to determine outcome
+    Called each time player fleet and enemy fleet fight
+    Compares firepower ratings to determine outcome
     """
     firepower_difference = player_firepower - enemy_firepower
     return firepower_difference
@@ -520,8 +533,7 @@ def enemy_firepower_calculator(enemy_strength):
 def update_enemy_bypassed(enemy_group_strength):
     """
     Updates global enemy_bypassed dictionary
-    Keeps track of the number of enemy ships that have 
-    been bypassed
+    Keeps track of the number of enemy ships that have been bypassed
     """
     global enemy_bypassed
     enemy_bypassed = {
@@ -554,10 +566,6 @@ def ship_capabilities():
     print(f"Escorts have {ship_firepower['escort']} turrets\n")
 
 
-
-
-
-
 def main():
     """
     Contains main program functions
@@ -575,6 +583,5 @@ def main():
 
         new_game()
     
-
 
 main()
