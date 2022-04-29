@@ -144,40 +144,27 @@ def mission_two():
         print('You: I think not - follow-on forces should be able to handle them')
 
 
-def update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor):
-    """
-    Called from fight_engagement function
-    updates enemy_group_strength dictionary with ships destroyed in the firing run
-    Returns updated enemy_group_strength to fight_engagement
-    """
+def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, enemy_losses):
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor)),
         'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor)),
         'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * firepower_factor))
     }
-    return enemy_group_strength
-
-
-def update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor):
-    """
-    Called from fight_engagement function
-    Updates global enemy_losses dictionary with ships destroyed in the firing run
-    Returns updated enemy_losses dictionary
-    """
     enemy_losses = {
         'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor),
         'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor),
         'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor)
     }
-    return enemy_losses
+    return enemy_group_strength
 
 
-def update_player_ships(effective_enemy_firepower, losses_factor):
-    """
-    Called from fight_engagement function
-    Updates global player_ships dictionary with losses sustained in the firing run
-    Returns updated player_ships dictionary
-    """
+def update_player(effective_enemy_firepower, losses_factor):
+    global player_losses
+    player_losses = {
+        'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * losses_factor),
+        'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * losses_factor),
+        'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * losses_factor)
+    }
     global player_ships
     player_ships = {
         'battleships': player_ships['battleships'] - math.floor((effective_enemy_firepower / 5) * losses_factor),
@@ -202,23 +189,7 @@ def update_player_ships(effective_enemy_firepower, losses_factor):
             'cruisers': player_ships['cruisers'],
             'escorts': 0
         }
-
     return player_ships
-
-
-def update_player_losses(effective_enemy_firepower, losses_factor):
-    """
-    Called from fight_engagement function
-    Updates global player_losses dictionary with losses sustained in the firing run
-    Returns updated player_losses dictionary
-    """
-    global player_losses
-    player_losses = {
-        'battleships': player_losses['battleships'] + math.floor((effective_enemy_firepower / 5) * losses_factor),
-        'cruisers': player_losses['cruisers'] + math.ceil((effective_enemy_firepower / 2) * losses_factor),
-        'escorts': player_losses['escorts'] + math.ceil(effective_enemy_firepower * losses_factor)
-    }
-    return player_losses
 
 
 def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
@@ -265,42 +236,33 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 print('Roth: Most of the targeted enemy ships are destroyed!')
                 firepower_factor = 0.90
                 losses_factor = 0.01
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
-                
             elif effective_firepower_difference >= 500:
                 print('Roth: Our local firepower advantage was considerable')
                 print('Roth: Many of the targeted enemy ships are destroyed')
                 firepower_factor = 0.80
                 losses_factor = 0.02
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference < 500:
                 print('Roth: Our local firepower advantage was minor')
                 print('Roth: A moderate number of enemy ships are destroyed')
                 firepower_factor = 0.70
                 losses_factor = 0.03
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
         
         elif tactic == '2':
             print('You: We will hit half of their ships in our firing run')
@@ -321,47 +283,35 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             if effective_firepower_difference > 1000:
                 print('Roth: Our local firepower advantage was huge!')
                 print('Roth: Many enemy ships destroyed!')
-
                 firepower_factor = 0.70
                 losses_factor = 0.05
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference >= 500:
                 print('Roth: Our local firepower advantage was considerable')
                 print('Roth: A good number of enemy ships are destroyed')
-
                 firepower_factor = 0.60
                 losses_factor = 0.10
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
                 
             elif effective_firepower_difference < 500:
                 print('Roth: Our local firepower advantage was minor')
                 print('Roth: About half of the targeted enemy ships are down')
-
                 firepower_factor = 0.50
                 losses_factor = 0.15
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
         
         elif tactic == '3':
             print('You: We will aim to hit three-quarters of them in our firing run')
@@ -384,45 +334,33 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 print('Roth: Many enemy ships destroyed')
                 firepower_factor = 0.60
                 losses_factor = 0.10
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference >= 500:
                 print('Roth: Our local firepower advantage was considerable')
                 print('Roth: A good number enemy ships are destroyed')
-
                 firepower_factor = 0.50
                 losses_factor = 0.15
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
-
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference < 500:
                 print('Roth: Our local firepower advantage was minor')
                 print('Roth: A moderate number of enemy ships are destroyed')
-
                 firepower_factor = 0.40
                 losses_factor = 0.20
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
@@ -443,46 +381,35 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             if effective_firepower_difference > 1000:
                 print('Roth: Our local firepower advantage was huge!')
                 print('Roth: A moderate number of enemy ships destroyed')
-
                 firepower_factor = 0.40
                 losses_factor = 0.20
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference >= 500:
                 print('Roth: Our local firepower advantage was considerable')
                 print('Roth: One-third of the enemy-ships are destroyed')
                 firepower_factor = 0.30
                 losses_factor = 0.30
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
             elif effective_firepower_difference < 500:
                 print('Roth: Our local firepower advantage was minor')
                 print('Roth: One-fifth of the enemy ships are destroyed')
-
                 firepower_factor = 0.20
                 losses_factor = 0.30
-
-                enemy_group_strength = update_enemy_group_strength(effective_enemy_strength, enemy_group_strength, firepower_factor)
-                
-                enemy_losses = update_enemy_losses(enemy_losses, effective_enemy_strength, firepower_factor)
-                
-                player_ships = update_player_ships(effective_enemy_firepower, losses_factor)
-                
-                player_losses = update_player_losses(effective_enemy_firepower, losses_factor)
+                enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+                player_ships = update_player(
+                    effective_enemy_firepower, losses_factor)
 
         player_supplies -= 1
         print(f'We now have {player_supplies} supplies')
@@ -510,7 +437,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Oh Sh......')
             print('Your tactical decisions have led to the destruction of your fleet')
             new_game_decision = input('Would you like to try again?\n')
-            if new_game_decision =='y':
+            if new_game_decision == 'y':
                 new_game()
             elif new_game_decision == 'n':
                 main()
