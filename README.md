@@ -90,18 +90,19 @@ Each mission function then contains an input and a related IF / ELSE statement t
 
 However, if the player chooses to engage, the fight_battle function is called. This is the core mechanic of the game, and is what allows the game to simulate space combat. 
 
-The fight_battle function contains the fight_engagement function, which is where the user actually makes tactical decisions. Firstly, the user is prompted to enter a number between 1 and 4 to select the tactic they want to use, which determines the number of enemy ships the player's fleet will face. The difference in firepower rating between the player's ships and the number of enemy ships that the player has chosen to engage is then calculated.  
+The fight_battle function contains the fight_engagement function, which is where the user actually makes tactical decisions. Firstly, the user is prompted to enter a number between 1 and 5 to select the tactic they want to use, which determines the number of enemy ships the player's fleet will face. The difference in firepower rating between the player's ships and the number of enemy ships that the player has chosen to engage is then calculated.  
 
 Two variables are then calculated - firepower_factor and losses_factor. Firepower_factor is calculated by dividing effective_firepower_difference by player_firepower, and is intended to model the combat power of the player's fleet. Losses_factor is calculated by dividing the effective_enemy_firepower by the effective_firepower_difference, and then furthering dividing by a number that depends on the tactic selected. 
 
-Two functions are then called - update_enemy and update_player. The update_enemy function updates the enemy_group_strength dictionary and the global enemy_losses dictionary, and then returns the updated enemy_group_strength dictionary. The update_player function updates the global player_ships and global player_losses dictionaries, and then returns the updated player_ships dictionary. 
+If the player selected tactic 5, a missile barrage, the firepower_factor variable is instead calculated by dividing the value of the missiles_fired variable by the value of the effective_enemy_firepower variable, which is intended to model the weapons of ships in the enemy group being used as point defence to shoot down the player's missiles. The more missiles the player is able to fire, or the smaller the number of ships the missiles are being used against, the better the saturation - more missiles are able to get through the point defences, and hence more enemy ships are destroyed. 
+
+Two functions are then called - update_enemy and update_player. The update_enemy function updates the enemy_group_strength dictionary and the global enemy_losses dictionary, and then returns the updated enemy_group_strength dictionary. The update_player function updates the global player_ships and global player_losses dictionaries, and then returns the updated player_ships dictionary. If tactic 5 was selected, the losses factor is set to 0, since the enemy is out of range and hence unable to return fire. Hence, when the update_player function is called, no player ships will be lost. 
 
 The outcome of the engagement is then printed to the terminal, with the player's ships and the enemy's ships displayed. The fight_battle function then checks to see if the current enemy group has any ships remaining. If so, the player is offered choice to either re-engage the enemy or disengage. If the disengage choice is selected, the enemy ships that have been ignored are added to the global enemy_bypassed dictionary, the mission function ends, and the next mission begins. 
 
 If the re-engage choice is selected, the fight_engagement function is called again, and is passed the updated values of the player_ships and enemy_group_strength dictionaries. This looping set-up effectively allows the game to continuously offer the player the choice of re-engaging without additional functions. Once all values in the enemy_group_strength dictionary have been reduced to 0 (i.e, all enemy ships destroyed), the fight_battle function ends and then the mission ends, and the next mission is started. 
 
 The fight_battle function also reduces the player's supply count by 1, and checks to see if the player has supplies remaining. If the player runs out of supplies, the game ends. The fight_battle function also checks whether the player has run out of ships, and if so, the game ends.
-
 
 
 # Development choices

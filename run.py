@@ -36,12 +36,28 @@ ship_firepower = {
     'escort': 5,
 }
 
+"""
+NOT CURRENTLY USED
+missile_stocks = {
+    'battleships': player_ships['battleships'] * 12,
+    'cruisers': player_ships['cruisers'] * 6,
+    'escorts': player_ships['escorts'] * 3
+}
+"""
+missile_volleys = 3
+
+missile_launchers = {
+    'battleships': 4,
+    'cruisers': 2,
+    'escorts': 1
+}
 
 tactical_library = {
     '1': 'attack 25% of the enemy',
     '2': 'attack 50% of the enemy',
     '3': 'attack 75% of the enemy',
-    '4': 'attack all of the enemy'
+    '4': 'attack all of the enemy',
+    '5': 'launch a missile barrage'
 }
 
 player_firepower = (
@@ -165,7 +181,7 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     return enemy_group_strength
 
 
-def update_player(effective_enemy_firepower, losses_factor):
+def update_player(losses_factor):
     """
     Updates global player_losses dictionary
     Updates global player_ships dictionary
@@ -231,7 +247,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         for key, value in tactical_library.items():
             print(f'{key} - We can {value}')
         
-        tactic = input('Type a number from 1 to 4 to select your tactic:\n')
+        tactic = input('Type a number from 1 to 5 to select your tactic:\n')
         if tactic == '1':
             print('You: We will aim to hit 25% of them in our firing run')
             print('Roth: A sound plan - maximum concentration of force')
@@ -254,8 +270,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, enemy_losses)
-            player_ships = update_player(
-                effective_enemy_firepower, losses_factor)
+            player_ships = update_player(losses_factor)
 
         elif tactic == '2':
             print('You: We will hit half of their ships in our firing run')
@@ -279,8 +294,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, enemy_losses)
-            player_ships = update_player(
-                effective_enemy_firepower, losses_factor)
+            player_ships = update_player(losses_factor)
         
         elif tactic == '3':
             print('You: We will aim to hit three-quarters of them in our firing run')
@@ -304,8 +318,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, enemy_losses)
-            player_ships = update_player(
-                effective_enemy_firepower, losses_factor)
+            player_ships = update_player(losses_factor)
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
@@ -329,8 +342,51 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, enemy_losses)
-            player_ships = update_player(
-                effective_enemy_firepower, losses_factor)
+            player_ships = update_player(losses_factor)
+
+        elif tactic == '5':
+            global missile_volleys
+            print('You: Fire missiles!')
+            if missile_volleys >= 2:
+                print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
+            elif missile_volleys == 1:
+                print('Roth: We currently have enough missiles for 1 barrage')
+            elif missile_volleys > 0 and missile_volleys < 1:
+                print('RothL We have some missiles, but not enough to break through enemy point defences')
+                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+            elif missile_volleys == 0:
+                print('Roth: We currently have no missiles remaining')
+                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+            
+            target_factor = 1
+
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+            missiles_fired = (
+                player_ships['battleships'] * missile_launchers['battleships']
+                + player_ships['cruisers'] * missile_launchers['cruisers']
+                + player_ships['escorts'] * missile_launchers['escorts']
+            )
+
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: Our missiles will target {value} {key}')
+            
+            effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+            print('Roth: Our missiles have a long range')
+            print('Roth: We will not face any return fire')
+            print(f'Roth: Based on the number of ships we have, we will fire {missiles_fired} missiles')
+            print('Roth: Engaging with a missile barrage')
+
+            firepower_factor = (missiles_fired / effective_enemy_firepower)
+            if firepower_factor > 1:
+                firepower_factor = 1
+            losses_factor = 0
+
+            enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+            player_ships = update_player(losses_factor)
+            missile_volleys -= 1
+            print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
 
         player_supplies -= 1
         print(f'We now have {player_supplies} supplies')
@@ -409,6 +465,10 @@ def firepower_comparator(player_firepower, enemy_firepower):
 
 
 def calculate_effective_enemy_firepower(effective_enemy_strength):
+    """
+    Calculates the total number of turrets in the part of the enemy
+    group that the plater has chosen to attack
+    """
     effective_enemy_firepower = (
                 (effective_enemy_strength['battleships'] * 20)
                 + (effective_enemy_strength['cruisers'] * 10)
@@ -417,6 +477,10 @@ def calculate_effective_enemy_firepower(effective_enemy_strength):
 
 
 def calculate_effective_enemy_strength(enemy_group_strength, target_factor):
+    """
+    Calculates the number of enemy ships in the part of the enemy
+    group thatthe player has chosen to attack
+    """
     effective_enemy_strength = {
         'battleships': math.ceil(enemy_group_strength['battleships'] * target_factor),
         'cruisers': math.ceil(enemy_group_strength['cruisers'] * target_factor),
@@ -461,6 +525,7 @@ def player_fleet_status():
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
+    print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
     print(f'We currently have {player_supplies} supplies')
 
 
@@ -470,10 +535,13 @@ def ship_capabilities():
     """
     print('Battleships are the monsters of space combat - heavily armoured and heavily armed')
     print(f"Battleships have {ship_firepower['battleship']} particle beam turrets")
+    print('Battleships have 4 missile launchers')
     print('Cruisers are midweight combatants')
     print(f"Cruisers have {ship_firepower['cruiser']} turrets")
+    print('Cruisers have 2 missile launchers')
     print('Escorts are light screening ships, effective in numbers')
-    print(f"Escorts have {ship_firepower['escort']} turrets\n")
+    print(f"Escorts have {ship_firepower['escort']} turrets")
+    print('Escorts have 1 missile launcher\n')
 
 
 def main():
