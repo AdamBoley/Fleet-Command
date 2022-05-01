@@ -70,6 +70,17 @@ tactical_library = {
     '6': 'lay a stealth mine-field'
 }
 
+boarding_tactics = {
+    '1': 'battleship',
+    '2': 'cruiser',
+    '3': 'escort'
+}
+
+marines = (
+    (player_ships['battleships'] * 40)
+    + (player_ships['cruisers'] * 20)
+)
+
 player_firepower = (
     (player_ships['battleships'] * ship_firepower['battleship'])
     + (player_ships['cruisers'] * ship_firepower['cruiser'])
@@ -108,7 +119,7 @@ def new_game():
     else:
         print('Indeed - a good naval officer should know the capabilities of their ships by heart')
     print('Roth: I wonder, Admiral, could you tell me what tactics we can use?')
-    explain_tactics = input('Press y to get an explanation of what tactics you can employ, or n to move on')
+    explain_tactics = input('Press y to get an explanation of what tactics you can employ, or n to move on:\n')
     if explain_tactics == 'y':
         print('You: Of course, Captain')
         tactics()
@@ -121,6 +132,7 @@ def mission_one():
     light combat with no real consequences5
     intended as an introduction to the game
     """
+    print('\n  BEGIN MISSION ONE  \n')
     global player_experience
     enemy_group_one = {
         'battleships': 4,
@@ -157,6 +169,8 @@ def mission_two():
     Mission Two - heavier combat, requires the player to use their
     experience from Mission One to win
     """
+    global player_experience
+    print('\n  BEGIN MISSION TWO  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
     if fleet_status_decision == 'y':
@@ -262,6 +276,12 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         global player_ships
         global player_losses
         global player_supplies
+
+        starting_enemy_ships = {
+            'battleships': enemy_group_strength['battleships'],
+            'cruisers': enemy_group_strength['cruisers'],
+            'escorts': enemy_group_strength['escorts']
+        }
 
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
@@ -518,8 +538,22 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 """
         
         elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
-            print('Roth: We have destroyed all enemy ships, Admiral')
-            print('Roth: We are clear to move on')
+            print('Roth: We have knocked out all enemy ships, Admiral')
+            print('Roth: Some of the enemy ships may be salvagable')
+            boardable_ships = {
+                'battleships': math.floor(starting_enemy_ships['battleships'] * 0.20),
+                'cruisers': math.floor(starting_enemy_ships['cruisers'] * 0.15),
+                'escorts': math.floor(starting_enemy_ships['escorts'] * 0.10)
+            }
+            
+            print('Roth: Shall we attempt to board the enemy ships?')
+            boarding_decision = input('Press y to board and capture the enemy ships, or n to move:\n')
+            if boarding_decision == 'y':
+                print('You: Yes, hopefully we can bolster our numbers')
+                boarding_operation(boardable_ships)
+            if boarding_decision == 'n':
+                print('You: I would rather not waste our Marines and supplies on these wrecks')
+                print('Roth: Very well, We are clear to move on')
         
     fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
 
@@ -585,6 +619,75 @@ def update_enemy_bypassed(enemy_group_strength):
         'escorts': enemy_group_strength['escorts']
     }
     return enemy_bypassed
+
+
+def boarding_operation(boardable_ships):
+    """
+    Called when the player wants to board and salvage enemy ships after a battle has been won
+    """
+    global marines
+    global player_ships
+    global player_supplies
+    if boardable_ships['battleships'] == 0 and boardable_ships['cruisers'] == 0 and boardable_ships['escorts'] == 0:
+        print('Roth: There are no more ships left to board\n')
+    elif marines < 20:
+        print('Roth: We do not have enough marines to attempt to board even one escort')
+    else:
+        for key, value in boardable_ships.items():
+            print(f'Roth: There are {value} {key} we can board')
+        print(f'Roth: We have {marines} marines')
+        for key, value in boarding_tactics.items():
+            print(f'Roth: {key} - We can board a {value}')
+        print('Roth: What shall our Marines board first?')
+
+        ship_to_board = input('Enter a number from 1 to 3 to select a class of enemy ship to board:\n')
+        if ship_to_board == '1':
+            print('You: We shall board an enemy battleship')
+            if boardable_ships['battleships'] == 0:
+                print('Roth: There are no enemy battleships to board')
+                boarding_operation(boardable_ships)
+            elif marines < 500:
+                print('Roth: We do not have enough marines to board an enemy battleship')
+                print('Roth: We might have enough to board an enemy cruiser')
+                boarding_operation(boardable_ships)
+            else:
+                print('Roth: Very well, we will need 500 Marines to board and take a battleship')
+                boardable_ships['battleships'] -= 1
+                marines -= 250
+                player_ships['battleships'] += 1
+                player_supplies -= 1
+                boarding_operation(boardable_ships)
+            
+        elif ship_to_board == '2':
+            print('You: We shall board an enemy cruiser')
+            if boardable_ships['cruisers'] == 0:
+                print('Roth: There are no enemy cruisers to board')
+                boarding_operation(boardable_ships)
+            elif marines < 120:
+                print('Roth: We do not have enough marines to board an enemy cruiser')
+                print('Roth: But we might have enough to board an enemy escort')
+                boarding_operation(boardable_ships)
+            else:
+                print('Roth: Very well, we will need 120 Marines to board and take a cruiser')
+                boardable_ships['cruisers'] -= 1
+                marines -= 40
+                player_ships['cruisers'] += 1
+                player_supplies -= 1
+                boarding_operation(boardable_ships)
+        
+        elif ship_to_board == '3':
+            print('We shall board an enemy escort')
+            if boardable_ships['escorts'] == 0:
+                print('There are no enemy escorts to board')
+                boarding_operation(boardable_ships)
+            else:
+                print('Roth: Very well, we will need 20 Marines to board and take an escort')
+                boardable_ships['escorts'] -= 1
+                marines -= 5
+                player_ships['escorts'] += 1
+                player_supplies -= 1
+                boarding_operation(boardable_ships)
+    
 
 
 def player_fleet_status():
