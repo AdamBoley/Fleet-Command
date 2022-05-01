@@ -99,12 +99,17 @@ def new_game():
         player_fleet_status()
     else:
         print('Roth: Very well Admiral')
-    print('Do you want to see the capabilities of component of the fleet?')
+    print('Roth: Do you want to see the capabilities of our ships?')
     fleet_capabilities_decision = input('Please press y to see what each part of your fleet is capable of, or n to move on\n')
     if fleet_capabilities_decision == 'y':
         ship_capabilities()
     else:
         print('Indeed - a good naval officer should know the capabilities of their ships by heart')
+    print('Roth: I wonder, Admiral, could you tell me what tactics we can use?')
+    explain_tactics = input('Press y to get an explanation of what tactics you can employ, or n to move on')
+    if explain_tactics == 'y':
+        print('You: Of course, Captain')
+        tactics()
     mission_one()
 
 
@@ -580,7 +585,7 @@ def player_fleet_status():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
     print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
-    print(f'Roth: We currently have enough missiles for {mine_stocks} mine-fields')
+    print(f'Roth: We currently have enough mines for {mine_stocks} mine-fields')
     print(f'We currently have {player_supplies} supplies')
 
 
@@ -598,7 +603,42 @@ def ship_capabilities():
     print('Cruiser have 1 mine-tube')
     print('Escorts are light screening ships, effective in numbers')
     print(f"Escorts have {ship_firepower['escort']} turrets")
-    print('Escorts have 1 missile launcher\n')
+    print('Escorts have 1 missile launcher')
+    print('Escorts do not carry mine-tubes\n')
+
+
+def tactics():
+    print('You: Broadly speaking, we can use 6 tactics:')
+    for key, value in tactical_library.items():
+        print(f'We can {value}')
+
+    print('You: If we choose to attack 25% of the enemy, ' 
+    + 'we will aim to concentrate our firepower against a relatively small number of enemy ships. ' 
+    + 'We should destroy many of those ships we target, and suffer few losses, ' 
+    + 'but it will take a long time and a lot of ammunition and fuel to wear down a sizeable enemy force\n')
+
+    print('You: If we choose to attack 50% of the enemy, '
+    + 'we will spread out our fire more, and be exposed to more enemy fire and hence suffer more casualties, '
+    + 'but overall, we will expend less fuel and ammunition\n')
+    
+    print('You: If we choose to attack 75% of the enemy, we will spread out our fire even more, '
+    + 'and could suffer more casualties, but we will end the fight quickly and hence expend much less fuel and ammo. '
+    + 'However, given the risk, this approach is best used against weakened enemy groups\n')
+    
+    print('You: If we choose to attack all of the enemy, '
+    + 'we will through caution to the wind - our firepower will be spread out, and we could suffer many casualties '
+    + 'but this is the perfect approach to quickly finishing off weakened enemy groups\n')
+    
+    print('You: We could also choose to fire a barrage of missiles. '
+    + 'Missiles are long range weapons, so we will be safe from return fire, but if we use missiles against '
+    + 'many enemy ships, they may shoot down many of the missiles. That said, using a missile barrage '
+    + 'could be a good way to soften up an enemy group before a conventional firing run. Our ships also do not '
+    + 'carry many missiles, so we should use them sparingly and only when necessary\n')
+    
+    print('You: We could also choose to lay a minefield. '
+    + 'If we use a minefield, we will not face any return fire, as we will lay the minefield and lure the enemy into it. '
+    + 'Mines are powerful, and since they are stealthed, cannot be shot down. '
+    + 'Our ships do not carry many mines, so we should not waste them against small enemy groups\n')
 
 
 def main():
