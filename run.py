@@ -36,6 +36,8 @@ ship_firepower = {
     'escort': 5,
 }
 
+player_experience = 1.0
+
 """
 NOT CURRENTLY USED
 missile_stocks = {
@@ -94,7 +96,7 @@ def new_game():
     print('Roth: From here you can issue orders to your fleet in battle')
     print('Roth: I will keep you updated with pertinent information')
     print('Roth: Do you want to see the status of the fleet now?')
-    fleet_status_decision = input('Please press y to see fleet status or n to move on:\n') # gonna need some input checking here
+    fleet_status_decision = input('Please press y to see fleet status or n to move on:\n')  # gonna need some input checking here
     if fleet_status_decision == 'y':
         player_fleet_status()
     else:
@@ -119,6 +121,7 @@ def mission_one():
     light combat with no real consequences5
     intended as an introduction to the game
     """
+    global player_experience
     enemy_group_one = {
         'battleships': 4,
         'cruisers': 8,
@@ -142,7 +145,7 @@ def mission_one():
     if engage_decision_mission_one == 'y':
         print('You: We engage! All hands - battle stations!')
         fight_battle(enemy_firepower, player_firepower, enemy_group_one)
-        
+        player_experience += 0.1
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
     
@@ -154,6 +157,12 @@ def mission_two():
     Mission Two - heavier combat, requires the player to use their
     experience from Mission One to win
     """
+    print('Roth: Do you want to review the fleet, Admiral?')
+    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
+    if fleet_status_decision == 'y':
+        player_fleet_status()
+    else:
+        print('Roth: Very well Admiral')
     print('Roth: Arriving at Salamis in 3....2...1')
     print('Roth: Looks like the enemy is here in strength, Admiral')
     enemy_group_two = {
@@ -171,25 +180,26 @@ def mission_two():
     if engage_decision_mission_two == 'y':
         print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
         fight_battle(enemy_firepower, player_firepower, enemy_group_two)
+        player_experience += 1
     elif engage_decision_mission_two == 'n':
         print('You: I think not - follow-on forces should be able to handle them')
 
 
-def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, enemy_losses):
+def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, enemy_losses, player_experience):
     """
     Updates enemy_group_strength dictionary
     Updates global enemy_losses dictionary
     Returns updated enemy_group_strength dictionary to fight_engagement
     """
     enemy_group_strength = {
-        'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor)),
-        'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor)),
-        'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * firepower_factor))
+        'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)),
+        'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)),
+        'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience))
     }
     enemy_losses = {
-        'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor),
-        'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor),
-        'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor)
+        'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
+        'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
+        'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
     }
     return enemy_group_strength
 
@@ -282,7 +292,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
 
         elif tactic == '2':
@@ -306,7 +316,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
         
         elif tactic == '3':
@@ -330,7 +340,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
         
         elif tactic == '4':
@@ -354,7 +364,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
 
         elif tactic == '5':
@@ -396,7 +406,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
             missile_volleys -= 1
             print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
@@ -441,7 +451,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, enemy_losses)
+                    firepower_factor, enemy_losses, player_experience)
             player_ships = update_player(losses_factor)
             player_supplies -= 1
             mine_stocks -= 1
@@ -587,6 +597,14 @@ def player_fleet_status():
     print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
     print(f'Roth: We currently have enough mines for {mine_stocks} mine-fields')
     print(f'We currently have {player_supplies} supplies')
+    if player_experience == 1:
+        print('Our crews are trained, but green and inexperienced')
+    if player_experience > 1 and player_experience <= 1.3:
+        print('Roth: Our crews have gained some battle experience')
+    if player_experience > 1.3 and player_experience <= 1.6:
+        print('Roth: Our crews are seasoned veterans')
+    if player_experience > 1.7:
+        print('Roth: Our crews are hardened combat veterans')
 
 
 def ship_capabilities():
