@@ -81,12 +81,6 @@ marines = (
     + (player_ships['cruisers'] * 20)
 )
 
-player_firepower = (
-    (player_ships['battleships'] * ship_firepower['battleship'])
-    + (player_ships['cruisers'] * ship_firepower['cruiser'])
-    + (player_ships['escorts'] * ship_firepower['escort'])
-)
-
 player_name = ''
 flagship_name = ''
 player_supplies = 100
@@ -140,6 +134,7 @@ def mission_one():
         'escorts': 20
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_one)
+    player_firepower = calculate_player_firepower(player_ships)
 
     print(f'Admiral {player_name}, sensors have detected a group of enemy warships at the jump point!')
     print('The tactical suite is updating now - this group looks small')
@@ -156,7 +151,7 @@ def mission_one():
     engage_decision_mission_one = input('Press y to engage the enemy, or n to find worthier prey:\n')
     if engage_decision_mission_one == 'y':
         print('You: We engage! All hands - battle stations!')
-        fight_battle(enemy_firepower, player_firepower, enemy_group_one)
+        fight_battle(enemy_firepower, enemy_group_one)
         player_experience += 0.1
     elif engage_decision_mission_one == 'n':
         print('You: This is not worth our time. Disengage')
@@ -185,15 +180,21 @@ def mission_two():
         'escorts': 100
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_two)
+    player_firepower = calculate_player_firepower(player_ships)
+
     for key, value in enemy_group_two.items():
         print(f'The enemy group has {value} {key}')
     print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    print(f'Roth: We have {firepower_difference} more turrets than they do')
+
     print('Roth: This will be a tough battle, Admiral')
     print('Roth: Shall we engage?')
     engage_decision_mission_two = input('press y to engage, or n to disengage:\n')
     if engage_decision_mission_two == 'y':
         print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
-        fight_battle(enemy_firepower, player_firepower, enemy_group_two)
+        fight_battle(enemy_firepower, enemy_group_two)
         player_experience += 1
     elif engage_decision_mission_two == 'n':
         print('You: I think not - follow-on forces should be able to handle them')
@@ -261,14 +262,20 @@ def update_player(losses_factor):
     return player_ships
 
 
-def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
+def fight_battle(enemy_firepower, enemy_group_strength):
     """
     Function that is called when the player
     decides to fight an enemy in a mission
     """
     print('Roth: How shall we engage?')
 
-    def fight_engagement(enemy_firepower, player_firepower, enemy_group_strength):
+    starting_enemy_ships = {
+        'battleships': enemy_group_strength['battleships'],
+        'cruisers': enemy_group_strength['cruisers'],
+        'escorts': enemy_group_strength['escorts']
+    }
+
+    def fight_engagement(enemy_firepower, enemy_group_strength):
         """
         A long, complex function that is called for each firing run
         """
@@ -277,12 +284,9 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         global player_losses
         global player_supplies
 
-        starting_enemy_ships = {
-            'battleships': enemy_group_strength['battleships'],
-            'cruisers': enemy_group_strength['cruisers'],
-            'escorts': enemy_group_strength['escorts']
-        }
-
+        player_firepower = calculate_player_firepower(player_ships)
+        
+        print(f'WE HAVE {player_firepower} TURRETS')
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
 
@@ -528,7 +532,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             print('Roth: Shall we re-engage?')
             reengage_decision = input('Press y to re-engage the enemy, or n to leave them for follow-on forces:\n')
             if reengage_decision == 'y':
-                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+                fight_engagement(enemy_firepower, enemy_group_strength)
             elif reengage_decision == 'n':
                 print('You: We have done enough damage, and I do not want to risk our ships further')
                 enemy_bypassed = update_enemy_bypassed(enemy_group_strength)
@@ -547,7 +551,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             }
             
             print('Roth: Shall we attempt to board the enemy ships?')
-            boarding_decision = input('Press y to board and capture the enemy ships, or n to move:\n')
+            boarding_decision = input('Press y to board and capture the enemy ships, or n to move on:\n')
             if boarding_decision == 'y':
                 print('You: Yes, hopefully we can bolster our numbers')
                 boarding_operation(boardable_ships)
@@ -555,7 +559,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
                 print('You: I would rather not waste our Marines and supplies on these wrecks')
                 print('Roth: Very well, We are clear to move on')
         
-    fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+    fight_engagement(enemy_firepower, enemy_group_strength)
 
 
 def firepower_comparator(player_firepower, enemy_firepower):
@@ -619,6 +623,18 @@ def update_enemy_bypassed(enemy_group_strength):
         'escorts': enemy_group_strength['escorts']
     }
     return enemy_bypassed
+
+
+def calculate_player_firepower(player_ships):
+    """
+    Dynamically calculates player firepower based on the number of ships they have
+    """
+    player_firepower = (
+        (player_ships['battleships'] * ship_firepower['battleship'])
+        + (player_ships['cruisers'] * ship_firepower['cruiser'])
+        + (player_ships['escorts'] * ship_firepower['escort'])
+    )
+    return player_firepower
 
 
 def boarding_operation(boardable_ships):
@@ -689,11 +705,11 @@ def boarding_operation(boardable_ships):
                 boarding_operation(boardable_ships)
     
 
-
 def player_fleet_status():
     """
     Function that can be called anytime to display the current status of the player's fleet
     """
+    player_firepower = calculate_player_firepower(player_ships)
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
@@ -729,6 +745,10 @@ def ship_capabilities():
 
 
 def tactics():
+    """
+    Function that can be called to inform the player of what tactics they can use
+    in an engagement, what the tactic will do and what the consequences are
+    """
     print('You: Broadly speaking, we can use 6 tactics:')
     for key, value in tactical_library.items():
         print(f'We can {value}')
