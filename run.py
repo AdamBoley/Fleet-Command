@@ -52,12 +52,20 @@ missile_launchers = {
     'escorts': 1
 }
 
+mine_stocks = 3
+
+mine_layers = {
+    'battleships': 2,
+    'cruisers': 1
+}
+
 tactical_library = {
     '1': 'attack 25% of the enemy',
     '2': 'attack 50% of the enemy',
     '3': 'attack 75% of the enemy',
     '4': 'attack all of the enemy',
-    '5': 'launch a missile barrage'
+    '5': 'launch a missile barrage',
+    '6': 'lay a stealth mine-field'
 }
 
 player_firepower = (
@@ -247,7 +255,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
         for key, value in tactical_library.items():
             print(f'{key} - We can {value}')
         
-        tactic = input('Type a number from 1 to 5 to select your tactic:\n')
+        tactic = input('Type a number from 1 to 6 to select your tactic:\n')
         if tactic == '1':
             print('You: We will aim to hit 25% of them in our firing run')
             print('Roth: A sound plan - maximum concentration of force')
@@ -352,7 +360,7 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             elif missile_volleys == 1:
                 print('Roth: We currently have enough missiles for 1 barrage')
             elif missile_volleys > 0 and missile_volleys < 1:
-                print('RothL We have some missiles, but not enough to break through enemy point defences')
+                print('Roth: We have some missiles, but not enough to break through enemy point defences')
                 fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
             elif missile_volleys == 0:
                 print('Roth: We currently have no missiles remaining')
@@ -387,6 +395,52 @@ def fight_battle(enemy_firepower, player_firepower, enemy_group_strength):
             player_ships = update_player(losses_factor)
             missile_volleys -= 1
             print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
+        
+        elif tactic == '6':
+            global mine_stocks
+            print('You: We will layer a minefield and lure the enemy into it')
+            if mine_stocks >= 2:
+                print(f'Roth: We currently have enough mines for {mine_stocks} fields')
+            elif mine_stocks == 1:
+                print('Roth: We currently have enough mines for 1 minefield')
+            elif mine_stocks > 0 and mine_stocks < 1:
+                print('Roth: We have some mines, but not enough to lay a decent field')
+                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+            elif mine_stocks == 0:
+                print('Roth: We currently have no mines remaining')
+                fight_engagement(enemy_firepower, player_firepower, enemy_group_strength)
+            
+            target_factor = 1
+            effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+            mines_laid = (
+                player_ships['battleships'] * mine_layers['battleships']
+                + player_ships['cruisers'] * mine_layers['cruisers']
+            )
+            for key, value in effective_enemy_strength.items():
+                print(f'Roth: Our mines will target {value} {key}')
+            
+            print('Roth: Since we are luring the enemy into a trap, we will not face return fire')
+            print('Roth: However, we will need to manoeuvre a lot to lay the minefield and get out of enemy weapons range')
+            print(f'Roth: Based on the number of capital ships we have, we will lay {mines_laid} mines')
+            print('Roth: Laying a minefield')
+
+            total_enemy_ships = (
+                effective_enemy_strength['battleships']
+                + effective_enemy_strength['cruisers']
+                + effective_enemy_strength['escorts']
+            )
+            firepower_factor = (mines_laid / total_enemy_ships) / 2
+            if firepower_factor > 1:
+                firepower_factor = 1
+            losses_factor = 0
+
+            enemy_group_strength = update_enemy(
+                    effective_enemy_strength, enemy_group_strength,
+                    firepower_factor, enemy_losses)
+            player_ships = update_player(losses_factor)
+            player_supplies -= 1
+            mine_stocks -= 1
+            print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
 
         player_supplies -= 1
         print(f'We now have {player_supplies} supplies')
@@ -526,6 +580,7 @@ def player_fleet_status():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
     print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
+    print(f'Roth: We currently have enough missiles for {mine_stocks} mine-fields')
     print(f'We currently have {player_supplies} supplies')
 
 
@@ -534,11 +589,13 @@ def ship_capabilities():
     Function that displays the capabilities of each class of ship
     """
     print('Battleships are the monsters of space combat - heavily armoured and heavily armed')
-    print(f"Battleships have {ship_firepower['battleship']} particle beam turrets")
+    print(f"Battleships have {ship_firepower['battleship']} turrets")
     print('Battleships have 4 missile launchers')
+    print('Battleships have 2 mine-tubes')
     print('Cruisers are midweight combatants')
     print(f"Cruisers have {ship_firepower['cruiser']} turrets")
     print('Cruisers have 2 missile launchers')
+    print('Cruiser have 1 mine-tube')
     print('Escorts are light screening ships, effective in numbers')
     print(f"Escorts have {ship_firepower['escort']} turrets")
     print('Escorts have 1 missile launcher\n')
