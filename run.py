@@ -117,13 +117,26 @@ def new_game():
     if explain_tactics == 'y':
         print('You: Of course, Captain')
         tactics()
+    elif explain_tactics == 'n':
+        print('You: You will just have to watch and learn Roth.')
+    print('Roth: Now that is done, I will brief you, Admiral')
+    print('Roth: The Syndicate Worlds have launched major attacks at multiple points along the frontier. '
+    + 'Our fleet has been assembled to stop the enemy and plug the holes in our lines. '
+    + 'Other Alliance forces are assembling behind us, and will be able to stop any enemy ships that slip past us. '
+    + 'That said, high command wants does not want our forces bogged down chasing enemy groups unncessessarily. '
+    + 'They are already planning a counter-punch, and they want as many ships for that as they can get. '
+    + 'So, we should try to avoid leaving strong enemy groups behind us. '
+    + 'However, our follow-on forces might appreciate some target practice'
+    + 'I have some reports that allied forces are engaging the enemy in other systems. '
+    + 'It is possible that if we help them out, they could reinforce us.\n')
+    print("You: Thank you Captain - let's go save the Alliance!")
     mission_one()
 
 
 def mission_one():
     """
     Mission one
-    light combat with no real consequences5
+    light combat with no real consequences
     intended as an introduction to the game
     """
     print('\n  BEGIN MISSION ONE  \n')
@@ -135,27 +148,35 @@ def mission_one():
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_one)
     player_firepower = calculate_player_firepower(player_ships)
-
-    print(f'Admiral {player_name}, sensors have detected a group of enemy warships at the jump point!')
-    print('The tactical suite is updating now - this group looks small')
+    print('This is the first mission - you can expect light combat with no real consequences to your actions, so experiment and get a feel for the game.\n')
+    print(f'Roth: Admiral {player_name}, sensors have detected a group of enemy warships at the jump point from Salamis!')
+    print('Roth: The tactical suite is updating now - this group looks small')
     for key, value in enemy_group_one.items():
-        print(f'The enemy have {value} {key}')
-    print(f'The enemy ships have a total of {enemy_firepower} turrets')
-    print('Based on that, I assess this is a scouting unit')
+        print(f'Roth: The enemy have {value} {key}')
+    print(f'Roth: The enemy ships have a total of {enemy_firepower} turrets')
+    print('Roth: Based on that, I assess this is a scouting unit')
     
     firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
     print(f'Roth: We have {firepower_difference} more turrets than they do')
     
-    print('Admiral, if we choose, we should be able to take them easily!')
-    print('Admiral, shall we engage?')
+    print('Roth: Admiral, if we choose, we should be able to take them easily!')
+    print('Roth: Admiral, shall we engage?')
     engage_decision_mission_one = input('Press y to engage the enemy, or n to find worthier prey:\n')
     if engage_decision_mission_one == 'y':
         print('You: We engage! All hands - battle stations!')
         fight_battle(enemy_firepower, enemy_group_one)
         player_experience += 0.1
+        print('Roth: Congratulations Admiral - the gunnery crews are already notching their barrels.')
     elif engage_decision_mission_one == 'n':
-        print('You: This is not worth our time. Disengage')
+        print('You: This is not worth our time. Disengage and leave them for follow-on forces.')
+        print('Roth: Discretion is the better part of valour, Admiral')
+        update_enemy_bypassed(enemy_group_one)
     
+    print('Roth: Admiral, that enemy group came from the neighbouring system of Salamis. '
+        + 'Given their size, they were almost certain detached from a larger group. ')
+    print('You: I concur - we can expect heavy resistance at Salamis. '
+        + 'All hands, stand down and prepare for FTL. '
+        + 'Roth, lay course for Salamis.')
     mission_two()
 
 
@@ -173,7 +194,7 @@ def mission_two():
     else:
         print('Roth: Very well Admiral')
     print('Roth: Arriving at Salamis in 3....2...1')
-    print('Roth: Looks like the enemy is here in strength, Admiral')
+    print('Roth: Looks like the enemy is here in strength, Admiral, as predicted. ')
     enemy_group_two = {
         'battleships': 12,
         'cruisers': 30,
@@ -195,9 +216,10 @@ def mission_two():
     if engage_decision_mission_two == 'y':
         print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
         fight_battle(enemy_firepower, enemy_group_two)
-        player_experience += 1
+        player_experience += 0.1
     elif engage_decision_mission_two == 'n':
         print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_two)
 
 
 def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, enemy_losses, player_experience):
@@ -286,7 +308,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
         player_firepower = calculate_player_firepower(player_ships)
         
-        print(f'WE HAVE {player_firepower} TURRETS')
+        print(f'WE HAVE {player_firepower} TURRETS')  # remove this once development is finished
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
 
@@ -532,6 +554,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: Shall we re-engage?')
             reengage_decision = input('Press y to re-engage the enemy, or n to leave them for follow-on forces:\n')
             if reengage_decision == 'y':
+                print('You: Indeed we shall! Good hunting!')
                 fight_engagement(enemy_firepower, enemy_group_strength)
             elif reengage_decision == 'n':
                 print('You: We have done enough damage, and I do not want to risk our ships further')
@@ -781,6 +804,13 @@ def tactics():
     + 'Mines are powerful, and since they are stealthed, cannot be shot down. '
     + 'Our ships do not carry many mines, so we should not waste them against small enemy groups\n')
 
+    print('You: Once the battle is done, some enemy ships may be salvageable. '
+    + 'These would make excellent additions to the fleet, provided we can spare the crews. '
+    + 'Our ships carry Marines, and we can use them to board enemy ships and clear out the crews. '
+    + 'This is risky, as the enemy crews will no doubt be dug in and using their internal defences.\n')
+
+    print('Roth: Thank you Admiral, that was informative')
+    print('You: You are welcome Roth - watch and learn, and maybe you will command a fleet youself one day')
 
 def main():
     """
