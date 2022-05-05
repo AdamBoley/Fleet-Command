@@ -72,30 +72,14 @@ minimum_ship_crew = {
     'escort': int(ship_crew['escort'] * 0.80)
 }
 
-total_crew = (
-    ship_crew['battleship'] * player_ships['battleships']
-    + ship_crew['cruiser'] * player_ships['cruisers']
-    + ship_crew['escort'] * player_ships['escorts']
-)
-
-excess_crew = (
-    total_crew - (
-        minimum_ship_crew['battleship'] * player_ships['battleships']
-        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
-        + minimum_ship_crew['escort'] * player_ships['escorts']
-    )
-)
-
 player_experience = 1.0
 
-"""
-NOT CURRENTLY USED
-missile_stocks = {
-    'battleships': player_ships['battleships'] * 12,
-    'cruisers': player_ships['cruisers'] * 6,
-    'escorts': player_ships['escorts'] * 3
+recovered_crew = {
+    'battleship': int(ship_crew['battleship'] * 0.60),
+    'cruiser': int(ship_crew['cruiser'] * 0.50),
+    'escort': int(ship_crew['escort'] * 0.40)
 }
-"""
+
 missile_volleys = 3
 
 missile_launchers = {
@@ -338,7 +322,7 @@ def update_player(losses_factor):
         'cruisers': player_battle_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
         'escorts': player_battle_losses['escorts'] + math.ceil(player_ships['escorts'] * losses_factor)
     }
-    
+        
     player_ships = {
         'battleships': player_ships['battleships'] - math.floor(player_ships['battleships'] * losses_factor),
         'cruisers': player_ships['cruisers'] - math.floor(player_ships['cruisers'] * losses_factor),
@@ -389,6 +373,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         global player_supplies
         global player_battle_losses
         global enemy_battle_losses
+        global total_crew
 
         player_firepower = calculate_player_firepower(player_ships)
         
@@ -655,6 +640,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 for key, value in player_battle_losses.items():
                     print(f'Roth: We lost {value} {key}')
                 
+                total_crew_calculator()
+                excess_crew_calculator()
+
                 player_battle_losses = {
                 'battleships': 0,
                 'cruisers': 0,
@@ -666,6 +654,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 'cruisers': 0,
                 'escorts': 0
                 }
+                #  possible call a reset_battle_losses function to reset player_battle_losses and enemy_battle_losses
                 """
                 for key, value in enemy_bypassed.items():
                     print(f'We have bypassed {value} {key}')
@@ -679,6 +668,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             for key, value in player_battle_losses.items():
                 print(f'Roth: We lost {value} {key}')
             
+            total_crew_calculator()
+            excess_crew_calculator()
+            
             player_battle_losses = {
                 'battleships': 0,
                 'cruisers': 0,
@@ -690,6 +682,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 'cruisers': 0,
                 'escorts': 0
             }
+            #  possible call a reset_battle_losses function to reset player_battle_losses and enemy_battle_losses
 
             print('Roth: Some of the enemy ships may be salvagable')
             boardable_ships = {
@@ -708,6 +701,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: Very well, We are clear to move on')
         
     fight_engagement(enemy_firepower, enemy_group_strength)
+
+
+def total_crew_calculator():
+    global total_crew
+    total_crew = total_crew - ((
+        player_battle_losses['battleships'] * ship_crew['battleship']
+        + player_battle_losses['cruisers'] * ship_crew['cruiser']
+        + player_battle_losses['escorts'] * ship_crew['escort'])
+        -
+        (player_battle_losses['battleships'] * recovered_crew['battleship']
+        + player_battle_losses['cruisers'] * recovered_crew['cruiser']
+        + player_battle_losses['escorts'] * recovered_crew['escort']))
+    return total_crew
+
+def excess_crew_calculator():
+    global excess_crew
+    excess_crew = total_crew - (
+        minimum_ship_crew['battleship'] * player_ships['battleships']
+        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
+        + minimum_ship_crew['escort'] * player_ships['escorts']
+    )
+    return excess_crew
+    
 
 
 def firepower_comparator(player_firepower, enemy_firepower):
@@ -858,6 +874,8 @@ def player_fleet_status():
     Function that can be called anytime to display the current status of the player's fleet
     """
     player_firepower = calculate_player_firepower(player_ships)
+    total_crew = total_crew_calculator()
+    excess_crew = excess_crew_calculator()
     for key, value in player_ships.items():
         print(f'We currently have {value} {key}')
     print(f"Given the current number of ships, we currently have {player_firepower} turrets")
