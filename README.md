@@ -151,6 +151,8 @@ Commit #34 added the boarding mechanic, which allows players to board enemy ship
 
 Commit #39 broke the code due to insufficient testing. I removed the globl total_crew and excess_crew dictionaries without modifying the code in the calculate_total_crew and calculate_excess_crew functions. Commit #40 fixed this by adding those dictionaries back in, as well as adding the consideration of crew to the boarding mechanic. 
 
+During some routine testing related to commit #44, I noted that when the battle in mission two was fought, it was possible for the enemy group to possess a negative number of enemy ships. I suspect that this is related to the player_experience modifier that increases the damage done by the player's ships in the update_enemy function. Commit #44 was dedicated to overhauling the boarding_operation function, so this bug was merely documented for later fixing. 
+
 # Technologies
 
 Github
