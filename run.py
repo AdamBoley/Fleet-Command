@@ -279,28 +279,32 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     #  4x repetition here - refactor into variables
     global enemy_local_losses
     global enemy_battle_losses
+    enemy_battleship_losses = math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)
+    enemy_cruiser_losses = math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)
+    enemy_escort_losses = math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+
     enemy_group_strength = {
-        'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)),
-        'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)),
-        'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience))
+        'battleships': (enemy_group_strength['battleships'] - enemy_battleship_losses),
+        'cruisers': (enemy_group_strength['cruisers'] - enemy_cruiser_losses),
+        'escorts': (enemy_group_strength['escorts'] - enemy_escort_losses)
     }
 
     enemy_losses = {
-        'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
-        'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
-        'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+        'battleships': enemy_losses['battleships'] + enemy_battleship_losses,
+        'cruisers': enemy_losses['cruisers'] + enemy_cruiser_losses,
+        'escorts': enemy_losses['escorts'] + enemy_escort_losses
     }
 
     enemy_local_losses = {
-        'battleships': math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
-        'cruisers': math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
-        'escorts': math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+        'battleships': enemy_battleship_losses,
+        'cruisers': enemy_cruiser_losses,
+        'escorts': enemy_escort_losses
     }
 
     enemy_battle_losses = {
-        'battleships': enemy_battle_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
-        'cruisers': enemy_battle_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
-        'escorts': enemy_battle_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+        'battleships': enemy_battle_losses['battleships'] + enemy_battleship_losses,
+        'cruisers': enemy_battle_losses['cruisers'] + enemy_cruiser_losses,
+        'escorts': enemy_battle_losses['escorts'] + enemy_escort_losses
     }
 
     return enemy_group_strength
@@ -319,28 +323,33 @@ def update_player(losses_factor):
     global player_losses
     global player_local_losses
     global player_battle_losses
+
+    player_battleship_losses = math.floor(player_ships['battleships'] * losses_factor)
+    player_cruiser_losses = math.floor(player_ships['cruisers'] * losses_factor)
+    player_escort_losses = math.ceil(player_ships['escorts'] * losses_factor)
+    
     player_losses = {
-        'battleships': player_losses['battleships'] + math.floor(player_ships['battleships'] * losses_factor),
-        'cruisers': player_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
-        'escorts': player_losses['escorts'] + math.ceil(player_ships['escorts'] * losses_factor)
+        'battleships': player_losses['battleships'] + player_battleship_losses,
+        'cruisers': player_losses['cruisers'] + player_cruiser_losses,
+        'escorts': player_losses['escorts'] + player_escort_losses
     }
 
     player_local_losses = {
-        'battleships': math.floor(player_ships['battleships'] * losses_factor),
-        'cruisers': math.floor(player_ships['cruisers'] * losses_factor),
-        'escorts': math.ceil(player_ships['escorts'] * losses_factor)
+        'battleships': player_battleship_losses,
+        'cruisers': player_cruiser_losses,
+        'escorts': player_escort_losses
     }
 
     player_battle_losses = {
-        'battleships': player_battle_losses['battleships'] + math.floor(player_ships['battleships'] * losses_factor),
-        'cruisers': player_battle_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
-        'escorts': player_battle_losses['escorts'] + math.ceil(player_ships['escorts'] * losses_factor)
+        'battleships': player_battle_losses['battleships'] + player_battleship_losses,
+        'cruisers': player_battle_losses['cruisers'] + player_cruiser_losses,
+        'escorts': player_battle_losses['escorts'] + player_escort_losses
     }
         
     player_ships = {
-        'battleships': player_ships['battleships'] - math.floor(player_ships['battleships'] * losses_factor),
-        'cruisers': player_ships['cruisers'] - math.floor(player_ships['cruisers'] * losses_factor),
-        'escorts': player_ships['escorts'] - math.ceil(player_ships['escorts'] * losses_factor)
+        'battleships': player_ships['battleships'] - player_battleship_losses,
+        'cruisers': player_ships['cruisers'] - player_cruiser_losses,
+        'escorts': player_ships['escorts'] - player_escort_losses
     }
 
     if player_ships['battleships'] < 0:
