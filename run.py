@@ -24,6 +24,12 @@ player_local_losses = {
     'escorts': 0
 }
 
+player_battle_losses = {
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
+}
+
 enemy_losses = {
     'battleships': 0,
     'cruisers': 0,
@@ -31,6 +37,12 @@ enemy_losses = {
 }
 
 enemy_local_losses = {
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
+}
+
+enemy_battle_losses = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
@@ -266,7 +278,9 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     Updates global enemy_losses dictionary
     Returns updated enemy_group_strength dictionary to fight_engagement
     """
+    #  4x repetition here - refactor into variables
     global enemy_local_losses
+    global enemy_battle_losses
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)),
         'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)),
@@ -285,6 +299,12 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
         'escorts': math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
     }
 
+    enemy_battle_losses = {
+        'battleships': enemy_battle_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
+        'cruisers': enemy_battle_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
+        'escorts': enemy_battle_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+    }
+
     return enemy_group_strength
 
 
@@ -296,9 +316,11 @@ def update_player(losses_factor):
     and corrects to 0 if so
     Returns updated player_ships dictionary
     """
+    #  4x repetition here - refactor into variables
     global player_ships
     global player_losses
     global player_local_losses
+    global player_battle_losses
     player_losses = {
         'battleships': player_losses['battleships'] + math.floor(player_ships['battleships'] * losses_factor),
         'cruisers': player_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
@@ -309,6 +331,12 @@ def update_player(losses_factor):
         'battleships': math.floor(player_ships['battleships'] * losses_factor),
         'cruisers': math.floor(player_ships['cruisers'] * losses_factor),
         'escorts': math.ceil(player_ships['escorts'] * losses_factor)
+    }
+
+    player_battle_losses = {
+        'battleships': player_battle_losses['battleships'] + math.floor(player_ships['battleships'] * losses_factor),
+        'cruisers': player_battle_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
+        'escorts': player_battle_losses['escorts'] + math.ceil(player_ships['escorts'] * losses_factor)
     }
     
     player_ships = {
@@ -359,6 +387,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         global player_ships
         global player_losses
         global player_supplies
+        global player_battle_losses
+        global enemy_battle_losses
 
         player_firepower = calculate_player_firepower(player_ships)
         
@@ -619,6 +649,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif reengage_decision == 'n':
                 print('You: We have done enough damage, and I do not want to risk our ships further')
                 enemy_bypassed = update_enemy_bypassed(enemy_group_strength)
+                for key, value in enemy_battle_losses.items():
+                    print(f'Roth: We destroyed {value} {key}')
+                
+                for key, value in player_battle_losses.items():
+                    print(f'Roth: We lost {value} {key}')
+                
+                player_battle_losses = {
+                'battleships': 0,
+                'cruisers': 0,
+                'escorts': 0
+                }
+
+                enemy_battle_losses = {
+                'battleships': 0, 
+                'cruisers': 0,
+                'escorts': 0
+                }
                 """
                 for key, value in enemy_bypassed.items():
                     print(f'We have bypassed {value} {key}')
@@ -626,6 +673,24 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         
         elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
             print('Roth: We have knocked out all enemy ships, Admiral')
+            for key, value in enemy_battle_losses.items():
+                    print(f'Roth: We destroyed {value} {key}')
+                
+            for key, value in player_battle_losses.items():
+                print(f'Roth: We lost {value} {key}')
+            
+            player_battle_losses = {
+                'battleships': 0,
+                'cruisers': 0,
+                'escorts': 0
+            }
+
+            enemy_battle_losses = {
+                'battleships': 0, 
+                'cruisers': 0,
+                'escorts': 0
+            }
+
             print('Roth: Some of the enemy ships may be salvagable')
             boardable_ships = {
                 'battleships': math.floor(starting_enemy_ships['battleships'] * 0.20),
