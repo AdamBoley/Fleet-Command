@@ -718,6 +718,10 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
 
 def total_crew_calculator():
+    """
+    Function that is called in the fight_engagement and
+    player_fleet_status functions to calculate the total crew available to the player
+    """
     global total_crew
     total_crew = total_crew - ((
         player_battle_losses['battleships'] * ship_crew['battleship']
@@ -729,7 +733,13 @@ def total_crew_calculator():
         + player_battle_losses['escorts'] * recovered_crew['escort']))
     return total_crew
 
+
 def excess_crew_calculator():
+    """
+    Function that is called in the fight_engagement and
+    player_fleet_status functions to calculate the excess crew available to the player
+    for boarding actions
+    """
     global excess_crew
     excess_crew = total_crew - (
         minimum_ship_crew['battleship'] * player_ships['battleships']
@@ -738,7 +748,6 @@ def excess_crew_calculator():
     )
     return excess_crew
     
-
 
 def firepower_comparator(player_firepower, enemy_firepower):
     """
@@ -858,7 +867,7 @@ def boarding_operation(boardable_ships):
                 marines -= 250
                 player_ships['battleships'] += 1
                 player_supplies -= 1
-                excess_crew -= 1600
+                excess_crew -= minimum_ship_crew['battleship']
                 print('Roth: We lost 250 Marines to their internal defences, but the battleship has been taken')
                 boarding_operation(boardable_ships)
             
@@ -877,7 +886,7 @@ def boarding_operation(boardable_ships):
                 marines -= 40
                 player_ships['cruisers'] += 1
                 player_supplies -= 1
-                excess_crew -= 800
+                excess_crew -= minimum_ship_crew['cruiser']
                 print('Roth: We lost 40 Marines, but the cruiser has been added to our fleet')
                 boarding_operation(boardable_ships)
         
@@ -892,7 +901,7 @@ def boarding_operation(boardable_ships):
                 marines -= 5
                 player_ships['escorts'] += 1
                 player_supplies -= 1
-                excess_crew -= 160
+                excess_crew -= minimum_ship_crew['escort']
                 print('Roth: We lost 5 Marines, but the escort has been added to our screen')
                 boarding_operation(boardable_ships)
     
@@ -901,7 +910,7 @@ def player_fleet_status():
     """
     Function that can be called anytime to display the current status of the player's fleet
     """
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(player_ships) 
     total_crew = total_crew_calculator()
     excess_crew = excess_crew_calculator()
     for key, value in player_ships.items():
