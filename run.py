@@ -80,6 +80,20 @@ recovered_crew = {
     'escort': int(ship_crew['escort'] * 0.40)
 }
 
+total_crew = (
+    ship_crew['battleship'] * player_ships['battleships']
+    + ship_crew['cruiser'] * player_ships['cruisers']
+    + ship_crew['escort'] * player_ships['escorts']
+)
+
+excess_crew = (
+    total_crew - (
+        minimum_ship_crew['battleship'] * player_ships['battleships']
+        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
+        + minimum_ship_crew['escort'] * player_ships['escorts']
+    )
+)
+
 missile_volleys = 3
 
 missile_launchers = {
@@ -808,14 +822,22 @@ def boarding_operation(boardable_ships):
     global marines
     global player_ships
     global player_supplies
+    global total_crew
+    global excess_crew
+    
+    available_crew = excess_crew_calculator()
+
     if boardable_ships['battleships'] == 0 and boardable_ships['cruisers'] == 0 and boardable_ships['escorts'] == 0:
         print('Roth: There are no more ships left to board\n')
     elif marines < 20:
         print('Roth: We do not have enough marines to attempt to board even one escort')
+    elif available_crew < 160:
+        print('Roth: We do not have enough crew left to crew a captured ship')
     else:
         for key, value in boardable_ships.items():
             print(f'Roth: There are {value} {key} we can board')
         print(f'Roth: We have {marines} marines')
+        print(f'Roth: We have {available_crew} sailors available')
         for key, value in boarding_tactics.items():
             print(f'Roth: {key} - We can board a {value}')
         print('Roth: What shall our Marines board first?')
@@ -836,6 +858,8 @@ def boarding_operation(boardable_ships):
                 marines -= 250
                 player_ships['battleships'] += 1
                 player_supplies -= 1
+                excess_crew -= 1600
+                print('Roth: We lost 250 Marines to their internal defences, but the battleship has been taken')
                 boarding_operation(boardable_ships)
             
         elif ship_to_board == '2':
@@ -853,6 +877,8 @@ def boarding_operation(boardable_ships):
                 marines -= 40
                 player_ships['cruisers'] += 1
                 player_supplies -= 1
+                excess_crew -= 800
+                print('Roth: We lost 40 Marines, but the cruiser has been added to our fleet')
                 boarding_operation(boardable_ships)
         
         elif ship_to_board == '3':
@@ -866,6 +892,8 @@ def boarding_operation(boardable_ships):
                 marines -= 5
                 player_ships['escorts'] += 1
                 player_supplies -= 1
+                excess_crew -= 160
+                print('Roth: We lost 5 Marines, but the escort has been added to our screen')
                 boarding_operation(boardable_ships)
     
 

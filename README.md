@@ -147,6 +147,8 @@ Commit #23 added functionality to the update_player_ships to check if the calcul
 
 Commit #34 added the boarding mechanic, which allows players to board enemy ships after a battle has been won and add them to their fleet. Testing this mechanic with the first mission revealed that, whilst the player_ships dictionary updates properly, the player_firepower variable does not, since the value of player_firepower is calculated when the program runs for the first time, and is not updated. Further testing revealed that the value of player_firepower stays constant even when the player loses ships as a result of the fight_engagement / update_player loop. Commit #35 fixed this problem by using a new function called calculate_player_firepower to calculate the value of player_firepower dynamically. This function is called in the player_fleet_status function and at the start of the fight_engagement function.
 
+Commit #39 broke the code due to insufficient testing. I removed the globl total_crew and excess_crew dictionaries without modifying the code in the calculate_total_crew and calculate_excess_crew functions. Commit #40 fixed this by adding those dictionaries back in. 
+
 # Technologies
 
 Github
