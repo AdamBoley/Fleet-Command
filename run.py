@@ -18,10 +18,22 @@ player_losses = {
     'escorts': 0,
 }
 
+player_local_losses = {
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
+}
+
 enemy_losses = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0,
+}
+
+enemy_local_losses = {
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
 }
 
 enemy_bypassed = {
@@ -35,6 +47,32 @@ ship_firepower = {
     'cruiser': 10,
     'escort': 5,
 }
+
+ship_crew = {
+    'battleship': 2000,
+    'cruiser': 1000,
+    'escort': 200
+}
+
+minimum_ship_crew = {
+    'battleship': int(ship_crew['battleship'] * 0.80),
+    'cruiser': int(ship_crew['cruiser'] * 0.80),
+    'escort': int(ship_crew['escort'] * 0.80)
+}
+
+total_crew = (
+    ship_crew['battleship'] * player_ships['battleships']
+    + ship_crew['cruiser'] * player_ships['cruisers']
+    + ship_crew['escort'] * player_ships['escorts']
+)
+
+excess_crew = (
+    total_crew - (
+        minimum_ship_crew['battleship'] * player_ships['battleships']
+        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
+        + minimum_ship_crew['escort'] * player_ships['escorts']
+    )
+)
 
 player_experience = 1.0
 
@@ -126,7 +164,7 @@ def new_game():
     + 'That said, high command wants does not want our forces bogged down chasing enemy groups unncessessarily. '
     + 'They are already planning a counter-punch, and they want as many ships for that as they can get. '
     + 'So, we should try to avoid leaving strong enemy groups behind us. '
-    + 'However, our follow-on forces might appreciate some target practice'
+    + 'However, our follow-on forces might appreciate some target practice. '
     + 'I have some reports that allied forces are engaging the enemy in other systems. '
     + 'It is possible that if we help them out, they could reinforce us.\n')
     print("You: Thank you Captain - let's go save the Alliance!")
@@ -228,16 +266,25 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     Updates global enemy_losses dictionary
     Returns updated enemy_group_strength dictionary to fight_engagement
     """
+    global enemy_local_losses
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)),
         'cruisers': (enemy_group_strength['cruisers'] - math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)),
         'escorts': (enemy_group_strength['escorts'] - math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience))
     }
+
     enemy_losses = {
         'battleships': enemy_losses['battleships'] + math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
         'cruisers': enemy_losses['cruisers'] + math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
         'escorts': enemy_losses['escorts'] + math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
     }
+
+    enemy_local_losses = {
+        'battleships': math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience),
+        'cruisers': math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience),
+        'escorts': math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
+    }
+
     return enemy_group_strength
 
 
@@ -251,10 +298,17 @@ def update_player(losses_factor):
     """
     global player_ships
     global player_losses
+    global player_local_losses
     player_losses = {
         'battleships': player_losses['battleships'] + math.floor(player_ships['battleships'] * losses_factor),
         'cruisers': player_losses['cruisers'] + math.floor(player_ships['cruisers'] * losses_factor),
         'escorts': player_losses['escorts'] + math.ceil(player_ships['escorts'] * losses_factor)
+    }
+
+    player_local_losses = {
+        'battleships': math.floor(player_ships['battleships'] * losses_factor),
+        'cruisers': math.floor(player_ships['cruisers'] * losses_factor),
+        'escorts': math.ceil(player_ships['escorts'] * losses_factor)
     }
     
     player_ships = {
@@ -506,8 +560,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         player_supplies -= 1
         print(f'We now have {player_supplies} supplies')
 
+        for key, value in enemy_local_losses.items():
+            print(f'We destroyed {value} enemy {key}')
+
         for key, value in enemy_group_strength.items():
             print(f'The enemy now has {value} {key}')
+        
+        for key, value in player_local_losses.items():
+            print(f'That run cost us {value} {key}')
             
         for key, value in player_ships.items():
             print(f'We now have {value} {key}')
@@ -739,6 +799,8 @@ def player_fleet_status():
     print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
     print(f'Roth: We currently have enough mines for {mine_stocks} mine-fields')
     print(f'We currently have {player_supplies} supplies')
+    print(f'We currently have {total_crew} sailors in the fleet')
+    print(f'However, in extremis, we can spare {excess_crew} for other duties if needed')
     if player_experience == 1:
         print('Our crews are trained, but green and inexperienced')
     if player_experience > 1 and player_experience <= 1.3:
@@ -757,14 +819,20 @@ def ship_capabilities():
     print(f"Battleships have {ship_firepower['battleship']} turrets")
     print('Battleships have 4 missile launchers')
     print('Battleships have 2 mine-tubes')
+    print(f"Battleships have {ship_crew['battleship']} sailors")
+    print(f"However, they can be crewed by {minimum_ship_crew['battleship']} sailors without affecting performance")
     print('Cruisers are midweight combatants')
     print(f"Cruisers have {ship_firepower['cruiser']} turrets")
     print('Cruisers have 2 missile launchers')
-    print('Cruiser have 1 mine-tube')
+    print('Cruisers have 1 mine-tube')
+    print(f"Cruisers have {ship_crew['cruiser']} sailors")
+    print(f"However, they can be crewed by {minimum_ship_crew['cruiser']} sailors without affecting performance")
     print('Escorts are light screening ships, effective in numbers')
     print(f"Escorts have {ship_firepower['escort']} turrets")
     print('Escorts have 1 missile launcher')
-    print('Escorts do not carry mine-tubes\n')
+    print('Escorts do not carry mine-tubes')
+    print(f"Escorts have {ship_crew['escort']} sailors")
+    print(f"However, they can be crewed by {minimum_ship_crew['escort']} sailors without affecting performance\n")
 
 
 def tactics():
