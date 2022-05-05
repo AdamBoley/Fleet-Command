@@ -119,9 +119,10 @@ tactical_library = {
 }
 
 boarding_tactics = {
-    '1': 'battleship',
-    '2': 'cruiser',
-    '3': 'escort'
+    '1': 'We can board a battleship',
+    '2': 'We can board a cruiser',
+    '3': 'We can board an escort',
+    '4': 'We can stop boarding enemy ships'
 }
 
 marines = (
@@ -327,7 +328,7 @@ def update_player(losses_factor):
     player_battleship_losses = math.floor(player_ships['battleships'] * losses_factor)
     player_cruiser_losses = math.floor(player_ships['cruisers'] * losses_factor)
     player_escort_losses = math.ceil(player_ships['escorts'] * losses_factor)
-    
+
     player_losses = {
         'battleships': player_losses['battleships'] + player_battleship_losses,
         'cruisers': player_losses['cruisers'] + player_cruiser_losses,
@@ -857,10 +858,10 @@ def boarding_operation(boardable_ships):
         print(f'Roth: We have {marines} marines')
         print(f'Roth: We have {available_crew} sailors available')
         for key, value in boarding_tactics.items():
-            print(f'Roth: {key} - We can board a {value}')
+            print(f'Roth: {key} - {value}')
         print('Roth: What shall our Marines board first?')
 
-        ship_to_board = input('Enter a number from 1 to 3 to select a class of enemy ship to board:\n')
+        ship_to_board = input('Enter a number from 1 to 3 to select a class of enemy ship to board, or enter 4 to stop boarding enemy ships:\n')
         if ship_to_board == '1':
             print('You: We shall board an enemy battleship')
             if boardable_ships['battleships'] == 0:
@@ -913,6 +914,10 @@ def boarding_operation(boardable_ships):
                 excess_crew -= minimum_ship_crew['escort']
                 print('Roth: We lost 5 Marines, but the escort has been added to our screen')
                 boarding_operation(boardable_ships)
+        
+        elif ship_to_board == '4':
+            print('You: We have salvaged enough ships. Scuttle the rest')
+            print('Roth: Indeed Admiral, better to save our Marines for more important work')
     
 
 def player_fleet_status():
