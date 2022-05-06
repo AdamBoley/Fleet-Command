@@ -255,7 +255,7 @@ def mission_one():
         update_enemy_bypassed(enemy_group_one)
     
     print('Roth: Admiral, that enemy group came from the neighbouring system of Salamis. '
-        + 'Given their size, they were almost certain detached from a larger group. ')
+        + 'Given their size, they were almost certainly detached from a larger group. ')
     print('You: I concur - we can expect heavy resistance at Salamis. '
         + 'All hands, stand down and prepare for FTL. '
         + 'Roth, lay course for Salamis.')
@@ -466,12 +466,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         global player_ships
         global player_total_destroyed
         global player_supplies
-        global player_battle_losses
-        global player_destroyed_ships
-        global player_damaged_ships
         global player_total_destroyed
         global player_total_damaged
-        global enemy_battle_losses
         global total_crew
 
         player_firepower = calculate_player_firepower(player_ships)
@@ -772,36 +768,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: But follow-on forces might be able to repair them')
                 print('Roth: They may return to us in time\n')
 
+                reset_battle_losses()
                 """
                 for key, value in player_total_destroyed.items():
                     print(f'Roth: We have lost {value} {key} in total')
-                """
 
-                player_battle_losses = {
-                    'battleships': 0,
-                    'cruisers': 0,
-                    'escorts': 0
-                }
-
-                player_destroyed_ships = {
-                    'battleships': 0,
-                    'cruisers': 0,
-                    'escorts': 0
-                }
-
-                player_damaged_ships = {
-                    'battleships': 0,
-                    'cruisers': 0,
-                    'escorts': 0
-                }
-
-                enemy_battle_losses = {
-                    'battleships': 0, 
-                    'cruisers': 0,
-                    'escorts': 0
-                }
-                #  possible call a reset_battle_losses function to reset player_battle_losses and enemy_battle_losses
-                """
                 for key, value in enemy_bypassed.items():
                     print(f'We have bypassed {value} {key}')
                 """
@@ -844,34 +815,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: But follow-on forces might be able to repair them')
             print('Roth: They may return to us in time\n')
 
+            reset_battle_losses()
             """
             for key, value in player_total_destroyed.items():
                 print(f'Roth: We have lost {value} {key} in total')
             """
-            player_battle_losses = {
-                'battleships': 0,
-                'cruisers': 0,
-                'escorts': 0
-            }
-
-            player_destroyed_ships = {
-                'battleships': 0,
-                'cruisers': 0,
-                'escorts': 0
-            }
-
-            player_damaged_ships = {
-                'battleships': 0,
-                'cruisers': 0,
-                'escorts': 0
-            }
-
-            enemy_battle_losses = {
-                'battleships': 0, 
-                'cruisers': 0,
-                'escorts': 0
-            }
-            #  possible call a reset_battle_losses function to reset player_battle_losses and enemy_battle_losses
 
             print('Roth: Some of the enemy ships may be salvagable')
             boardable_ships = {
@@ -1170,6 +1118,43 @@ def boarding_operation(boardable_ships):
         }
     
 
+def reset_battle_losses():
+    """
+    Sets the values of all keys within player_battle_losses,
+    player_destroyed_ships, 
+    player_damaged_ships
+    and enemy_battle_losses to 0
+    """
+    global player_battle_losses
+    global player_destroyed_ships
+    global player_damaged_ships
+    global enemy_battle_losses
+
+    player_battle_losses = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    player_destroyed_ships = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    player_damaged_ships = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    enemy_battle_losses = {
+        'battleships': 0, 
+        'cruisers': 0,
+        'escorts': 0
+    }
+    
+
 def player_fleet_status():
     """
     Function that can be called anytime to display the current status of the player's fleet
@@ -1193,20 +1178,20 @@ def player_fleet_status():
     print(f'Roth: However, in extremis, we can spare {excess_crew} for other duties if needed\n')
     if player_experience == 1:
         print('Roth: Our crews are trained, but green and inexperienced')
-    if player_experience > 1 and player_experience <= 1.3:
+    elif player_experience > 1 and player_experience <= 1.3:
         print('Roth: Our crews have gained some battle experience')
-    if player_experience > 1.3 and player_experience <= 1.6:
+    elif player_experience > 1.3 and player_experience <= 1.6:
         print('Roth: Our crews are seasoned veterans')
-    if player_experience > 1.7:
+    elif player_experience > 1.7:
         print('Roth: Our crews are hardened combat veterans')
     print(f'\nRoth: Our ships carry {marines} Marines')
-    if marine_experience == 1:
+    if marine_experience == 1.0:
         print('Roth: Our Marines are well-trained, but inexperienced in boarding actions')
-    if marine_experience > 1 and marine_experience <= 1.3:
+    elif marine_experience > 1.0 and marine_experience <= 1.3:
         print('Roth: Our Marines have gained some combat experience')
-    if marine_experience > 1.3 and marine_experience <= 1.6:
+    elif marine_experience > 1.3 and marine_experience <= 1.6:
         print('Roth: Our Marines are now seasoned veterans')
-    if marine_experience > 1.7:
+    elif marine_experience > 1.7:
         print('Roth: Our Marines are hardened veterans of many boarding actions')
 
 
