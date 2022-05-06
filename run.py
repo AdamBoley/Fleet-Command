@@ -292,7 +292,6 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     Updates global enemy_losses dictionary
     Returns updated enemy_group_strength dictionary to fight_engagement
     """
-    #  4x repetition here - refactor into variables
     global enemy_local_losses
     global enemy_battle_losses
     enemy_battleship_losses = math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)
@@ -323,6 +322,25 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
         'escorts': enemy_battle_losses['escorts'] + enemy_escort_losses
     }
 
+    if enemy_group_strength['battleships'] < 0:
+        enemy_group_strength = {
+            'battleships': 0,
+            'cruisers': enemy_group_strength['cruisers'],
+            'escorts': enemy_group_strength['escorts']
+        }
+    if enemy_group_strength['cruisers'] < 0:
+        enemy_group_strength = {
+            'battleships': enemy_group_strength['battleships'],
+            'cruisers': 0,
+            'escorts': enemy_group_strength['escorts']
+        }
+    if enemy_group_strength['escorts'] < 0:
+        enemy_group_strength = {
+            'battleships': enemy_group_strength['battleships'],
+            'cruisers': enemy_group_strength['cruisers'],
+            'escorts': 0
+        }
+
     return enemy_group_strength
 
 
@@ -334,7 +352,6 @@ def update_player(losses_factor):
     and corrects to 0 if so
     Returns updated player_ships dictionary
     """
-    #  4x repetition here - refactor into variables
     global player_ships
     global player_losses
     global player_local_losses
