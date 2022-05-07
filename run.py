@@ -412,7 +412,8 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     enemy_battleship_losses = math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)
     enemy_cruiser_losses = math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)
     enemy_escort_losses = math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
-
+    #  firepower factor can be negative
+    #  This affects all calculations and bizarrely returns increased enemy ship values
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - enemy_battleship_losses),
         'cruisers': (enemy_group_strength['cruisers'] - enemy_cruiser_losses),
@@ -473,7 +474,8 @@ def update_player(losses_factor):
     global player_battle_losses
     global player_destroyed_ships
     global player_damaged_ships
-
+    #  effective firepower difference can be negative, which results in losses_factor being negative
+    #  This adds ships to the player's fleet
     player_battleship_losses = math.floor(player_ships['battleships'] * losses_factor)
     player_cruiser_losses = math.floor(player_ships['cruisers'] * losses_factor)
     player_escort_losses = math.ceil(player_ships['escorts'] * losses_factor)
