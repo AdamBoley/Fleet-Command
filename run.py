@@ -168,12 +168,96 @@ flagship_name = ''
 player_supplies = 100
 
 
+def new_game_reset():
+    """
+    Function that exists to reset the relevant global dictionaries so that 
+    a player starts with the correct data when they lose a game and decide to restart
+    """
+    global player_ships
+    global player_total_destroyed
+    global player_total_damaged
+    global enemy_losses
+    global enemy_battle_losses
+    global enemy_local_losses
+    global enemy_bypassed
+    global player_experience
+    global missile_volleys
+    global mine_stocks
+    global total_crew
+    global excess_crew
+    global marines
+    global marine_experience
+    global player_name
+    global flagship_name
+    global player_supplies
+
+    player_ships = {
+        'battleships': 20,
+        'cruisers': 50,
+        'escorts': 150
+    }
+    player_total_damaged = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    player_total_damaged = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    enemy_losses = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    enemy_local_losses = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    enemy_battle_losses = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    enemy_bypassed = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    player_experience = 1.0
+    missile_volleys = 3
+    mine_stocks = 3
+    total_crew = (
+        ship_crew['battleship'] * player_ships['battleships']
+        + ship_crew['cruiser'] * player_ships['cruisers']
+        + ship_crew['escort'] * player_ships['escorts']
+    )
+    excess_crew = (
+        total_crew - (
+            minimum_ship_crew['battleship'] * player_ships['battleships']
+            + minimum_ship_crew['cruiser'] * player_ships['cruisers']
+            + minimum_ship_crew['escort'] * player_ships['escorts']
+        )
+    )
+    marines = (
+        (player_ships['battleships'] * 40)
+        + (player_ships['cruisers'] * 20)
+    )
+    marine_experience = 1.0
+    player_name = ''
+    flagship_name = ''
+    player_supplies = 100
+
+
 def new_game():
     """
     Starts a new game
     """
     global player_name
     global flagship_name
+    new_game_reset()
     player_name = input('Please enter your name:\n')
     flagship_name = input('Please enter the name of your flagship:\n')
     print(f'Roth: Good morning Admiral {player_name}')

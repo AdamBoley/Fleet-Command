@@ -135,6 +135,8 @@ I implemented the concept of experience as a way of balancing out the player's l
 
 I decided to implement the boarding mechanic as another way of balancing out the player's losses, and to add flavour and additional choices to the game for the player to consider. I added the option to board all enemy ships at once when I noted that after the battle in the second mission, the calculations returned 16 enemy ships that could be boarded, which would be a boring slog for the player to board one after another. I added the option to abandon the boarding operation when I noted that a player might like to focus on adding certain ships to their fleet. 
 
+
+
 # Future Work
 
 armour rating
@@ -154,6 +156,8 @@ Commit #39 broke the code due to insufficient testing. I removed the globl total
 During some routine testing related to commit #44, I noted that when the battle in mission two was fought, it was possible for the enemy group to possess a negative number of enemy ships. I suspect that this is related to the player_experience modifier that increases the damage done by the player's ships in the update_enemy function. Commit #44 was dedicated to overhauling the boarding_operation function, so this bug was merely documented for later fixing. Commit #45 fixed this bug by appropriating the code used in the update_player function to solve a similar bug whereby the player could end up with a negative number of ships. This solution checks to see if the number of enemy ships of a specific class is less than 0, and if so, sets the number to 0. 
 
 During testing related to commit #46, it was noted that when the game is failed and the option to start a new game is selected, the global dictionaries do not reset. Commit #46 was focussed on reworking the way in which the player's losses are calculated by adding the concept of damaged ships that will be repaired behind the lines and eventually returned to the player's fleet. This issue of dictionaries resetting is documented here, and will be dealt with in a future commit. 
+
+During testing related to commit #49, which implemented the new_game_reset function, I was deliberately trying to lose the game in order to test that the new function was working as intended. To lose, I choose option 4 - the riskiest and most casualty heavy approach. I noted that the when the enemy ships outnumbered the player's ships, the firepower_factor variable was negative. This produced negative enemy loss values and negative player loss values, which had the effect of __adding__ ships to the enemy and player fleets. This will require some reworking of the calculations.  
 
 # Technologies
 
