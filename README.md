@@ -175,6 +175,11 @@ Black
 
 The Lost Fleet series by Jack Campbell
 
+https://www.freecodecamp.org/news/if-name-main-python-example/ - dunder name = dunder main
+for demonstration of best practices
+Allows run.py to be imported to other files
+
+
 My Mentor Ronan McLelland
 
 FD Bartholomew Boley - for his useful contributions to the development process
