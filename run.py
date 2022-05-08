@@ -586,6 +586,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
 
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
+
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, player_experience)
@@ -609,6 +615,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 7
+
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -634,6 +646,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 5
 
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
+
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
                     firepower_factor, player_experience)
@@ -657,6 +675,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 3
+
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses_factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -699,6 +723,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             if firepower_factor > 1:
                 firepower_factor = 1
             losses_factor = 0
+
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
@@ -744,6 +774,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             if firepower_factor > 1:
                 firepower_factor = 1
             losses_factor = 0
+
+            print(f'The firepower_factor is {firepower_factor}')
+            print(f'The losses factor is {losses_factor}')
+            """
+            Remove the above prints for deployment
+            """
 
             enemy_group_strength = update_enemy(
                     effective_enemy_strength, enemy_group_strength,
