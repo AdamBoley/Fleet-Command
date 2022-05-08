@@ -257,7 +257,7 @@ def new_game():
     """
     global player_name
     global flagship_name
-    new_game_reset()
+    
     player_name = input('Please enter your name:\n')
     flagship_name = input('Please enter the name of your flagship:\n')
     print(f'Roth: Good morning Admiral {player_name}')
@@ -941,8 +941,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: Oh Sh......')
             print('Your tactical decisions have led to the destruction of your fleet')
             print('Would you like to try again?')
-            new_game_decision = input('Press y to try again or n to quit')
+            new_game_decision = input('Press y to try again or n to quit:\n')
             if new_game_decision == 'y':
+                new_game_reset()
                 new_game()
             elif new_game_decision == 'n':
                 main()
@@ -955,8 +956,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('You have run out of supplies and have lost the game')
             print('Next time, keep an eye on your supply levels and conserve them')
             print('Would you like to try again?')
-            new_game_decision = input('Press y to try again or n to quit')
+            new_game_decision = input('Press y to try again or n to quit:\n')
             if new_game_decision == 'y':
+                new_game_reset()
                 new_game()
             elif new_game_decision == 'n':
                 main()
@@ -1399,8 +1401,6 @@ def player_fleet_status():
     Function that can be called anytime to display the current status of the player's fleet
     """
     player_firepower = calculate_player_firepower(player_ships) 
-    total_crew = total_crew_calculator()
-    excess_crew = excess_crew_calculator()
     for key, value in player_ships.items():
         print(f'Roth: We currently have {value} {key}')
     print(f"\nRoth: Given the current number of ships, we currently have {player_firepower} turrets")
@@ -1416,22 +1416,22 @@ def player_fleet_status():
     print(f'Roth: We currently have {total_crew} sailors in the fleet')
     print(f'Roth: However, in extremis, we can spare {excess_crew} for other duties if needed\n')
     if player_experience == 1:
-        print('Roth: Our crews are trained, but green and inexperienced')
+        print('Roth: Our crews are trained, but green and inexperienced\n')
     elif player_experience > 1 and player_experience <= 1.3:
-        print('Roth: Our crews have gained some battle experience')
+        print('Roth: Our crews have gained some battle experience\n')
     elif player_experience > 1.3 and player_experience <= 1.6:
-        print('Roth: Our crews are seasoned veterans')
+        print('Roth: Our crews are seasoned veterans\n')
     elif player_experience > 1.7:
-        print('Roth: Our crews are hardened combat veterans')
+        print('Roth: Our crews are hardened combat veterans\n')
     print(f'\nRoth: Our ships carry {marines} Marines')
     if marine_experience == 1.0:
-        print('Roth: Our Marines are well-trained, but inexperienced in boarding actions')
+        print('Roth: Our Marines are well-trained, but inexperienced in boarding actions\n')
     elif marine_experience > 1.0 and marine_experience <= 1.3:
-        print('Roth: Our Marines have gained some combat experience')
+        print('Roth: Our Marines have gained some combat experience\n')
     elif marine_experience > 1.3 and marine_experience <= 1.6:
-        print('Roth: Our Marines are now seasoned veterans')
+        print('Roth: Our Marines are now seasoned veterans\n')
     elif marine_experience > 1.7:
-        print('Roth: Our Marines are hardened veterans of many boarding actions')
+        print('Roth: Our Marines are hardened veterans of many boarding actions\n')
 
 
 def ship_capabilities():
