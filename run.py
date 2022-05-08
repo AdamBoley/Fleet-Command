@@ -558,7 +558,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
         player_firepower = calculate_player_firepower(player_ships)
         
-        print(f'WE HAVE {player_firepower} TURRETS')  # remove this once development is finished
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
 
@@ -569,16 +568,22 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         tactic = input('Type a number from 1 to 6 to select your tactic:\n')
         if tactic == '1':
             print('You: We will aim to hit 25% of them in our firing run')
-            print('Roth: A sound plan - maximum concentration of force')
+            print('Roth: A sound plan - maximum concentration of force\n')
             target_factor = 0.25
             effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
 
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
+            print(f'Roth: We have {player_firepower} turrets')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
+            print('\n')
 
             effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
-            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
+            print(f'Roth: We will face {effective_enemy_firepower} enemy turrets\n')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             if effective_firepower_difference < 0:
                 print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
@@ -624,8 +629,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             
             effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
 
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
+            print(f'Roth: We have {player_firepower} turrets')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
+            print('\n')
 
             effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
@@ -675,8 +686,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             
             effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
 
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
+            print(f'Roth: We have {player_firepower} turrets')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
+            print('\n')
 
             effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
@@ -727,8 +744,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             
             effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
 
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
+            print(f'Roth: We have {player_firepower} turrets')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: We will be facing {value} {key}')
+            print('\n')
 
             effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
 
@@ -795,9 +818,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 + player_ships['cruisers'] * missile_launchers['cruisers']
                 + player_ships['escorts'] * missile_launchers['escorts']
             )
-
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: Our missiles will target {value} {key}')
+            print('\n')
             
             effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
             print('Roth: Our missiles have a long range')
@@ -859,8 +885,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 player_ships['battleships'] * mine_layers['battleships']
                 + player_ships['cruisers'] * mine_layers['cruisers']
             )
+            for key, value in player_ships.items():
+                print(f'Roth: We have {value} {key}')
+            print('\n')
             for key, value in effective_enemy_strength.items():
                 print(f'Roth: Our mines will target {value} {key}')
+            print('\n')
             
             print('Roth: Since we are luring the enemy into a trap, we will not face return fire')
             print('Roth: However, we will need to manoeuvre a lot to lay the minefield and get out of enemy weapons range')
