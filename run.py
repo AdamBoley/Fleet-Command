@@ -580,7 +580,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
-            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            if effective_firepower_difference < 0:
+                print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+            elif effective_firepower_difference > 0:
+                print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            elif effective_firepower_difference == 0:
+                print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
             
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
@@ -626,7 +631,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
-            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            if effective_firepower_difference < 0:
+                print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+            elif effective_firepower_difference > 0:
+                print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            elif effective_firepower_difference == 0:
+                print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 7
@@ -672,7 +682,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
-            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            if effective_firepower_difference < 0:
+                print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+            elif effective_firepower_difference > 0:
+                print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            elif effective_firepower_difference == 0:
+                print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 5
@@ -719,7 +734,12 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
-            print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            if effective_firepower_difference < 0:
+                print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+            elif effective_firepower_difference > 0:
+                print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+            elif effective_firepower_difference == 0:
+                print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 3
