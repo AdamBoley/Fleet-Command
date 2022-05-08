@@ -581,7 +581,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
-            print('Roth: Engaging per your orders Admiral!')
             
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
@@ -591,11 +590,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             """
             Remove the above prints for deployment
             """
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            projected_player_losses = (round(losses_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
+            print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
+            print('Roth: Shall we conduct a firing run targeting 25% of the enemy ships?')
+            proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: I like the sound of those odds')
+                print('You: All ships, fire as targets enter weapons range!')
+                print('Roth: Engaging per your orders Admiral!\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+            
+            elif proceed_decision == 'n':
+                print('You: Hmmm, I mislike those odds')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
 
         elif tactic == '2':
             print('You: We will hit half of their ships in our firing run')
@@ -611,7 +627,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
-            print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 7
@@ -621,11 +636,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             """
             Remove the above prints for deployment
             """
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            projected_player_losses = (round(losses_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
+            print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
+            print('Roth: Shall we conduct a firing run targeting 50% of the enemy ships?')
+            proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: I like the sound of those odds')
+                print('You: All ships, fire as targets enter weapons range!')
+                print('Roth: Engaging per your orders Admiral!\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+            
+            elif proceed_decision == 'n':
+                print('You: Hmmm, I mislike those odds')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
         
         elif tactic == '3':
             print('You: We will aim to hit three-quarters of them in our firing run')
@@ -641,7 +673,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
-            print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 5
@@ -652,10 +683,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             Remove the above prints for deployment
             """
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            projected_player_losses = (round(losses_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
+            print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+
+            print('Roth: Shall we conduct a firing run targeting 75% of the enemy ships?')
+            proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: I like the sound of those odds')
+                print('You: All ships, fire as targets enter weapons range!')
+                print('Roth: Engaging per your orders Admiral!\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+            
+            elif proceed_decision == 'n':
+                print('You: Hmmm, I mislike those odds')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
         
         elif tactic == '4':
             print('You: Maximum attack! Target all enemy ships!')
@@ -671,7 +720,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
             effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
             print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
-            print('Roth: Engaging per your orders Admiral!')
 
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 3
@@ -682,10 +730,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             Remove the above prints for deployment
             """
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            projected_player_losses = (round(losses_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
+            print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+
+            print('Roth: Shall we conduct a firing run targeting all of the enemy ships?')
+            proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: I like the sound of those odds')
+                print('You: All ships, fire as targets enter weapons range!')
+                print('Roth: Engaging per your orders Admiral!\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+            
+            elif proceed_decision == 'n':
+                print('You: Hmmm, I mislike those odds')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
 
         elif tactic == '5':
             global missile_volleys
@@ -717,7 +783,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: Our missiles have a long range')
             print('Roth: We will not face any return fire')
             print(f'Roth: Based on the number of ships we have, we will fire {missiles_fired} missiles')
-            print('Roth: Engaging with a missile barrage')
+            print(f'Roth: We will use up 1 of our {missile_volleys} missile barrages')
 
             firepower_factor = (missiles_fired / effective_enemy_firepower)
             if firepower_factor > 1:
@@ -730,12 +796,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             Remove the above prints for deployment
             """
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
-            missile_volleys -= 1
-            print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will not lose any of our ships')
+            print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+
+            print('Roth: Shall we fire a missile barrage?')
+            proceed_decision = input('Press y to fire a missile barrage, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: Fire missiles!')
+                print('Roth: Firing missiles!\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+                missile_volleys -= 1
+                print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
+            
+            elif proceed_decision == 'n':
+                print('You: We would be wasting our missiles')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
         
         elif tactic == '6':
             global mine_stocks
@@ -763,7 +845,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: Since we are luring the enemy into a trap, we will not face return fire')
             print('Roth: However, we will need to manoeuvre a lot to lay the minefield and get out of enemy weapons range')
             print(f'Roth: Based on the number of capital ships we have, we will lay {mines_laid} mines')
-            print('Roth: Laying a minefield')
 
             total_enemy_ships = (
                 effective_enemy_strength['battleships']
@@ -781,13 +862,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             Remove the above prints for deployment
             """
 
-            enemy_group_strength = update_enemy(
-                    effective_enemy_strength, enemy_group_strength,
-                    firepower_factor, player_experience)
-            player_ships = update_player(losses_factor)
-            player_supplies -= 1
-            mine_stocks -= 1
-            print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
+            projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
+            
+            print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
+            print(f'Roth: We will not lose any of our ships')
+            print('Roth: We will consume a about 2% of our fuel\n')
+
+            print('Roth: Shall we lay a minefield?')
+            proceed_decision = input('Press y to lay a minefield, or n to break off:\n')
+            if proceed_decision == 'y':
+                print('You: Yes - lay mines')
+                print('Roth: Deploying mines now Admiral\n')
+                enemy_group_strength = update_enemy(
+                        effective_enemy_strength, enemy_group_strength,
+                        firepower_factor, player_experience)
+                player_ships = update_player(losses_factor)
+                player_supplies -= 1
+                mine_stocks -= 1
+                print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
+            
+            elif proceed_decision == 'n':
+                print('You: We would be wasting our mines')
+                print('You: I will consider a different approach\n')
+                fight_engagement(enemy_firepower, enemy_group_strength)
 
         player_supplies -= 1
         print(f'Roth: We now have {player_supplies} supplies\n')
