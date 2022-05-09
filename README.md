@@ -159,6 +159,8 @@ During testing related to commit #46, it was noted that when the game is failed 
 
 During testing related to commit #49, which implemented the new_game_reset function, I was deliberately trying to lose the game in order to test that the new function was working as intended. To lose, I choose option 4 - the riskiest and most casualty heavy approach. I noted that the when the enemy ships outnumbered the player's ships, the firepower_factor variable was negative. This produced negative enemy loss values and negative player loss values, which had the effect of __adding__ ships to the enemy and player fleets. This will require some reworking of the calculations.  
 
+Testing various solutions to this problem also revealed another bug - the calculation results for selecting tactic 4 when facing enemy_group_two in Mission Two were unexpectedly bad for the player. The player's firepower_factor was calculated as 0.34 or thereabouts, whereas the losses_factor was calculated as 0.56 or thereabouts, despite the player having more ships than the enemy, which would lead to a reasonable expectation of destroying more ships than they lose. The cause of this was the losses_factor calculation, and the result was a consequence of the value of the effective_enemy_firepower (1040) being greater than the value of effective_firepower_difference (610). 
+
 # Technologies
 
 Github
