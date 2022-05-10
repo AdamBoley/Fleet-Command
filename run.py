@@ -591,9 +591,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
             elif effective_firepower_difference == 0:
                 print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
-            
+            # More print statements here refering to 'combat power' - the square law results
+
+            player_combat_power = player_combat_power_calculator(player_firepower)
+            effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
+            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+
+            print(f'Roth: We have a combat power of {player_combat_power}')
+            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
+            print(f'Roth: The difference in combat power is {combat_power_difference}')
+            # remove these prior to deployment
+
+            firepower_factor = (combat_power_difference / player_firepower)
+            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            """
             firepower_factor = (effective_firepower_difference / player_firepower)
             losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            """
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -649,8 +663,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif effective_firepower_difference == 0:
                 print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
+            # More print statements here refering to 'combat power' - the square law results
+
+            player_combat_power = player_combat_power_calculator(player_firepower)
+            effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
+            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+
+            print(f'Roth: We have a combat power of {player_combat_power}')
+            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
+            print(f'Roth: The difference in combat power is {combat_power_difference}')
+            # remove these prior to deployment
+
+            firepower_factor = (combat_power_difference / player_firepower)
+            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            """
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 7
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            """
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -706,8 +735,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif effective_firepower_difference == 0:
                 print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
+            # More print statements here refering to 'combat power' - the square law results
+
+            player_combat_power = player_combat_power_calculator(player_firepower)
+            effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
+            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+
+            print(f'Roth: We have a combat power of {player_combat_power}')
+            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
+            print(f'Roth: The difference in combat power is {combat_power_difference}')
+            # remove these prior to deployment
+
+            firepower_factor = (combat_power_difference / player_firepower)
+            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            """
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 5
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            """
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -764,8 +808,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif effective_firepower_difference == 0:
                 print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
 
+            # More print statements here refering to 'combat power' - the square law results
+
+            player_combat_power = player_combat_power_calculator(player_firepower)
+            effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
+            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+
+            print(f'Roth: We have a combat power of {player_combat_power}')
+            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
+            print(f'Roth: The difference in combat power is {combat_power_difference}')
+            # remove these prior to deployment
+
+            firepower_factor = (combat_power_difference / player_firepower)
+            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            """
             firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 3
+            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
+            """
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses_factor is {losses_factor}')
@@ -1190,6 +1249,34 @@ def enemy_firepower_calculator(enemy_strength):
                         + (enemy_strength['cruisers'] * cruiser_firepower)
                         + (enemy_strength['escorts'] * escort_firepower))
     return enemy_firepower
+
+
+def player_combat_power_calculator(player_firepower):
+    """
+    Squares player_firepower argument to produce the player's combat power score
+    Returns player_combat_power
+    """
+    player_combat_power = player_firepower**2
+    return player_combat_power
+
+
+def effective_enemy_combat_power_calculator(effective_enemy_firepower):
+    """
+    Squares effective_enemy_firepower argument to produce the enemy's combat power score
+    Returns effective_enemy_combat_power
+    """
+    effective_enemy_combat_power = effective_enemy_firepower**2
+    return effective_enemy_combat_power
+
+
+def combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power):
+    """
+    Subtracts effective_enemy_combat_power from player_combat_power
+    Finds square root of that result, stores in combat_power_difference
+    Returns combat_power_difference
+    """
+    combat_power_difference = math.sqrt(player_combat_power - effective_enemy_combat_power)
+    return combat_power_difference
 
 
 def update_enemy_bypassed(enemy_group_strength):
