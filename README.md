@@ -163,6 +163,10 @@ Testing various solutions to this problem also revealed another bug - the calcul
 
 The solution to this calculation problem was found in Lanchester's Square Law, which is a concept that helps mathematically model a battle in which one side possesses more combat power than the other, either through superior numbers, technology, training, etc. It shows that when one combatant possesses superior combat power, the result is lopsided, with the superior combatant suffering far fewer casualties than might be expected. 
 
+Whilst useful, the application of Lanchester's Square Law did not solve the problem encountered when the player is facing an effective enemy strength that is greater than their own fleet strength, and in fact made it worse. Where before the calculations would technically work, even though they produced strange results, the calculations with the Square Law gave ValueErrors, since the square root function was being performed on negative numbers.
+
+This problem was solved by reworking the fight_engagement function so that the firepower_factor and losses_factor are calculated differently if the player is outnumbered during a firing run (i.e. they choose to engage superior enemy numbers). If the enemy outnumbers the player in a firing run, the calculations are effectively switched around - the firepower_factor is calculated using the original losses_factor equation and the losses_factor is calculated using the original firepower_factor calculation. This gives the enemy an advantage, and so they will destroy more of the player's ships and lose fewer of their ships. 
+
 # Technologies
 
 Github

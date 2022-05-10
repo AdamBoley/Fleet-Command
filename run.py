@@ -398,6 +398,35 @@ def mission_three():
         player_fleet_status()
     else:
         print('Roth: Very well Admiral')
+    enemy_group_three = {
+        'battleships': 24,
+        'cruisers': 60,
+        'escorts': 180
+    }
+
+    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    player_firepower = calculate_player_firepower(player_ships)
+
+    for key, value in enemy_group_three.items():
+        print(f'Roth: The enemy has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    if firepower_difference < 0:
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_two = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_two == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, enemy_group_three)
+        player_experience += 0.1
+    elif engage_decision_mission_two == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_three)
 
 
 def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, player_experience):
@@ -595,19 +624,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             player_combat_power = player_combat_power_calculator(player_firepower)
             effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+            differential = player_combat_power - effective_enemy_combat_power
 
-            print(f'Roth: We have a combat power of {player_combat_power}')
-            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
-            print(f'Roth: The difference in combat power is {combat_power_difference}')
-            # remove these prior to deployment
+            if differential > 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
+                firepower_factor = (combat_power_difference / player_firepower)
+                losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            
+            elif differential == 0:
+                combat_power_difference = 1
+                print('Roth: There is no effective difference in combat power')
+                print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                if player_experience > 1.0:
+                    print('Roth: Our combat experience may give us a slight advantage, but not much')
+                firepower_factor = 0.50
+                losses_factor = 0.50
 
-            firepower_factor = (combat_power_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-            """
-            firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
-            """
+            elif differential < 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
+                print('Roth: This is a bad idea Admiral. We should consider another approach')
+                firepower_factor = (player_firepower / combat_power_difference) / 5
+                losses_factor = (combat_power_difference / effective_enemy_firepower)
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -667,19 +706,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             player_combat_power = player_combat_power_calculator(player_firepower)
             effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+            differential = player_combat_power - effective_enemy_combat_power
 
-            print(f'Roth: We have a combat power of {player_combat_power}')
-            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
-            print(f'Roth: The difference in combat power is {combat_power_difference}')
-            # remove these prior to deployment
+            if differential > 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
+                firepower_factor = (combat_power_difference / player_firepower)
+                losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            
+            elif differential == 0:
+                combat_power_difference = 1
+                print('Roth: There is no effective difference in combat power')
+                print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                if player_experience > 1.0:
+                    print('Roth: Our combat experience may give us a slight advantage, but not much')
+                firepower_factor = 0.50
+                losses_factor = 0.50
 
-            firepower_factor = (combat_power_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-            """
-            firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
-            """
+            elif differential < 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
+                print('Roth: This is a bad idea Admiral. We should consider another approach')
+                firepower_factor = (player_firepower / combat_power_difference) / 5
+                losses_factor = (combat_power_difference / effective_enemy_firepower)
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -739,19 +788,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             player_combat_power = player_combat_power_calculator(player_firepower)
             effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+            differential = player_combat_power - effective_enemy_combat_power
 
-            print(f'Roth: We have a combat power of {player_combat_power}')
-            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
-            print(f'Roth: The difference in combat power is {combat_power_difference}')
-            # remove these prior to deployment
+            if differential > 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
+                firepower_factor = (combat_power_difference / player_firepower)
+                losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            
+            elif differential == 0:
+                combat_power_difference = 1
+                print('Roth: There is no effective difference in combat power')
+                print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                if player_experience > 1.0:
+                    print('Roth: Our combat experience may give us a slight advantage, but not much')
+                firepower_factor = 0.50
+                losses_factor = 0.50
 
-            firepower_factor = (combat_power_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-            """
-            firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
-            """
+            elif differential < 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
+                print('Roth: This is a bad idea Admiral. We should consider another approach')
+                firepower_factor = (player_firepower / combat_power_difference) / 5
+                losses_factor = (combat_power_difference / effective_enemy_firepower)
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses factor is {losses_factor}')
@@ -812,19 +871,29 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             player_combat_power = player_combat_power_calculator(player_firepower)
             effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-            combat_power_difference = combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power)
+            differential = player_combat_power - effective_enemy_combat_power
 
-            print(f'Roth: We have a combat power of {player_combat_power}')
-            print(f'Roth: The enemy have a combat power of {effective_enemy_combat_power}')
-            print(f'Roth: The difference in combat power is {combat_power_difference}')
-            # remove these prior to deployment
+            if differential > 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
+                firepower_factor = (combat_power_difference / player_firepower)
+                losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
+            
+            elif differential == 0:
+                combat_power_difference = 1
+                print('Roth: There is no effective difference in combat power')
+                print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                if player_experience > 1.0:
+                    print('Roth: Our combat experience may give us a slight advantage, but not much')
+                firepower_factor = 0.50
+                losses_factor = 0.50
 
-            firepower_factor = (combat_power_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-            """
-            firepower_factor = (effective_firepower_difference / player_firepower)
-            losses_factor = (effective_enemy_firepower / effective_firepower_difference) / 10
-            """
+            elif differential < 0:
+                combat_power_difference = combat_power_difference_calculator(differential)
+                print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
+                print('Roth: This is a bad idea Admiral. We should consider another approach')
+                firepower_factor = (player_firepower / combat_power_difference) / 5
+                losses_factor = (combat_power_difference / effective_enemy_firepower)
 
             print(f'The firepower_factor is {firepower_factor}')
             print(f'The losses_factor is {losses_factor}')
@@ -1269,13 +1338,13 @@ def effective_enemy_combat_power_calculator(effective_enemy_firepower):
     return effective_enemy_combat_power
 
 
-def combat_power_difference_calculator(player_combat_power, effective_enemy_combat_power):
+def combat_power_difference_calculator(differential):
     """
-    Subtracts effective_enemy_combat_power from player_combat_power
-    Finds square root of that result, stores in combat_power_difference
+    Finds square root of the differential
+    Converts differential to positive if necessary so that square root can be performed
     Returns combat_power_difference
     """
-    combat_power_difference = math.sqrt(player_combat_power - effective_enemy_combat_power)
+    combat_power_difference = math.sqrt(abs(differential))
     return combat_power_difference
 
 
