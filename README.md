@@ -167,6 +167,14 @@ Whilst useful, the application of Lanchester's Square Law did not solve the prob
 
 This problem was solved by reworking the fight_engagement function so that the firepower_factor and losses_factor are calculated differently if the player is outnumbered during a firing run (i.e. they choose to engage superior enemy numbers). If the enemy outnumbers the player in a firing run, the calculations are effectively switched around - the firepower_factor is calculated using the original losses_factor equation and the losses_factor is calculated using the original firepower_factor calculation. This gives the enemy an advantage, and so they will destroy more of the player's ships and lose fewer of their ships. 
 
+During some routine testing, it was noted that the player_fleet_status function works properly, but can give misleading information when called. I noticed that when viewing the fleet status before beginning mission 2 after losing 1 cruiser and 5 escorts in mission 1 and also boarding 2 escorts and 1 cruiser that the function displayed that the fleet had 20 battleships, 50 cruisers and 147 escorts, but was also displaying that 1 cruiser and 3 escorts had been destroyed and that 2 escorts had been damaged. This could cause players to lose confidence in the game and to think that the game was not properly tracking their fleet status. 
+
+I attempted to solve this by creating a salvaged_ships dictionary, which is updated in the boarding_operation function, and which tracks how many ships the player has salvaged and added to their fleet, and then using a loop to display the values of this dictionary in the player_fleet_status function. However, testing this solution revealed that option 5 - the option to board all enemy ships at once - was not working properly, as it was not properly updating the dictionaries. 
+
+It was also noted that the number of the player's marines does not update based on how many ships they have lost - as ships are destroyed or damaged, the player would expect their marine strength to go down. 
+
+It was also noted that the enemy_battle_losses dictionary that is printed at the end of a battle now no longer contains the correct values. This is likely a consequence of the overhauled Square Law calculations. 
+
 # Technologies
 
 Github

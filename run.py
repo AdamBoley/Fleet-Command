@@ -163,6 +163,12 @@ boarded_ships = {
     'escort': 0
 }
 
+salvaged_ships = {
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
+}
+
 player_name = ''
 flagship_name = ''
 player_supplies = 100
@@ -1384,9 +1390,16 @@ def boarding_operation(boardable_ships):
     global total_crew
     global excess_crew
     global marine_experience
-    global boarded_ships
+    #global boarded_ships
+    global salvaged_ships
     
     available_crew = excess_crew_calculator()
+
+    boarded_ships = {
+        'battleship': 0,
+        'cruiser': 0,
+        'escort': 0
+    }
 
     if boardable_ships['battleships'] == 0 and boardable_ships['cruisers'] == 0 and boardable_ships['escorts'] == 0:
         print('Roth: There are no more ships left to board\n')
@@ -1397,9 +1410,11 @@ def boarding_operation(boardable_ships):
     else:
         for key, value in boardable_ships.items():
             print(f'Roth: There are {value} {key} we can board')
+        print('\n')
         print(f'Roth: We have {marines} marines')
         print(f'Roth: We have {available_crew} sailors available')
         print(f'Roth: We have {player_supplies} repair supplies')
+        print('\n')
         for key, value in boarding_tactics.items():
             print(f'Roth: {key} - {value}')
         print('Roth: What shall our Marines board first?')
@@ -1421,6 +1436,7 @@ def boarding_operation(boardable_ships):
                 marines -= marine_casualties
                 player_ships['battleships'] += 1
                 boarded_ships['battleship'] += 1
+                salvaged_ships['battleships'] += 1
                 player_supplies -= 1
                 excess_crew -= minimum_ship_crew['battleship']
                 print(f'Roth: We lost {marine_casualties} Marines to their internal defences, but the battleship has been taken')
@@ -1442,6 +1458,7 @@ def boarding_operation(boardable_ships):
                 marines -= marine_casualties
                 player_ships['cruisers'] += 1
                 boarded_ships['cruiser'] += 1
+                salvaged_ships['cruisers'] += 1
                 player_supplies -= 1
                 excess_crew -= minimum_ship_crew['cruiser']
                 print(f'Roth: We lost {marine_casualties} Marines, but the cruiser has been added to our fleet')
@@ -1459,6 +1476,7 @@ def boarding_operation(boardable_ships):
                 marines -= marine_casualties
                 player_ships['escorts'] += 1
                 boarded_ships['escort'] += 1
+                salvaged_ships['escorts'] += 1
                 player_supplies -= 1
                 excess_crew -= minimum_ship_crew['escort']
                 print(f'Roth: We lost {marine_casualties} Marines, but the escort has been added to our screen')
@@ -1495,6 +1513,25 @@ def boarding_operation(boardable_ships):
 
             elif boardable_ships['battleships'] > 0 or boardable_ships['cruisers'] > 0 or boardable_ships['escorts'] > 0:
                 print('You: Board all of them')
+                """
+                player_ships = {
+                    'battleships': player_ships['battleships'] + boardable_ships['battleships'],
+                    'cruisers': player_ships['cruisers'] + boardable_ships['cruisers'],
+                    'escorts': player_ships['escorts'] + boardable_ships['escorts']
+                }
+
+                boarded_ships = {
+                    'battleship': boarded_ships['battleship'] + boardable_ships['battleships'],
+                    'cruiser': boarded_ships['cruiser'] + boardable_ships['cruisers'],
+                    'escort': boarded_ships['escort'] + boardable_ships['cruisers']
+                }
+
+                salvaged_ships = {
+                    'battleships': salvaged_ships['battleships'] + boardable_ships['battleships'],
+                    'cruisers': salvaged_ships['cruisers'] + boardable_ships['cruisers'],
+                    'escorts': salvaged_ships['escorts'] + boardable_ships['cruisers']
+                }
+                """
                 player_ships['battleships'] += boardable_ships['battleships']
                 player_ships['cruisers'] += boardable_ships['cruisers']
                 player_ships['escorts'] += boardable_ships['escorts']
@@ -1503,6 +1540,10 @@ def boarding_operation(boardable_ships):
                 boarded_ships['cruiser'] += boardable_ships['cruisers']
                 boarded_ships['escort'] += boardable_ships['cruisers']
 
+                salvaged_ships['battleships'] += boardable_ships['battleships']
+                salvaged_ships['cruisers'] += boardable_ships['cruisers']
+                salvaged_ships['escorts'] += boardable_ships['cruisers']
+                
                 excess_crew -= (
                     minimum_ship_crew['battleship'] * boardable_ships['battleships']
                     + minimum_ship_crew['cruiser'] * boardable_ships['cruisers']
@@ -1518,6 +1559,13 @@ def boarding_operation(boardable_ships):
                     + marine_casualties_cc 
                     + marine_casualties_dd
                 )
+
+                for key, value in boarded_ships.items():
+                    print(f'Roth: We boarded {value} {key}')
+                # this does not seem to work - caps out at 4
+                for key, value in boardable_ships.items():
+                    print(f'Roth: We boarded {value} {key}')
+                # this works properly
                 print(f'Roth: We lost {marine_casualties} marines')
                 marines -= marine_casualties
                 print(f'Roth: We now have {marines} marines')
@@ -1598,6 +1646,9 @@ def player_fleet_status():
     print('\n')
     for key, value in player_total_damaged.items():
         print(f'Roth: {value} of our {key} have been damaged and left behind')
+    print('\n')
+    for key, value in salvaged_ships.items():
+        print(f'Roth: {value} enemy {key} have be boarded and salvaged')
     print('\n')
     print(f'Roth: We currently have {total_crew} sailors in the fleet')
     print(f'Roth: However, in extremis, we can spare {excess_crew} for other duties if needed\n')
