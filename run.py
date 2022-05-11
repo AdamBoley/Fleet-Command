@@ -173,6 +173,9 @@ player_name = ''
 flagship_name = ''
 player_supplies = 100
 
+osiris_fleet_helped = 0
+osiris_docks_helped = 0
+
 
 def new_game_reset():
     """
@@ -413,36 +416,157 @@ def mission_three():
     print('Roth: Arriving at Osiris in 3...2....1')
     print('You: Status report!')
     print('Roth: The enemy appears to be here in strength Admiral')
-    enemy_group_three = {
-        'battleships': 24,
-        'cruisers': 60,
-        'escorts': 180
+    print('Roth: The enemy attack is well underway')
+    print('Roth: They have split into two sub-groups\n')
+    print('Roth: Sub-group 1 appears to be the largest')
+    print('Roth: It is chasing down the system defence forces assigned to Osiris\n')
+    print('Roth: Sub-group 2 appears to hold the remaining ships')
+    print('Roth: It is currently supporting a boarding operation against the dockyards\n')
+
+    enemy_group_three_one = {
+        'battleships': 10,
+        'cruisers': 32,
+        'escorts': 90
     }
 
-    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    enemy_group_three_two = {
+        'battleships': 8,
+        'cruisers': 26,
+        'escorts': 78
+    }
+
+    allied_group = {
+        'battleships': 4,
+        'cruisers': 14,
+        'escorts': 38
+    }
+
+    enemy_firepower_one = enemy_firepower_calculator(enemy_group_three_one)
+    enemy_firepower_two = enemy_firepower_calculator(enemy_group_three_two)
+    allied_firepower = enemy_firepower_calculator(allied_group)
     player_firepower = calculate_player_firepower(player_ships)
 
-    for key, value in enemy_group_three.items():
-        print(f'Roth: The enemy has {value} {key}')
-    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+    for key, value in enemy_group_three_one.items():
+        print(f'Roth: Sub-group  1 has {value} {key}')
+    print(f'Roth: Sub-group 1 has {enemy_firepower_one} turrets')
 
-    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
-    if firepower_difference < 0:
-        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    firepower_difference_one = firepower_comparator(player_firepower, enemy_firepower_one)
+    if firepower_difference_one < 0:
+        print(f'Roth: We have {abs(firepower_difference_one)} fewer turrets than they do')
     else:
-        print(f'Roth: We have {firepower_difference} more turrets than they do')
+        print(f'Roth: We have {firepower_difference_one} more turrets than they do')
 
-    print('Roth: This will be a tough battle, Admiral')
-    print('Roth: Shall we engage?')
+    print('\n')
+    for key, value in enemy_group_three_two.items():
+        print(f'Roth: Sub-group  2 has {value} {key}')
+    print(f'Roth: Sub-group 2 has {enemy_firepower_two} turrets')
+
+    firepower_difference_two = firepower_comparator(player_firepower, enemy_firepower_two)
+    if firepower_difference_two < 0:
+        print(f'Roth: We have {abs(firepower_difference_two)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference_two} more turrets than they do')
+    
+    print('\n')
+    for key, value in allied_group.items():
+        print(f'Roth: Osiris force has {value} {key}')
+    print(f'Roth: They have {allied_firepower} turrets')
+
+    def osiris_fleet():
+        global player_experience
+        global osiris_fleet_helped
+        global player_ships
+        print('You: We need more ships, pronto')
+        print('You: They will help us secure the rest of the system')
+        print('Roth: Understood Admiral, setting course for the Osiris force')
+        print('You: Osiris force, report in!')
+        print('OF: Thank the Living Stars! Reinforcements!')
+        print('You: Hold on Osiris force. We will deal with the Syndics')
+        fight_battle(enemy_firepower_one, enemy_group_three_one)
+        player_experience += 0.05
+        osiris_fleet_helped = 1
+        player_ships['battleships'] += allied_group['battleships']
+        player_ships['cruisers'] += allied_group['cruisers']
+        player_ships['escorts'] += allied_group['escorts']
+    
+    def osiris_docks():
+        global player_experience
+        global osiris_docks_helped
+        global marines
+        global player_supplies
+        global missile_volleys
+        global mine_stocks
+        print('You: We need the supplies from the orbital dockyards')
+        print('You: They could prove invaluable for future battles')
+        print('Roth: Understood Admiral, setting course for the dockyards')
+        print('You: Docks, report in!')
+        print('Docks: Admiral, enemy assault troops have boarded')
+        print('Docks: We are fighting them room to room, but there are lots of them')
+        print('You: Hold on Docks, we will deal with the Syndic boarding fleet')
+        print('You: Then we will help you clear out the boarders')
+        fight_battle(enemy_firepower_one, enemy_group_three_two)
+        player_experience += 0.05
+        osiris_docks_helped = 1
+        player_supplies += 15
+        missile_volleys += 1
+        mine_stocks += 1
+        marines += 1500
+    
+    print('Roth: Shall we aid Osiris?')
     engage_decision_mission_three = input('press y to engage, or n to disengage:\n')
     if engage_decision_mission_three == 'y':
-        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
-        fight_battle(enemy_firepower, enemy_group_three)
-        player_experience += 0.1
+        print('You: Indeed we shall, Osiris is an important staging area - it must not fall')
+        print('\n')
+        print('You: It appears we have several options')
+        print('You: One - we could aid the Osiris group')
+        print('You: Two - or we could stop that boarding operation on the Osiris dockyards')
+        print('You: I just need to decide which groups to engage, and in what order')
+        engage_decision_one = input('Type either 1 or 2 to select which group to engage first:\n')
+        
+        if engage_decision_one == '1':
+            osiris_fleet()
+        
+        elif engage_decision_one == '2':
+            osiris_docks()
+        
+        print('Roth: That is one sub-group down')
+        print('Roth: Shall we engage the other?')
+        if osiris_fleet_helped == 1:
+            engage_decision_two = input('Type y to engage the docks group or n to break off:\n')
+            if engage_decision_two == 'y':
+                osiris_docks()
+            elif engage_decision_two == 'n':
+                print('You: We have gained some allied ships')
+                print('You: Dealing with the docks group and the boarders would take ships and Marines I cannot spare')
+                update_enemy_bypassed(enemy_group_three_two)
+                mission_four()
+        
+        elif osiris_docks_helped == 1:
+            engage_decision_two = input('Type y to help the allied ships or n to break off:\n')
+            if engage_decision_two == 'y':
+                osiris_fleet()
+            elif engage_decision_two == 'n':
+                print('You: We have picked up some additonal Marines, supplies and munitions')
+                print('You: Dealing with the other group would take ships I cannot spare')
+                update_enemy_bypassed(enemy_group_three_one)
+                mission_four()
+        
+        if osiris_fleet_helped == 1 and osiris_docks_helped == 1:
+            print('Roth: Nicely done Admiral!')
+            print('Roth: Osiris is secure')
+            print('Roth: In appreciation, Osiris has released a few more ships, Marines and supplies')
+            player_ships['battleships'] += 1
+            player_ships['cruisers'] += 2
+            player_ships['escorts'] += 8
+            mission_four()
+   
     elif engage_decision_mission_three == 'n':
-        print('You: I think not - follow-on forces should be able to handle them')
-        update_enemy_bypassed(enemy_group_three)
-    mission_four()
+        print('You: Osiris is beyond help')
+        print('You: Better to move than than spend ships and sailors trying to save a doomed system')
+        update_enemy_bypassed(enemy_group_three_one)
+        update_enemy_bypassed(enemy_group_three_two)
+ 
+    # mission_four()
 
 
 def mission_four():
