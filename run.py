@@ -509,6 +509,7 @@ def update_player(losses_factor):
     global player_battle_losses
     global player_destroyed_ships
     global player_damaged_ships
+    global marines
     #  effective firepower difference can be negative, which results in losses_factor being negative
     #  This adds ships to the player's fleet
     player_battleship_losses = math.floor(player_ships['battleships'] * losses_factor)
@@ -532,6 +533,13 @@ def update_player(losses_factor):
         'cruisers': math.floor(player_battle_losses['cruisers'] * 0.60),
         'escorts': math.floor(player_battle_losses['escorts'] * 0.50)
     }
+
+    marines -= (
+        int(math.ceil(player_destroyed_ships['battleships'] * 40 * 0.20))
+        + int(math.ceil(player_destroyed_ships['cruisers'] * 20 * 0.30))
+        + int(math.ceil(player_damaged_ships['battleships'] * 40 * 0.10))
+        + int(math.ceil(player_damaged_ships['cruisers'] * 20 * 0.20))
+    )
 
     player_local_losses = {
         'battleships': player_battleship_losses,
@@ -1661,6 +1669,10 @@ def player_fleet_status():
     elif player_experience > 1.7:
         print('Roth: Our crews are hardened combat veterans\n')
     print(f'\nRoth: Our ships carry {marines} Marines')
+    if marines < 1800:
+        print(f'Roth: We have lost Marines to boarding actions and ship destruction')
+    if marines > 1800:
+        print(f'Roth: We have picked up some additional Marines')
     if marine_experience == 1.0:
         print('Roth: Our Marines are well-trained, but inexperienced in boarding actions\n')
     elif marine_experience > 1.0 and marine_experience <= 1.3:
@@ -1681,18 +1693,21 @@ def ship_capabilities():
     print('Battleships have 2 mine-tubes')
     print(f"Battleships have {ship_crew['battleship']} sailors")
     print(f"However, they can be crewed by {minimum_ship_crew['battleship']} sailors without affecting performance")
+    print('Battleships also carry 40 Marines\n')
     print('Cruisers are midweight combatants')
     print(f"Cruisers have {ship_firepower['cruiser']} turrets")
     print('Cruisers have 2 missile launchers')
     print('Cruisers have 1 mine-tube')
     print(f"Cruisers have {ship_crew['cruiser']} sailors")
     print(f"However, they can be crewed by {minimum_ship_crew['cruiser']} sailors without affecting performance")
+    print('Cruisers carry 20 Marines\n')
     print('Escorts are light screening ships, effective in numbers')
     print(f"Escorts have {ship_firepower['escort']} turrets")
     print('Escorts have 1 missile launcher')
     print('Escorts do not carry mine-tubes')
     print(f"Escorts have {ship_crew['escort']} sailors")
-    print(f"However, they can be crewed by {minimum_ship_crew['escort']} sailors without affecting performance\n")
+    print(f"However, they can be crewed by {minimum_ship_crew['escort']} sailors without affecting performance")
+    print('Escorts do not carry Marines\n')
 
 
 def tactics():
