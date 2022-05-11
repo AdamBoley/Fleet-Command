@@ -392,6 +392,12 @@ def mission_two():
     elif engage_decision_mission_two == 'n':
         print('You: I think not - follow-on forces should be able to handle them')
         update_enemy_bypassed(enemy_group_two)
+    print('\n')
+    print("Roth: Admiral, this group and the last group likely constituted one of the Syndicate Worlds' main assault groups")
+    print('Roth: Command estimates that the Syndics sent at least 4 such groups')
+    print('You: Good to know. Where does Command estimate the next group to be?')
+    print('Roth: I have some reports that suggest the enemy has targeted a regional headquarters in Osiris, the next system over')
+    print('You: Excellent. All hands, secure from battle stations. Helm, set course for Osiris')
     mission_three()
 
 
@@ -404,6 +410,9 @@ def mission_three():
         player_fleet_status()
     else:
         print('Roth: Very well Admiral')
+    print('Roth: Arriving at Osiris in 3...2....1')
+    print('You: Status report!')
+    print('Roth: The enemy appears to be here in strength Admiral')
     enemy_group_three = {
         'battleships': 24,
         'cruisers': 60,
@@ -425,14 +434,179 @@ def mission_three():
 
     print('Roth: This will be a tough battle, Admiral')
     print('Roth: Shall we engage?')
-    engage_decision_mission_two = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_two == 'y':
+    engage_decision_mission_three = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_three == 'y':
         print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
         fight_battle(enemy_firepower, enemy_group_three)
         player_experience += 0.1
-    elif engage_decision_mission_two == 'n':
+    elif engage_decision_mission_three == 'n':
         print('You: I think not - follow-on forces should be able to handle them')
         update_enemy_bypassed(enemy_group_three)
+    mission_four()
+
+
+def mission_four():
+    global player_experience
+    print('\n  BEGIN MISSION X  \n')
+    print('Roth: Do you want to review the fleet, Admiral?')
+    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
+    if fleet_status_decision == 'y':
+        player_fleet_status()
+    else:
+        print('Roth: Very well Admiral')
+    enemy_group_X = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    player_firepower = calculate_player_firepower(player_ships)
+
+    for key, value in enemy_group_x.items():
+        print(f'Roth: The enemy has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    if firepower_difference < 0:
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_x = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_x == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, enemy_group_x)
+        player_experience += 0.1
+    elif engage_decision_mission_x == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_c)
+    mission_five()
+
+
+def mission_five():
+    global player_experience
+    print('\n  BEGIN MISSION X  \n')
+    print('Roth: Do you want to review the fleet, Admiral?')
+    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
+    if fleet_status_decision == 'y':
+        player_fleet_status()
+    else:
+        print('Roth: Very well Admiral')
+    enemy_group_X = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    player_firepower = calculate_player_firepower(player_ships)
+
+    for key, value in enemy_group_x.items():
+        print(f'Roth: The enemy has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    if firepower_difference < 0:
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_x = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_x == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, enemy_group_x)
+        player_experience += 0.1
+    elif engage_decision_mission_x == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_c)
+    mission_six()
+
+
+def mission_seven():
+    global player_experience
+    print('\n  BEGIN MISSION X  \n')
+    print('Roth: Do you want to review the fleet, Admiral?')
+    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
+    if fleet_status_decision == 'y':
+        player_fleet_status()
+    else:
+        print('Roth: Very well Admiral')
+    enemy_group_X = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    player_firepower = calculate_player_firepower(player_ships)
+
+    for key, value in enemy_group_x.items():
+        print(f'Roth: The enemy has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    if firepower_difference < 0:
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_x = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_x == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, enemy_group_x)
+        player_experience += 0.1
+    elif engage_decision_mission_x == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_c)
+    
+    bonus_mission()
+
+
+def bonus_mission():
+    global player_experience
+    print('\n  BEGIN MISSION X  \n')
+    print('Roth: Do you want to review the fleet, Admiral?')
+    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
+    if fleet_status_decision == 'y':
+        player_fleet_status()
+    else:
+        print('Roth: Very well Admiral')
+    enemy_group_X = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+
+    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    player_firepower = calculate_player_firepower(player_ships)
+
+    for key, value in enemy_group_x.items():
+        print(f'Roth: The enemy has {value} {key}')
+    print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
+
+    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    if firepower_difference < 0:
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+    else:
+        print(f'Roth: We have {firepower_difference} more turrets than they do')
+
+    print('Roth: This will be a tough battle, Admiral')
+    print('Roth: Shall we engage?')
+    engage_decision_mission_x = input('press y to engage, or n to disengage:\n')
+    if engage_decision_mission_x == 'y':
+        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+        fight_battle(enemy_firepower, enemy_group_x)
+        player_experience += 0.1
+    elif engage_decision_mission_x == 'n':
+        print('You: I think not - follow-on forces should be able to handle them')
+        update_enemy_bypassed(enemy_group_c)    
 
 
 def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_factor, player_experience):
