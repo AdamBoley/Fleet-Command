@@ -406,6 +406,9 @@ def mission_two():
 
 def mission_three():
     global player_experience
+    global player_supplies
+    global marines
+    global player_ships
     print('\n  BEGIN MISSION THREE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
@@ -499,18 +502,50 @@ def mission_three():
         print('You: We need the supplies from the orbital dockyards')
         print('You: They could prove invaluable for future battles')
         print('Roth: Understood Admiral, setting course for the dockyards')
-        print('You: Docks, report in!')
-        print('Docks: Admiral, enemy assault troops have boarded')
-        print('Docks: We are fighting them room to room, but there are lots of them')
-        print('You: Hold on Docks, we will deal with the Syndic boarding fleet')
+        print('You: Osiris Dockyards, report in!')
+        print('ODY: Admiral, enemy assault troops have boarded')
+        print('ODY: We are fighting them room to room')
+        print('ODY: They are pressing hard!')
+        print('You: Hold on, we will deal with the Syndic boarding fleet')
         print('You: Then we will help you clear out the boarders')
         fight_battle(enemy_firepower_one, enemy_group_three_two)
         player_experience += 0.05
+        print('Roth: Enemy support ships have been dealt with')
+        print('You: Move escorts into fire support positions')
+        print(f'Roth: We have {marines} Marines')
+        if marines < 100:
+            print('Roth: We do not have enough Marines to launch a meaningful counter-boarding operation')
+            print('Roth: But our fire support should still turn the tide')
+            print('ODY: We are pushing them back with your fire support')
+            print('ODY: But it is costing us')
+            print('ODY: Syndic boarding parties are surrendering!')
+            print('ODY: Transferring surviving Marines to your command, sir!')
+            marines += 500
+        elif marines <= 800:
+            print('Roth: We have enough Marines for a limited counter-boarding operation')
+            print('Roth: With our fire support, we should drive out the Syndics with some effort')
+            print('Roth: Launching assault shuttles now')
+            print('ODY: Your reinforcements are appreciated')
+            print('ODY: Enemy forces are breaking off to block you')
+            print('ODY: We are rolling them up, but they are still costing us')
+            print('ODY: Enemy forces have been defeated')
+            print('ODY: Transferring surviving Marines to you command')
+            marines += 750
+        elif marines > 800:
+            print('Roth: We have enough Marines for a full counter-boarding operation')
+            print('Roth: Combined with our fire support, we should have this done in short order')
+            print('Roth: Shuttles launching now')
+            print('ODY: Your counter assault has severely rattled the enemy!')
+            print('ODY: We have them pinned!')
+            print('ODY: We are rolling them up quickly!')
+            print('ODY: Enemy forces defeated with minimal allied casualties')
+            marines += 1000
         osiris_docks_helped = 1
+        print('ODY: We are also transferring some of our stockpiles to your fleet')
+        print('ODY: Fuel, ammunition, mines and missiles')
         player_supplies += 15
         missile_volleys += 1
         mine_stocks += 1
-        marines += 1500
     
     print('Roth: Shall we aid Osiris?')
     engage_decision_mission_three = input('press y to engage, or n to disengage:\n')
@@ -558,6 +593,8 @@ def mission_three():
             player_ships['battleships'] += 1
             player_ships['cruisers'] += 2
             player_ships['escorts'] += 8
+            player_supplies += 5
+            marines += 100
             mission_four()
    
     elif engage_decision_mission_three == 'n':
@@ -565,9 +602,8 @@ def mission_three():
         print('You: Better to move than than spend ships and sailors trying to save a doomed system')
         update_enemy_bypassed(enemy_group_three_one)
         update_enemy_bypassed(enemy_group_three_two)
- 
-    # mission_four()
-
+        mission_four()
+    
 
 def mission_four():
     global player_experience
