@@ -142,6 +142,14 @@ A cruiser to lose 20% of its 20 Marines when damaged
 
 I chose these values because Marines in the Lost Fleet setting wear vacuum rated combat armour that offers excellent personal protection. I considered that some of a capital ships' Marines would be lost, but that a considerable majority would survive and be rescued thanks to their armour. 
 
+Towards the end of the project's development, I decided to tackle the numerous formatting errors that had cropped up. Since the project contains many long strings of text that help inform the player, reformatting was challenging. 
+
+For function calls with several arguments, I placed the arguments onto indented new lines
+
+For inputs assigned to variables, I used the backslash character to place the continuation text onto new lines
+
+For strings, I tried several methods, such as string concatenation, but I ran into under-indentation and over-indentation errors. I found that indenting one tab and 2 spaces or 6 spaces solved this, but then noted that mixing spaces and tabs is not allowed in Python. This also produced very messy code. I eventually resorted to shortening my print statements so that none went over 79 characters. Whilst initially annoying, after a while I determined that I had probably been too verbose with my text. Reducing line lengths forced me to be clearer and more concise
+
 # Future Work
 
 armour rating
