@@ -1694,14 +1694,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         global enemy_groups_destroyed
 
         player_firepower = calculate_player_firepower(player_ships)
-        
+
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
 
         print('You: we have several options:')
         for key, value in tactical_library.items():
             print(f'{key} - We can {value}')
-        
+
         try:
             tactic = int(input(
                 'Type a number from 1 to 6 to select your tactic:\n'))
@@ -1715,7 +1715,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('You: We will aim to hit 25% of them in our firing run')
                 print('Roth: A sound plan - maximum concentration of force\n')
                 target_factor = 0.25
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
 
                 for key, value in player_ships.items():
                     print(f'Roth: We have {value} {key}')
@@ -1726,83 +1727,101 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print(f'Roth: We will be facing {value} {key}')
                 print('\n')
 
-                effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+                effective_enemy_firepower = (
+                    calculate_effective_enemy_firepower(
+                        effective_enemy_strength))
 
-                print(f'Roth: We will face {effective_enemy_firepower} enemy turrets\n')
-                effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+                print(f'Roth: They have {effective_enemy_firepower} turrets\n')
+                effective_firepower_difference = firepower_comparator(
+                    player_firepower, effective_enemy_firepower)
+                efd = effective_firepower_difference
+                #  efd is used here because of line length issues
                 if effective_firepower_difference < 0:
-                    print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+                    print(f'Roth: We will have {abs(efd)} fewer turrets')
                 elif effective_firepower_difference > 0:
-                    print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+                    print(f'Roth: We will have {efd} more turrets')
                 elif effective_firepower_difference == 0:
-                    print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
-                # More print statements here refering to 'combat power' - the square law results
+                    print('Roth: What a coincidence!')
+                    print('Both our fleets have the same nunber of turrets!')
+                # More print statements here refering to 'combat power'
 
-                player_combat_power = player_combat_power_calculator(player_firepower)
-                effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-                differential = player_combat_power - effective_enemy_combat_power
+                player_combat_power = player_combat_power_calculator(
+                    player_firepower)
+                effective_enemy_combat_power = (
+                    effective_enemy_combat_power_calculator(
+                        effective_enemy_firepower))
+                diff = player_combat_power - effective_enemy_combat_power
 
-                if differential > 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
-                    firepower_factor = (combat_power_difference / player_firepower)
-                    losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-                
-                elif differential == 0:
+                if diff > 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: We have the advantage in combat power')
+                    firepower_factor = (
+                        combat_power_difference / player_firepower)
+                    losses_factor = (
+                        (effective_enemy_firepower / combat_power_difference))
+                    losses_factor = losses_factor / 5
+
+                elif diff == 0:
                     combat_power_difference = 1
-                    print('Roth: There is no effective difference in combat power')
-                    print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                    print('Roth: There is no difference in combat power')
+                    print('Roth: We are evenly matched')
+                    print('Roth: Are you sure this is a good idea?')
                     if player_experience > 1.0:
-                        print('Roth: Our combat experience may give us a slight advantage, but not much')
+                        print('Roth: Our experience gives us a advantage')
+                        print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
                     losses_factor = 0.50
 
-                elif differential < 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
-                    print('Roth: This is a bad idea Admiral. We should consider another approach')
-                    firepower_factor = (player_firepower / combat_power_difference) / 5
-                    losses_factor = (combat_power_difference / effective_enemy_firepower)
+                elif diff < 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: They have the advantage in combat power')
+                    print('Roth: This is a bad idea Admiral')
+                    print('Roth: We should consider another approach')
+                    firepower_factor = (
+                        player_firepower / combat_power_difference) / 5
+                    losses_factor = (
+                        combat_power_difference / effective_enemy_firepower)
 
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
                 projected_player_losses = (round(losses_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+                ped = projected_enemy_destroyed
+                ppl = projected_player_losses
 
-                print('Roth: Shall we conduct a firing run targeting 25% of the enemy ships?')
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print(f'Roth: We will probably lose {ppl}% of our ships')
+                print('Roth: We will consume a about 1% of our fuel and ammo')
+                print('\n')
+
+                print('Roth: Shall we proceed?')
                 while True:
-                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to make your attack, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: I like the sound of those odds')
-                        print('You: All ships, fire as targets enter weapons range!')
+                        print('You: All ships, fire at will!')
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
                                 firepower_factor, player_experience)
                         player_ships = update_player(losses_factor)
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter either y or n')
 
             elif tactic == 2:
                 print('You: We will hit half of their ships in our firing run')
                 target_factor = 0.50
-                
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
 
                 for key, value in player_ships.items():
                     print(f'Roth: We have {value} {key}')
@@ -1813,84 +1832,101 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print(f'Roth: We will be facing {value} {key}')
                 print('\n')
 
-                effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+                effective_enemy_firepower = (
+                    calculate_effective_enemy_firepower(
+                        effective_enemy_strength))
 
-                print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
-                effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+                print(f'Roth: They have {effective_enemy_firepower} turrets\n')
+                effective_firepower_difference = firepower_comparator(
+                    player_firepower, effective_enemy_firepower)
+                efd = effective_firepower_difference
+                #  efd is used here because of line length issues
                 if effective_firepower_difference < 0:
-                    print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+                    print(f'Roth: We will have {abs(efd)} fewer turrets')
                 elif effective_firepower_difference > 0:
-                    print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+                    print(f'Roth: We will have {efd} more turrets')
                 elif effective_firepower_difference == 0:
-                    print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
+                    print('Roth: What a coincidence!')
+                    print('Both our fleets have the same nunber of turrets!')
+                # More print statements here refering to 'combat power'
 
-                # More print statements here refering to 'combat power' - the square law results
+                player_combat_power = player_combat_power_calculator(
+                    player_firepower)
+                effective_enemy_combat_power = (
+                    effective_enemy_combat_power_calculator(
+                        effective_enemy_firepower))
+                diff = player_combat_power - effective_enemy_combat_power
 
-                player_combat_power = player_combat_power_calculator(player_firepower)
-                effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-                differential = player_combat_power - effective_enemy_combat_power
+                if diff > 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: We have the advantage in combat power')
+                    firepower_factor = (
+                        combat_power_difference / player_firepower)
+                    losses_factor = (
+                        (effective_enemy_firepower / combat_power_difference))
+                    losses_factor = losses_factor / 5
 
-                if differential > 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
-                    firepower_factor = (combat_power_difference / player_firepower)
-                    losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-                
-                elif differential == 0:
+                elif diff == 0:
                     combat_power_difference = 1
-                    print('Roth: There is no effective difference in combat power')
-                    print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                    print('Roth: There is no difference in combat power')
+                    print('Roth: We are evenly matched')
+                    print('Roth: Are you sure this is a good idea?')
                     if player_experience > 1.0:
-                        print('Roth: Our combat experience may give us a slight advantage, but not much')
+                        print('Roth: Our experience gives us a advantage')
+                        print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
                     losses_factor = 0.50
 
-                elif differential < 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
-                    print('Roth: This is a bad idea Admiral. We should consider another approach')
-                    firepower_factor = (player_firepower / combat_power_difference) / 5
-                    losses_factor = (combat_power_difference / effective_enemy_firepower)
+                elif diff < 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: They have the advantage in combat power')
+                    print('Roth: This is a bad idea Admiral')
+                    print('Roth: We should consider another approach')
+                    firepower_factor = (
+                        player_firepower / combat_power_difference) / 5
+                    losses_factor = (
+                        combat_power_difference / effective_enemy_firepower)
 
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
                 projected_player_losses = (round(losses_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+                ped = projected_enemy_destroyed
+                ppl = projected_player_losses
 
-                print('Roth: Shall we conduct a firing run targeting 50% of the enemy ships?')
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print(f'Roth: We will probably lose {ppl}% of our ships')
+                print('Roth: We will consume a about 1% of our fuel and ammo')
+                print('\n')
+
+                print('Roth: Shall we proceed?')
                 while True:
-                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to make your attack, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: I like the sound of those odds')
-                        print('You: All ships, fire as targets enter weapons range!')
+                        print('You: All ships, fire at will!')
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
                                 firepower_factor, player_experience)
                         player_ships = update_player(losses_factor)
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter either y or n')
-        
+
             elif tactic == 3:
-                print('You: We will aim to hit three-quarters of them in our firing run')
+                print('You: We will aim to hit three-quarters of them')
                 target_factor = 0.75
-                
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
 
                 for key, value in player_ships.items():
                     print(f'Roth: We have {value} {key}')
@@ -1901,85 +1937,102 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print(f'Roth: We will be facing {value} {key}')
                 print('\n')
 
-                effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+                effective_enemy_firepower = (
+                    calculate_effective_enemy_firepower(
+                        effective_enemy_strength))
 
-                print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
-                effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+                print(f'Roth: They have {effective_enemy_firepower} turrets\n')
+                effective_firepower_difference = firepower_comparator(
+                    player_firepower, effective_enemy_firepower)
+                efd = effective_firepower_difference
+                #  efd is used here because of line length issues
                 if effective_firepower_difference < 0:
-                    print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+                    print(f'Roth: We will have {abs(efd)} fewer turrets')
                 elif effective_firepower_difference > 0:
-                    print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+                    print(f'Roth: We will have {efd} more turrets')
                 elif effective_firepower_difference == 0:
-                    print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
+                    print('Roth: What a coincidence!')
+                    print('Both our fleets have the same nunber of turrets!')
+                # More print statements here refering to 'combat power'
 
-                # More print statements here refering to 'combat power' - the square law results
+                player_combat_power = player_combat_power_calculator(
+                    player_firepower)
+                effective_enemy_combat_power = (
+                    effective_enemy_combat_power_calculator(
+                        effective_enemy_firepower))
+                diff = player_combat_power - effective_enemy_combat_power
 
-                player_combat_power = player_combat_power_calculator(player_firepower)
-                effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-                differential = player_combat_power - effective_enemy_combat_power
+                if diff > 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: We have the advantage in combat power')
+                    firepower_factor = (
+                        combat_power_difference / player_firepower)
+                    losses_factor = (
+                        (effective_enemy_firepower / combat_power_difference))
+                    losses_factor = losses_factor / 5
 
-                if differential > 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
-                    firepower_factor = (combat_power_difference / player_firepower)
-                    losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-                
-                elif differential == 0:
+                elif diff == 0:
                     combat_power_difference = 1
-                    print('Roth: There is no effective difference in combat power')
-                    print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                    print('Roth: There is no difference in combat power')
+                    print('Roth: We are evenly matched')
+                    print('Roth: Are you sure this is a good idea?')
                     if player_experience > 1.0:
-                        print('Roth: Our combat experience may give us a slight advantage, but not much')
+                        print('Roth: Our experience gives us a advantage')
+                        print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
                     losses_factor = 0.50
 
-                elif differential < 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
-                    print('Roth: This is a bad idea Admiral. We should consider another approach')
-                    firepower_factor = (player_firepower / combat_power_difference) / 5
-                    losses_factor = (combat_power_difference / effective_enemy_firepower)
-
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
+                elif diff < 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: They have the advantage in combat power')
+                    print('Roth: This is a bad idea Admiral')
+                    print('Roth: We should consider another approach')
+                    firepower_factor = (
+                        player_firepower / combat_power_difference) / 5
+                    losses_factor = (
+                        combat_power_difference / effective_enemy_firepower)
 
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
                 projected_player_losses = (round(losses_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+                ped = projected_enemy_destroyed
+                ppl = projected_player_losses
 
-                print('Roth: Shall we conduct a firing run targeting 75% of the enemy ships?')
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print(f'Roth: We will probably lose {ppl}% of our ships')
+                print('Roth: We will consume a about 1% of our fuel and ammo')
+                print('\n')
+
+                print('Roth: Shall we proceed?')
                 while True:
-                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to make your attack, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: I like the sound of those odds')
-                        print('You: All ships, fire as targets enter weapons range!')
+                        print('You: All ships, fire at will!')
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
                                 firepower_factor, player_experience)
                         player_ships = update_player(losses_factor)
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter either y or n')
-        
+
             elif tactic == 4:
                 print('You: Maximum attack! Target all enemy ships!')
                 target_factor = 1
-                
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
 
                 for key, value in player_ships.items():
                     print(f'Roth: We have {value} {key}')
@@ -1990,77 +2043,93 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print(f'Roth: We will be facing {value} {key}')
                 print('\n')
 
-                effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+                effective_enemy_firepower = (
+                    calculate_effective_enemy_firepower(
+                        effective_enemy_strength))
 
-                print(f'Roth: We will face {effective_enemy_firepower} enemy turrets')
-                effective_firepower_difference = firepower_comparator(player_firepower, effective_enemy_firepower)
+                print(f'Roth: They have {effective_enemy_firepower} turrets\n')
+                effective_firepower_difference = firepower_comparator(
+                    player_firepower, effective_enemy_firepower)
+                efd = effective_firepower_difference
+                #  efd is used here because of line length issues
                 if effective_firepower_difference < 0:
-                    print(f'Roth: With this tactic, we will have {abs(effective_firepower_difference)} fewer turrets than the enemy')
+                    print(f'Roth: We will have {abs(efd)} fewer turrets')
                 elif effective_firepower_difference > 0:
-                    print(f'Roth: With this tactic, we will have {effective_firepower_difference} more turrets than the enemy')
+                    print(f'Roth: We will have {efd} more turrets')
                 elif effective_firepower_difference == 0:
-                    print('Roth: What a coincidence! Both our fleet and the enemy fleet have the same nunber of turrets!')
+                    print('Roth: What a coincidence!')
+                    print('Both our fleets have the same nunber of turrets!')
+                # More print statements here refering to 'combat power'
 
-                # More print statements here refering to 'combat power' - the square law results
+                player_combat_power = player_combat_power_calculator(
+                    player_firepower)
+                effective_enemy_combat_power = (
+                    effective_enemy_combat_power_calculator(
+                        effective_enemy_firepower))
+                diff = player_combat_power - effective_enemy_combat_power
 
-                player_combat_power = player_combat_power_calculator(player_firepower)
-                effective_enemy_combat_power = effective_enemy_combat_power_calculator(effective_enemy_firepower)
-                differential = player_combat_power - effective_enemy_combat_power
+                if diff > 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: We have the advantage in combat power')
+                    firepower_factor = (
+                        combat_power_difference / player_firepower)
+                    losses_factor = (
+                        (effective_enemy_firepower / combat_power_difference))
+                    losses_factor = losses_factor / 5
 
-                if differential > 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in our favour')
-                    firepower_factor = (combat_power_difference / player_firepower)
-                    losses_factor = (effective_enemy_firepower / combat_power_difference) / 5
-                
-                elif differential == 0:
+                elif diff == 0:
                     combat_power_difference = 1
-                    print('Roth: There is no effective difference in combat power')
-                    print('Roth: We are evenly matched. Are you sure this is a good idea?')
+                    print('Roth: There is no difference in combat power')
+                    print('Roth: We are evenly matched')
+                    print('Roth: Are you sure this is a good idea?')
                     if player_experience > 1.0:
-                        print('Roth: Our combat experience may give us a slight advantage, but not much')
+                        print('Roth: Our experience gives us a advantage')
+                        print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
                     losses_factor = 0.50
 
-                elif differential < 0:
-                    combat_power_difference = combat_power_difference_calculator(differential)
-                    print(f'Roth: The difference in combat power is {combat_power_difference} in their favour')
-                    print('Roth: This is a bad idea Admiral. We should consider another approach')
-                    firepower_factor = (player_firepower / combat_power_difference) / 5
-                    losses_factor = (combat_power_difference / effective_enemy_firepower)
-
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses_factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
+                elif diff < 0:
+                    combat_power_difference = (
+                        combat_power_difference_calculator(diff))
+                    print('Roth: They have the advantage in combat power')
+                    print('Roth: This is a bad idea Admiral')
+                    print('Roth: We should consider another approach')
+                    firepower_factor = (
+                        player_firepower / combat_power_difference) / 5
+                    losses_factor = (
+                        combat_power_difference / effective_enemy_firepower)
 
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
                 projected_player_losses = (round(losses_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will probably lose {projected_player_losses}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+                ped = projected_enemy_destroyed
+                ppl = projected_player_losses
 
-                print('Roth: Shall we conduct a firing run targeting all of the enemy ships?')
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print(f'Roth: We will probably lose {ppl}% of our ships')
+                print('Roth: We will consume a about 1% of our fuel and ammo')
+                print('\n')
+
+                print('Roth: Shall we proceed?')
                 while True:
-                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to make your attack, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: I like the sound of those odds')
-                        print('You: All ships, fire as targets enter weapons range!')
+                        print('You: All ships, fire at will!')
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
                                 firepower_factor, player_experience)
                         player_ships = update_player(losses_factor)
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter either y or n')
 
@@ -2068,23 +2137,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 global missile_volleys
                 print('You: Fire missiles!')
                 if missile_volleys >= 2:
-                    print(f'Roth: We currently have enough missiles for {missile_volleys} barrages')
+                    print(f'Roth: We can fire {missile_volleys} barrages')
                 elif missile_volleys == 1:
-                    print('Roth: We currently have enough missiles for 1 barrage')
+                    print('Roth: We have enough missiles for 1 barrage')
                 elif missile_volleys > 0 and missile_volleys < 1:
-                    print('Roth: We have some missiles, but not enough to break through enemy point defences')
+                    print('Roth: We have some missiles')
+                    print("Roth: But we can't break through enemy defences")
                     fight_engagement(enemy_firepower, enemy_group_strength)
                 elif missile_volleys == 0:
                     print('Roth: We currently have no missiles remaining')
                     fight_engagement(enemy_firepower, enemy_group_strength)
-                
+
                 target_factor = 1
 
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
                 missiles_fired = (
-                    player_ships['battleships'] * missile_launchers['battleships']
-                    + player_ships['cruisers'] * missile_launchers['cruisers']
-                    + player_ships['escorts'] * missile_launchers['escorts']
+                    (player_ships['battleships']
+                        * missile_launchers['battleships'])
+                    + (player_ships['cruisers']
+                        * missile_launchers['cruisers'])
+                    + (player_ships['escorts']
+                        * missile_launchers['escorts'])
                 )
                 for key, value in player_ships.items():
                     print(f'Roth: We have {value} {key}')
@@ -2092,12 +2166,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 for key, value in effective_enemy_strength.items():
                     print(f'Roth: Our missiles will target {value} {key}')
                 print('\n')
-                
-                effective_enemy_firepower = calculate_effective_enemy_firepower(effective_enemy_strength)
+
+                effective_enemy_firepower = (
+                    calculate_effective_enemy_firepower(
+                        effective_enemy_strength))
                 print('Roth: Our missiles have a long range')
                 print('Roth: We will not face any return fire')
-                print(f'Roth: Based on the number of ships we have, we will fire {missiles_fired} missiles')
-                print(f'Roth: We will use up 1 of our {missile_volleys} missile barrages')
+                print(f'Roth: We will fire {missiles_fired} missiles')
+                print('Roth: We will use up 1 of our missile barrages')
 
                 firepower_factor = (missiles_fired / effective_enemy_firepower)
                 if firepower_factor > 1:
@@ -2111,14 +2187,17 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 """
 
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will not lose any of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammunition\n')
+                ped = projected_enemy_destroyed
+
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print('Roth: We will not lose any of our ships')
+                print('Roth: We will consume a about 1% of our fuel and ammo')
+                print('\n')
 
                 print('Roth: Shall we fire a missile barrage?')
                 while True:
-                    proceed_decision = input('Press y to fire a missile barrage, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to fire missiles, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: Fire missiles!')
                         print('Roth: Firing missiles!\n')
@@ -2127,34 +2206,36 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                                 firepower_factor, player_experience)
                         player_ships = update_player(losses_factor)
                         missile_volleys -= 1
-                        print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
+                        print(f'Roth: We now have {missile_volleys} barrages')
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: We would be wasting our missiles')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter either y or n')
-        
+
             elif tactic == 6:
                 global mine_stocks
-                print('You: We will layer a minefield and lure the enemy into it')
+                print('You: We will lay mines and lure the enemy into them')
                 if mine_stocks >= 2:
-                    print(f'Roth: We currently have enough mines for {mine_stocks} fields')
+                    print(f'Roth: We have mines for {mine_stocks} fields')
                 elif mine_stocks == 1:
-                    print('Roth: We currently have enough mines for 1 minefield')
+                    print('Roth: We have enough mines for 1 minefield')
                 elif mine_stocks > 0 and mine_stocks < 1:
-                    print('Roth: We have some mines, but not enough to lay a decent field')
+                    print('Roth: We have some mines')
+                    print('Roth: But not enough to lay a decent field')
                     fight_engagement(enemy_firepower, enemy_group_strength)
                 elif mine_stocks == 0:
                     print('Roth: We currently have no mines remaining')
                     fight_engagement(enemy_firepower, enemy_group_strength)
-                
+
                 target_factor = 1
-                effective_enemy_strength = calculate_effective_enemy_strength(enemy_group_strength, target_factor)
+                effective_enemy_strength = calculate_effective_enemy_strength(
+                    enemy_group_strength, target_factor)
                 mines_laid = (
                     player_ships['battleships'] * mine_layers['battleships']
                     + player_ships['cruisers'] * mine_layers['cruisers']
@@ -2165,10 +2246,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 for key, value in effective_enemy_strength.items():
                     print(f'Roth: Our mines will target {value} {key}')
                 print('\n')
-                
-                print('Roth: Since we are luring the enemy into a trap, we will not face return fire')
-                print('Roth: However, we will need to manoeuvre a lot to lay the minefield and get out of enemy weapons range')
-                print(f'Roth: Based on the number of capital ships we have, we will lay {mines_laid} mines')
+
+                print('Roth: We are luring the enemy into a trap')
+                print('Roth: We will not face return fire')
+                print('Roth: However, we will need to burn a lot of fuel')
+                print(f'Roth: We will lay {mines_laid} mines')
 
                 total_enemy_ships = (
                     effective_enemy_strength['battleships']
@@ -2180,21 +2262,17 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     firepower_factor = 1
                 losses_factor = 0
 
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
-
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
-                
-                print(f'Roth: We can probably destroy {projected_enemy_destroyed}% of the targeted enemy ships')
-                print(f'Roth: We will not lose any of our ships')
+                ped = projected_enemy_destroyed
+
+                print(f'Roth: We can probably destroy {ped}% of the enemy')
+                print('Roth: We will not lose any of our ships')
                 print('Roth: We will consume a about 2% of our fuel\n')
 
                 print('Roth: Shall we lay a minefield?')
                 while True:
-                    proceed_decision = input('Press y to lay a minefield, or n to break off:\n')
+                    proceed_decision = input(
+                        'Press y to lay a minefield, or n to break off:\n')
                     if proceed_decision == 'y':
                         print('You: Yes - lay mines')
                         print('Roth: Deploying mines now Admiral\n')
@@ -2204,20 +2282,20 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         player_ships = update_player(losses_factor)
                         player_supplies -= 1
                         mine_stocks -= 1
-                        print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
+                        print(f'Roth: We can now lay {mine_stocks} minefields')
                         break
-                    
+
                     elif proceed_decision == 'n':
                         print('You: We would be wasting our mines')
                         print('You: I will consider a different approach\n')
                         fight_engagement(enemy_firepower, enemy_group_strength)
                         break
-                    
+
                     else:
                         print('Please enter y or n')
 
         except ValueError:
-            print('Please enter a number between 1 and 6 to select your tactic')
+            print('Enter a number between 1 and 6 to select your tactic')
             player_supplies += 1
             fight_engagement(enemy_firepower, enemy_group_strength)
 
@@ -2227,34 +2305,27 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         for key, value in enemy_local_losses.items():
             print(f'Roth: We destroyed {value} enemy {key} in that firing run')
         print('\n')
-        
+
         for key, value in enemy_group_strength.items():
             print(f'Roth: The enemy now has {value} {key} remaining')
         print('\n')
-        
+
         for key, value in player_local_losses.items():
             print(f'Roth: That run cost us {value} {key}')
-        print('\n')   
-        
+        print('\n')
+
         for key, value in player_ships.items():
             print(f'Roth: We now have {value} {key}')
         print('\n')
-        """
-        for key, value in player_total_destroyed.items():
-            print(f'We have lost {value} {key} in total')
 
-        for key, value in enemy_losses.items():
-            print(f'The enemy have lost {value} {key} in total')
-        
-        INCLUDED FOR CHECKING PURPOSES ONLY
-        """
-
-        if player_ships['battleships'] == 0 and player_ships['cruisers'] == 0 and player_ships['escorts'] == 0:
+        if (player_ships['battleships'] == 0 and
+            player_ships['cruisers'] == 0 and
+                player_ships['escorts'] == 0):
             print('Roth: Shields failing Admiral!')
             print('Roth: Multiple hull breaches!')
             print('Roth: The reactor is melting down!')
             print('Roth: Oh Sh......')
-            print('Your tactical decisions have led to the destruction of your fleet')
+            print('Your tactical decisions have resulted in defeat')
             print('Would you like to try again?')
             new_game_decision = input('Press y to try again or n to quit:\n')
             if new_game_decision == 'y':
@@ -2269,7 +2340,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: We cannot fight back!')
             print('You: Very well, broadcast surrender')
             print('You have run out of supplies and have lost the game')
-            print('Next time, keep an eye on your supply levels and conserve them')
+            print('Next time, keep an eye on your fuel and ammo')
             print('Would you like to try again?')
             new_game_decision = input('Press y to try again or n to quit:\n')
             if new_game_decision == 'y':
@@ -2278,28 +2349,38 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif new_game_decision == 'n':
                 main()
 
-        elif enemy_group_strength['battleships'] > 0 or enemy_group_strength['cruisers'] > 0 or enemy_group_strength['escorts'] > 0:
+        elif (enemy_group_strength['battleships'] > 0 or
+                enemy_group_strength['cruisers'] > 0 or
+                enemy_group_strength['escorts'] > 0):
             print('Roth: The enemy group has still active ships Admiral!')
             print('Roth: Shall we re-engage?')
-            reengage_decision = input('Press y to re-engage the enemy, or n to leave them for follow-on forces:\n')
+            reengage_decision = input(
+                'Press y to re-engage the enemy, or n to leave them:\n')
             if reengage_decision == 'y':
                 print('You: Indeed we shall! Good hunting!')
                 fight_engagement(enemy_firepower, enemy_group_strength)
             elif reengage_decision == 'n':
-                print('You: We have done enough damage, and I do not want to risk our ships further')
-                enemy_bypassed = update_enemy_bypassed(enemy_group_strength)
+                print('You: We have done enough damage')
+                print('You: I do not want to risk our ships further')
+                update_enemy_bypassed(enemy_group_strength)
                 enemy_groups_damaged += 1
 
                 player_total_destroyed = {
-                    'battleships': player_total_destroyed['battleships'] + player_destroyed_ships['battleships'],
-                    'cruisers': player_total_destroyed['cruisers'] + player_destroyed_ships['cruisers'],
-                    'escorts': player_total_destroyed['escorts'] + player_destroyed_ships['escorts']
+                    'battleships': player_total_destroyed['battleships'] + (
+                        player_destroyed_ships['battleships']),
+                    'cruisers': player_total_destroyed['cruisers'] + (
+                        player_destroyed_ships['cruisers']),
+                    'escorts': player_total_destroyed['escorts'] + (
+                        player_destroyed_ships['escorts'])
                 }
 
                 player_total_damaged = {
-                    'battleships': player_total_damaged['battleships'] + player_damaged_ships['battleships'],
-                    'cruisers': player_total_damaged['cruisers'] + player_damaged_ships['cruisers'],
-                    'escorts': player_total_damaged['escorts'] + player_damaged_ships['escorts']
+                    'battleships': player_total_damaged['battleships'] + (
+                        player_damaged_ships['battleships']),
+                    'cruisers': player_total_damaged['cruisers'] + (
+                        player_damaged_ships['cruisers']),
+                    'escorts': player_total_damaged['escorts'] + (
+                        player_damaged_ships['escorts'])
                 }
 
                 for key, value in enemy_battle_losses.items():
@@ -2307,7 +2388,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('\n')
 
                 for key, value in player_battle_losses.items():
-                    print(f'Roth: {value} of our {key} were knocked out in that battle')
+                    print(f'Roth: {value} of our {key} were knocked out')
                 print('\n')
 
                 print('Roth: Of those...\n')
@@ -2316,85 +2397,93 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 excess_crew_calculator()
 
                 for key, value in player_destroyed_ships.items():
-                    print(f'Roth: {value} of our {key} were destroyed outright')
+                    print(f'Roth: {value} of our {key} were destroyed')
                 print('Roth: We cannot recover them\n')
-                
+
                 for key, value in player_damaged_ships.items():
                     print(f'Roth: {value} of our {key} were badly damaged')
-                print('Roth: They cannot keep up with the fleet and will have to be left behind')
-                print('Roth: But follow-on forces might be able to repair them')
+                print('Roth: They cannot keep up with the fleet')
+                print('Roth: We will have to leave them behind')
+                print('Roth: Follow-on forces might be able to repair them')
                 print('Roth: They may return to us in time\n')
 
                 reset_battle_losses()
-                """
-                for key, value in player_total_destroyed.items():
-                    print(f'Roth: We have lost {value} {key} in total')
 
-                for key, value in enemy_bypassed.items():
-                    print(f'We have bypassed {value} {key}')
-                """
-        
-        elif enemy_group_strength['battleships'] == 0 and enemy_group_strength['cruisers'] == 0 and enemy_group_strength['escorts'] == 0:
+        elif (enemy_group_strength['battleships'] == 0 and
+                enemy_group_strength['cruisers'] == 0 and
+                enemy_group_strength['escorts'] == 0):
             print('Roth: We have knocked out all enemy ships, Admiral\n')
             enemy_groups_destroyed += 1
 
             player_total_destroyed = {
-                'battleships': player_total_destroyed['battleships'] + player_destroyed_ships['battleships'],
-                'cruisers': player_total_destroyed['cruisers'] + player_destroyed_ships['cruisers'],
-                'escorts': player_total_destroyed['escorts'] + player_destroyed_ships['escorts']
+                'battleships': player_total_destroyed['battleships'] + (
+                    player_destroyed_ships['battleships']),
+                'cruisers': player_total_destroyed['cruisers'] + (
+                    player_destroyed_ships['cruisers']),
+                'escorts': player_total_destroyed['escorts'] + (
+                    player_destroyed_ships['escorts'])
             }
 
             player_total_damaged = {
-                'battleships': player_total_damaged['battleships'] + player_damaged_ships['battleships'],
-                'cruisers': player_total_damaged['cruisers'] + player_damaged_ships['cruisers'],
-                'escorts': player_total_damaged['escorts'] + player_damaged_ships['escorts']
+                'battleships': player_total_damaged['battleships'] + (
+                    player_damaged_ships['battleships']),
+                'cruisers': player_total_damaged['cruisers'] + (
+                    player_damaged_ships['cruisers']),
+                'escorts': player_total_damaged['escorts'] + (
+                    player_damaged_ships['escorts'])
             }
 
             for key, value in enemy_battle_losses.items():
                 print(f'Roth: We destroyed {value} {key} in that battle')
-            print('\n')    
-            
+            print('\n')
+
             for key, value in player_battle_losses.items():
-                print(f'Roth: {value} of our {key} were knocked out in that battle')
+                print(f'Roth: {value} of our {key} were knocked out')
             print('\n')
 
             print('Roth: Of those...\n')
-            
+
             total_crew_calculator()
             excess_crew_calculator()
 
             for key, value in player_destroyed_ships.items():
                 print(f'Roth: {value} of our {key} were destroyed outright')
             print('Roth: We cannot recover them\n')
-            
+
             for key, value in player_damaged_ships.items():
                 print(f'Roth: {value} of our {key} were badly damaged')
-            print('Roth: They cannot keep up with the fleet and will have to be left behind')
+            print('Roth: They cannot keep up with the fleet')
+            print('Roth: They will have to be left behind')
             print('Roth: But follow-on forces might be able to repair them')
             print('Roth: They may return to us in time\n')
 
             reset_battle_losses()
-            """
-            for key, value in player_total_destroyed.items():
-                print(f'Roth: We have lost {value} {key} in total')
-            """
 
             print('Roth: Some of the enemy ships may be salvagable')
             boardable_ships = {
-                'battleships': math.floor(starting_enemy_ships['battleships'] * 0.20),
-                'cruisers': math.floor(starting_enemy_ships['cruisers'] * 0.15),
-                'escorts': math.floor(starting_enemy_ships['escorts'] * 0.10)
+                'battleships': math.floor(
+                    starting_enemy_ships['battleships'] * 0.20),
+                'cruisers': math.floor(
+                    starting_enemy_ships['cruisers'] * 0.15),
+                'escorts': math.floor(
+                    starting_enemy_ships['escorts'] * 0.10)
             }
-            
+
             print('Roth: Shall we attempt to board the enemy ships?')
-            boarding_decision = input('Press y to board and capture the enemy ships, or n to move on:\n')
-            if boarding_decision == 'y':
-                print('You: Yes, hopefully we can bolster our numbers')
-                boarding_operation(boardable_ships)
-            if boarding_decision == 'n':
-                print('You: I would rather not waste our Marines and supplies on these wrecks')
-                print('Roth: Very well, We are clear to move on')
-        
+            while True:
+                boarding_decision = input(
+                    'Press y to board the enemy ships, or n to move on:\n')
+                if boarding_decision == 'y':
+                    print('You: Yes, hopefully we can bolster our numbers')
+                    boarding_operation(boardable_ships)
+                    break
+                elif boarding_decision == 'n':
+                    print("You: These wrecks aren't worth it")
+                    print('Roth: Very well, We are clear to move on')
+                    break
+                else:
+                    print('Please enter either y or n')
+
     fight_engagement(enemy_firepower, enemy_group_strength)
 
 
@@ -2428,7 +2517,7 @@ def excess_crew_calculator():
         + minimum_ship_crew['escort'] * player_ships['escorts']
     )
     return excess_crew
-    
+
 
 def firepower_comparator(player_firepower, enemy_firepower):
     """
@@ -2497,13 +2586,13 @@ def effective_enemy_combat_power_calculator(effective_enemy_firepower):
     return effective_enemy_combat_power
 
 
-def combat_power_difference_calculator(differential):
+def combat_power_difference_calculator(diff):
     """
-    Finds square root of the differential
-    Converts differential to positive if necessary so that square root can be performed
+    Finds square root of the diff
+    Converts diff to positive if necessary so that square root can be performed
     Returns combat_power_difference
     """
-    combat_power_difference = math.sqrt(abs(differential))
+    combat_power_difference = math.sqrt(abs(diff))
     return combat_power_difference
 
 
