@@ -293,24 +293,42 @@ def new_game():
     print('Roth: From here you can issue orders to your fleet in battle')
     print('Roth: I will keep you updated with pertinent information')
     print('Roth: Do you want to see the status of the fleet now?')
-    fleet_status_decision = input('Please press y to see fleet status or n to move on:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Do you want to see the capabilities of our ships?')
-    fleet_capabilities_decision = input('Please press y to see what each part of your fleet is capable of, or n to move on\n')
-    if fleet_capabilities_decision == 'y':
-        ship_capabilities()
-    else:
-        print('Indeed - a good naval officer should know the capabilities of their ships by heart')
+    while True:
+        fleet_capabilities_decision = input('Press y to see what each part of your fleet is capable of, or n to move on\n').lower()
+        if fleet_capabilities_decision == 'y':
+            ship_capabilities()
+            break
+        elif fleet_capabilities_decision == 'n':
+            print('Indeed - a good naval officer should know the capabilities of their ships by heart')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: I wonder, Admiral, could you tell me what tactics we can use?')
-    explain_tactics = input('Press y to get an explanation of what tactics you can employ, or n to move on:\n')
-    if explain_tactics == 'y':
-        print('You: Of course, Captain')
-        tactics()
-    elif explain_tactics == 'n':
-        print('You: You will just have to watch and learn Roth.')
+    while True:
+        explain_tactics = input('Press y to get an explanation of what tactics you can employ, or n to move on:\n')
+        if explain_tactics == 'y':
+            print('You: Of course, Captain')
+            tactics()
+            break
+        elif explain_tactics == 'n':
+            print('You: You will just have to watch and learn Roth.')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Now that is done, I will brief you, Admiral')
     print('Roth: The Syndicate Worlds have launched major attacks at multiple points along the frontier. '
     + 'Our fleet has been assembled to stop the enemy and plug the holes in our lines. '
@@ -341,8 +359,11 @@ def mission_one():
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_one)
     player_firepower = calculate_player_firepower(player_ships)
-    print('This is the first mission - you can expect light combat with no real consequences to your actions, so experiment and get a feel for the game.\n')
-    print(f'Roth: Admiral {player_name}, sensors have detected a group of enemy warships at the jump point from Salamis!')
+    print('This is the first mission - you can expect light combat \n\
+    with no real consequences to your actions, so \n\
+    experiment and get a feel for the game.\n')
+    print(f'Roth: Admiral {player_name}, sensors have detected a \n\
+        group of enemy warships at the jump point from Salamis!')
     print('Roth: The tactical suite is updating now - this group looks small')
     for key, value in enemy_group_one.items():
         print(f'Roth: The enemy have {value} {key}')
@@ -354,23 +375,33 @@ def mission_one():
     
     print('Roth: Admiral, if we choose, we should be able to take them easily!')
     print('Roth: Admiral, shall we engage?')
-    engage_decision_mission_one = input('Press y to engage the enemy, or n to find worthier prey:\n')
-    if engage_decision_mission_one == 'y':
-        print('You: We engage! All hands - battle stations!')
-        fight_battle(enemy_firepower, enemy_group_one)
-        player_experience += 0.1
-        print('Roth: Congratulations Admiral - the gunnery crews are already notching their barrels.')
-    elif engage_decision_mission_one == 'n':
-        print('You: This is not worth our time. Disengage and leave them for follow-on forces.')
-        print('Roth: Discretion is the better part of valour, Admiral')
-        update_enemy_bypassed(enemy_group_one)
-        enemy_groups_bypassed += 1
+    while True:
+        engage_decision_mission_one = input('Press y to engage the enemy,\
+            or n to find worthier prey:\n').lower()
+        if engage_decision_mission_one == 'y':
+            print('You: We engage! All hands - battle stations!')
+            fight_battle(enemy_firepower, enemy_group_one)
+            player_experience += 0.1
+            print('Roth: Congratulations Admiral - the gunnery \
+                crews are already notching their barrels.')
+            break
+        elif engage_decision_mission_one == 'n':
+            print('You: This is not worth our time. Disengage and leave \
+                them for follow-on forces.')
+            print('Roth: Discretion is the better part of valour, Admiral')
+            update_enemy_bypassed(enemy_group_one)
+            enemy_groups_bypassed += 1
+            break
+        else:
+            print('Please enter y or n')
   
-    print('Roth: Admiral, that enemy group came from the neighbouring system of Salamis. '
-        + 'Given their size, they were almost certainly detached from a larger group. ')
-    print('You: I concur - we can expect heavy resistance at Salamis. '
-        + 'All hands, stand down and prepare for FTL. '
-        + 'Roth, lay course for Salamis.')
+    print('Roth: Admiral, that enemy group came from the \
+        neighbouring system of Salamis. Given their size, \
+        they were almost certainly detached \
+        from a larger group. ')
+    print('You: I concur - we can expect heavy resistance \
+        at Salamis. All hands, secure from battle stations\
+        and prepare for FTL. Roth, lay course for Salamis.')
     mission_two()
 
 
@@ -383,11 +414,17 @@ def mission_two():
     global enemy_groups_bypassed
     print('\n  BEGIN MISSION TWO  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Arriving at Salamis in 3....2...1')
     print('Roth: Looks like the enemy is here in strength, Admiral, as predicted. ')
     enemy_group_two = {
@@ -407,15 +444,22 @@ def mission_two():
 
     print('Roth: This will be a tough battle, Admiral')
     print('Roth: Shall we engage?')
-    engage_decision_mission_two = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_two == 'y':
-        print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
-        fight_battle(enemy_firepower, enemy_group_two)
-        player_experience += 0.1
-    elif engage_decision_mission_two == 'n':
-        print('You: I think not - follow-on forces should be able to handle them')
-        update_enemy_bypassed(enemy_group_two)
-        enemy_groups_bypassed += 1
+    while True:
+        engage_decision_mission_two = input('press y to engage, or n to disengage:\n')
+        if engage_decision_mission_two == 'y':
+            print('You: Indeed we shall, we cannot allow a force of this strength to roam free')
+            fight_battle(enemy_firepower, enemy_group_two)
+            player_experience += 0.1
+            break
+
+        elif engage_decision_mission_two == 'n':
+            print('You: I think not - follow-on forces should be able to handle them')
+            update_enemy_bypassed(enemy_group_two)
+            enemy_groups_bypassed += 1
+            break
+
+        else:
+            print('Please enter either y or n')
     print('\n')
     print("Roth: Admiral, this group and the last group likely constituted one of the Syndicate Worlds' main assault groups")
     print('Roth: Command estimates that the Syndics sent at least 4 such groups')
@@ -434,11 +478,17 @@ def mission_three():
     global enemy_groups_damaged
     print('\n  BEGIN MISSION THREE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Arriving at Osiris in 3...2....1')
     print('You: Status report!')
     print('Roth: The enemy appears to be here in strength Admiral')
@@ -571,63 +621,86 @@ def mission_three():
         mine_stocks += 1
     
     print('Roth: Shall we aid Osiris?')
-    engage_decision_mission_three = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_three == 'y':
-        print('You: Indeed we shall, Osiris is an important staging area - it must not fall')
-        print('\n')
-        print('You: It appears we have several options')
-        print('You: One - we could aid the Osiris group')
-        print('You: Two - or we could stop that boarding operation on the Osiris dockyards')
-        print('You: I just need to decide which groups to engage, and in what order')
-        engage_decision_one = input('Type either 1 or 2 to select which group to engage first:\n')
-        
-        if engage_decision_one == '1':
-            osiris_fleet()
-        
-        elif engage_decision_one == '2':
-            osiris_docks()
-        
-        print('Roth: That is one sub-group down')
-        print('Roth: Shall we engage the other?')
-        if osiris_fleet_helped == 1:
-            engage_decision_two = input('Type y to engage the docks group or n to break off:\n')
-            if engage_decision_two == 'y':
-                osiris_docks()
-            elif engage_decision_two == 'n':
-                print('You: We have gained some allied ships')
-                print('You: Dealing with the docks group and the boarders would take ships and Marines I cannot spare')
-                update_enemy_bypassed(enemy_group_three_two)
-                mission_four()
-        
-        elif osiris_docks_helped == 1:
-            engage_decision_two = input('Type y to help the allied ships or n to break off:\n')
-            if engage_decision_two == 'y':
-                osiris_fleet()
-            elif engage_decision_two == 'n':
-                print('You: We have picked up some additonal Marines, supplies and munitions')
-                print('You: Dealing with the other group would take ships I cannot spare')
-                update_enemy_bypassed(enemy_group_three_one)
-                mission_four()
-        
-        if osiris_fleet_helped == 1 and osiris_docks_helped == 1:
-            print('Roth: Nicely done Admiral!')
-            print('Roth: Osiris is secure')
-            print('Roth: In appreciation, Osiris has released a few more ships, Marines and supplies')
-            player_ships['battleships'] += 1
-            player_ships['cruisers'] += 2
-            player_ships['escorts'] += 8
-            player_supplies += 5
-            marines += 100
-            mission_four()
-   
-    elif engage_decision_mission_three == 'n':
-        print('You: Osiris is beyond help')
-        print('You: Better to move than than spend ships and sailors trying to save a doomed system')
-        update_enemy_bypassed(enemy_group_three_one)
-        update_enemy_bypassed(enemy_group_three_two)
-        enemy_groups_bypassed += 2
-        mission_four()
-    
+    while True:
+        engage_decision_mission_three = input('press y to engage, or n to disengage:\n').lower()
+        if engage_decision_mission_three == 'y':
+            print('You: Indeed we shall, Osiris is an important staging area - it must not fall')
+            print('\n')
+            print('You: It appears we have several options')
+            print('You: One - we could aid the Osiris group')
+            print('You: Two - or we could stop that boarding operation on the Osiris dockyards')
+            print('You: I just need to decide which groups to engage, and in what order')
+            while True:
+                try:
+                    engage_decision_one = int(input('Type either 1 or 2 to select which group to engage first:\n'))
+                    if engage_decision_one == 1:
+                        osiris_fleet()
+                        break
+                    
+                    elif engage_decision_one == 2:
+                        osiris_docks()
+                        break
+                    else:
+                        print('Please enter either 1 or 2')
+                except ValueError:
+                    print('Please enter either 1 or 2')
+            
+            print('Roth: That is one sub-group down')
+            print('Roth: Shall we engage the other?')
+            if osiris_fleet_helped == 1:
+                while True:
+                    engage_decision_two = input('Type y to engage the docks group or n to break off:\n')
+                    if engage_decision_two == 'y':
+                        print('You: We need to help the garrison of the dockyards')
+                        osiris_docks()
+                        break
+                    elif engage_decision_two == 'n':
+                        print('You: We have gained some allied ships')
+                        print('You: Dealing with the docks group and the boarders would take ships and Marines I cannot spare')
+                        update_enemy_bypassed(enemy_group_three_two)
+                        break
+                    else:
+                        print('Please enter either y or n')
+            
+            elif osiris_docks_helped == 1:
+                while True:
+                    engage_decision_two = input('Type y to help the allied ships or n to break off:\n')
+                    if engage_decision_two == 'y':
+                        osiris_fleet()
+                        break
+                    elif engage_decision_two == 'n':
+                        print('You: We have picked up some additonal Marines, supplies and munitions')
+                        print('You: Dealing with the other group would take ships I cannot spare')
+                        update_enemy_bypassed(enemy_group_three_one)
+                        break
+                    else:
+                        print('Please enter either y or n')
+                    
+            if osiris_fleet_helped == 1 and osiris_docks_helped == 1:
+                print('Roth: Nicely done Admiral!')
+                print('Roth: Osiris is secure')
+                print('Roth: In appreciation, Osiris has released a few more ships, Marines and supplies')
+                player_ships['battleships'] += 1
+                player_ships['cruisers'] += 2
+                player_ships['escorts'] += 8
+                player_supplies += 5
+                marines += 100
+                
+            break
+
+        elif engage_decision_mission_three == 'n':
+            print('You: Osiris is beyond help')
+            print('You: Better to move than than spend ships and sailors trying to save a doomed system')
+            update_enemy_bypassed(enemy_group_three_one)
+            update_enemy_bypassed(enemy_group_three_two)
+            enemy_groups_bypassed += 2
+            break
+
+        else:
+            print('Please enter either y or n')
+            
+    mission_four()
+
 
 def mission_four():
     global player_experience
@@ -641,11 +714,17 @@ def mission_four():
     print('Roth: Cyrene, sir')
     print('\n  BEGIN MISSION FOUR \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Admiral, it appears intelligence was correct')
     print('Roth: The enemy is here in considerable strength')
     enemy_group_four = {
@@ -670,18 +749,24 @@ def mission_four():
     print('Roth: This will be a difficult battle, Admiral')
     print('Roth: We will have to fight smart to win this one')
     print('Roth: Shall we engage?')
-    engage_decision_mission_four = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_four == 'y':
-        print('You: We shall, we cannot allow a force of this strength to prowl our systems unchecked')
-        print('You: All hands, battle stations')
-        fight_battle(enemy_firepower, enemy_group_four)
-        player_experience += 0.1
-    elif engage_decision_mission_four == 'n':
-        print('You: We are strong, but I doubt we can over come this group without significant casualties')
-        print('You: We must break off')
-        print('You: Roth, signal follow-on forces to concentrate here')
-        update_enemy_bypassed(enemy_group_four)
-        enemy_groups_bypassed += 1
+    while True:
+        engage_decision_mission_four = input('press y to engage, or n to disengage:\n')
+        if engage_decision_mission_four == 'y':
+            print('You: We shall, we cannot allow a force of this strength to prowl our systems unchecked')
+            print('You: All hands, battle stations')
+            fight_battle(enemy_firepower, enemy_group_four)
+            player_experience += 0.1
+            break
+        elif engage_decision_mission_four == 'n':
+            print('You: We are strong, but I doubt we can over come this group without significant casualties')
+            print('You: We must break off')
+            print('You: Roth, signal follow-on forces to concentrate here')
+            update_enemy_bypassed(enemy_group_four)
+            enemy_groups_bypassed += 1
+            break
+        else:
+            print('Please enter either y or n')
+    print('\n')
     print('Roth: Admiral, a small group of allied ships has arrived')
     print('Roth: They have two messages from High Command')
     print('Roth: The first is a request that we detach 1000 veteran sailors')
@@ -691,14 +776,21 @@ def mission_four():
         print('You: Please inform them that we have no veterans to give them')
         print('Roth: Very well sir')
     elif player_experience >= 1.10:
-        crew_trade = input('Press y to trade some sailors for supplies, or n to refuse the trade')
-        if crew_trade == 'y':
-            print('You: A capital idea. We could use the supplies')
-            excess_crew -= 1000
-            player_supplies += 5
-        elif crew_trade == 'n':
-            print('You: I need those sailors for salvaging enemy ships')
-            print('You: Please communicate my apologies')
+        print('You: We have gained some combat experience')
+        while True:
+            crew_trade = input('Press y to trade some sailors for supplies, or n to refuse the trade')
+            if crew_trade == 'y':
+                print('You: A capital idea. We could use the supplies')
+                excess_crew -= 1000
+                player_supplies += 5
+                break
+            elif crew_trade == 'n':
+                print('You: I need those sailors for salvaging enemy ships')
+                print('You: Please communicate my apologies')
+                break
+            else:
+                print('Please enter either y or n')
+    print('\n')
     print('Roth: The second message contained new orders')
     print('Roth: They are directing us to Medusa Star System')
     print('Roth: Apparently an allied convoy is there fleeing a strong enemy force')
@@ -716,11 +808,17 @@ def mission_five():
 
     print('\n  BEGIN MISSION FIVE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: High command was right')
     print('Roth: Allied ships spotted')
     print('Roth: No sign of the enemy though')
@@ -731,7 +829,7 @@ def mission_five():
     print('AC: Admiral, we were in the next system over - Laconia')
     print('AC: The Syndics attacked in force')
     print('AC: They devastated the system')
-    print('AC: We are all that is left')
+    print('AC: We think we are all that is left')
     print('AC: We fled, but the enemy are no more than a few hours behind us')
     print('AC: Please sir, you must cover us')
     print('You: Transmit your records')
@@ -779,90 +877,102 @@ def mission_five():
     print('AC: Permission to join up with your fleet Admiral')
     print('AC: Our ships are damaged, and running low on fuel and ammo though')
     print('AC: Our Marine complements are also depleted')
-    join_up_decision = input('Press y to have the allied convoy join up, or n to send them on their way:\n')
-    if join_up_decision == 'y':
-        print('You: More ships are always welcome, even damaged ones')
-        print('You: Repair crews are on their way')
-        player_supplies -= 10
-        marines += 200
-    elif join_up_decision == 'n':
-        print('You: I cannot spare the supplies to get your ships operational')
-        print('You: Keep retreating. We will cover you')
+    while True:
+        join_up_decision = input('Press y to have the allied convoy join up, or n to send them on their way:\n')
+        if join_up_decision == 'y':
+            print('You: More ships are always welcome, even damaged ones')
+            print('You: Repair crews are on their way')
+            player_supplies -= 10
+            marines += 200
+            break
+        elif join_up_decision == 'n':
+            print('You: I cannot spare the supplies to get your ships operational')
+            print('You: Keep retreating. We will cover you')
+            break
+        else:
+            print('Please enter either y or n')
 
     print('Roth: Your orders, Admiral?')
-    engage_decision_mission_five = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_five == 'y':
-        print('You: We must cover our retreating forces')
-        print('You: But we do not have to face the enemy head on')
-        print('Roth: Admiral?')
-        print('You: Roth, what are our stocks of mines like?')
-        if mine_stocks >= 1:
-            print(f'Roth: We have enough for {mine_stocks} fields')
-            print('You: Excellent. Lay a minefield at the jump point exit')
-            print('You: They will straight into our mines, and then we will spring an ambush')
-            print('Roth: A cunning plan Admiral. Laying mines now')
-            if mine_stocks == 1:
-                mine_stocks -= 1
-                print('Roth: We have laid a field of standard density Admiral')
-                print('Roth: Whatever comes through that point will suffer')
-                print('Roth: They are here!')
-                print('Roth: As we feared, most of the enemy are here')
-                print('Roth: The enemy have suffered from our mines')
-                print('Roth: Several enemy ships down')
-                enemy_group_five_actual_modified_one = {
-                    'battleships': 20,
-                    'cruisers': 54,
-                    'escorts': 136
-                }
-                enemy_firepower_actual_modified_one = enemy_firepower_calculator(enemy_group_five_actual_modified_one)
-                for key, value in enemy_group_five_actual_modified_one.items():
-                    print(f'Roth: The enemy force has {value} {key}')
-                print(f'Based on their numbers, the enemy have {enemy_firepower_actual_modified_one} turrets')
-                print('You: All hands, battle stations')
-                fight_battle(enemy_firepower_actual_modified_one, enemy_group_five_actual_modified_one)
-                player_experience += 0.1
-            
-            elif mine_stocks >= 2:
-                mines_stocks -= 2
-                print('Roth: We have laid a field of double density')
-                print('Roth: The enemy will be in for a nasty surprise')
-                print('Roth: They are here!')
-                print('Roth: The enemy ploughed straight into our mines')
-                print('Roth: Many enemy ships destroyed')
-                enemy_group_five_actual_modified_two = {
-                    'battleships': 15,
-                    'cruisers': 40,
-                    'escorts': 100
-                }
-                enemy_firepower_actual_modified_two = enemy_firepower_calculator(enemy_group_five_actual_modified_two)
-                for key, value in enemy_group_five_actual_modified_two.items():
-                    print(f'Roth: The enemy force has {value} {key}')
-                print(f'Based on their numbers, the enemy have {enemy_firepower_actual_modified_two} turrets')
-                print('You: All hands, battle stations')
-                fight_battle(enemy_firepower_actual_modified_two, enemy_group_five_actual_modified_two)
-                player_experience += 0.1
-            print('Roth: Nicely done Admiral')
-            print('Roth: Enemy forces destroyed or in retreat')
-            print('Roth: Based on the enemy strength that arrived here, we should be able to overcome the forces at Laconia without too much difficulty')
+    while True:
+        engage_decision_mission_five = input('press y to engage, or n to disengage:\n')
+        if engage_decision_mission_five == 'y':
+            print('You: We must cover our retreating forces')
+            print('You: But we do not have to face the enemy head on')
+            print('Roth: Admiral?')
+            print('You: Roth, what are our stocks of mines like?')
+            if mine_stocks >= 1:
+                print(f'Roth: We have enough for {mine_stocks} fields')
+                print('You: Excellent. Lay a minefield at the jump point exit')
+                print('You: They will straight into our mines, and then we will spring an ambush')
+                print('Roth: A cunning plan Admiral. Laying mines now')
+                if mine_stocks == 1:
+                    mine_stocks -= 1
+                    print('Roth: We have laid a field of standard density Admiral')
+                    print('Roth: Whatever comes through that point will suffer')
+                    print('Roth: They are here!')
+                    print('Roth: As we feared, most of the enemy are here')
+                    print('Roth: The enemy have suffered from our mines')
+                    print('Roth: Several enemy ships down')
+                    enemy_group_five_actual_modified_one = {
+                        'battleships': 20,
+                        'cruisers': 54,
+                        'escorts': 136
+                    }
+                    enemy_firepower_actual_modified_one = enemy_firepower_calculator(enemy_group_five_actual_modified_one)
+                    for key, value in enemy_group_five_actual_modified_one.items():
+                        print(f'Roth: The enemy force has {value} {key}')
+                    print(f'Based on their numbers, the enemy have {enemy_firepower_actual_modified_one} turrets')
+                    print('You: All hands, battle stations')
+                    fight_battle(enemy_firepower_actual_modified_one, enemy_group_five_actual_modified_one)
+                    player_experience += 0.1
+                
+                elif mine_stocks >= 2:
+                    mines_stocks -= 2
+                    print('Roth: We have laid a field of double density')
+                    print('Roth: The enemy will be in for a nasty surprise')
+                    print('Roth: They are here!')
+                    print('Roth: The enemy ploughed straight into our mines')
+                    print('Roth: Many enemy ships destroyed')
+                    enemy_group_five_actual_modified_two = {
+                        'battleships': 15,
+                        'cruisers': 40,
+                        'escorts': 100
+                    }
+                    enemy_firepower_actual_modified_two = enemy_firepower_calculator(enemy_group_five_actual_modified_two)
+                    for key, value in enemy_group_five_actual_modified_two.items():
+                        print(f'Roth: The enemy force has {value} {key}')
+                    print(f'Based on their numbers, the enemy have {enemy_firepower_actual_modified_two} turrets')
+                    print('You: All hands, battle stations')
+                    fight_battle(enemy_firepower_actual_modified_two, enemy_group_five_actual_modified_two)
+                    player_experience += 0.1
+                print('Roth: Nicely done Admiral')
+                print('Roth: Enemy forces destroyed or in retreat')
+                print('Roth: Based on the enemy strength that arrived here, we should be able to overcome the forces at Laconia without too much difficulty')
 
-        elif mine_stocks == 0:
-            print('Roth: We have no mines in our inventory Admiral')
-            print('You: Damnation. Looks like we will have to do this the hard way')
-            print('Roth: They are here!')
-            print('You: All hands, battle stations')
-            print("You: Let's dance")
-            fight_battle(enemy_firepower_actual, enemy_group_five_actual)
-            player_experience += 0.1
-            print('Roth: Nicely done Admiral')
-            print('Roth: Without mines, that was a tough fight')
-            print('Roth: Enemy forces destroyed or in retreat')
-            print('Roth: Based on the enemy strength that arrived here, we should be able to overcome the forces at Laconia without too much difficulty')
+            elif mine_stocks == 0:
+                print('Roth: We have no mines in our inventory Admiral')
+                print('You: Damnation. Looks like we will have to do this the hard way')
+                print('Roth: They are here!')
+                print('You: All hands, battle stations')
+                print("You: Let's dance")
+                fight_battle(enemy_firepower_actual, enemy_group_five_actual)
+                player_experience += 0.1
+                print('Roth: Nicely done Admiral')
+                print('Roth: Without mines, that was a tough fight')
+                print('Roth: Enemy forces destroyed or in retreat')
+                print('Roth: Based on the enemy strength that arrived here, we should be able to overcome the forces at Laconia without too much difficulty')
+            
+            break
+            
+        elif engage_decision_mission_five == 'n':
+            print('You: I have a nasty feeling that the enemy the enemy will be coming through in strength')
+            print('You: If we retake Laconia, however, we can cut them off')
+            update_enemy_bypassed(enemy_group_five_actual)
+            enemy_groups_bypassed += 1
+            break
         
-    elif engage_decision_mission_five == 'n':
-        print('You: I have a nasty feeling that the enemy the enemy will be coming through in strength')
-        print('You: If we retake Laconia, however, we can cut them off')
-        update_enemy_bypassed(enemy_group_five_actual)
-        enemy_groups_bypassed += 1
+        else:
+            print('Please enter either y or n')
     mission_six()
 
 
@@ -874,11 +984,18 @@ def mission_six():
 
     print('\n  BEGIN MISSION SIX  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            print('You: Please Roth')
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Arriving at Laconia in 3...2...1')
     print('You: Status report, Roth')
     print('Roth: As predicted, the enemy forces left here are small')
@@ -887,6 +1004,7 @@ def mission_six():
     print('Roth: We might be able to salvage some ships and supplies here')
     print('Roth: Admiral, sensors report that the splinter force left behind here is supporting an invasion of Laconia')
     print('Roth: Laconian defence forces will be outnumbered and outgunned')
+    print("Roth: The enemy are concentrated at Laconia's factories - they are trying to cripple our military industry")
     print('You: What do we have on the enemy group here?')
     enemy_group_six = {
         'battleships': 6,
@@ -909,95 +1027,108 @@ def mission_six():
 
     print('Roth: This should be an easier fight Admiral')
     print('Roth: Shall we engage?')
-    engage_decision_mission_six = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_six == 'y':
-        print('You: Yes. At the very least, we should be able to remove orbital support for the enemy landing')
-        fight_battle(enemy_firepower, enemy_group_six)
-        player_experience += 0.1
-        print('Roth: Nice work Admiral')
-        print('Roth: Enemy ships destroyed or in retreat')
-        print('You: Get me Laconia Command')
-        print('LC: Laconia Command here')
-        print('You: Status report Laconia Command')
-        print('LC: The enemy has invaded us')
-        print('Roth: This must be the famous Laconic wit')
-        print('You: I can see that, Laconia')
-        print('You: Shall I support your forces?')
-        print('LC: If you want')
-        print('You: Grrrrrr')
-        print('You: Roth, move some battleships into bombardment orbits')
-        print('Roth: Done sir. But we can only use a limited bombardment on an allied world')
-        if marines < 300:
-            print('Roth: Unfortunately, we do not have enough Marines to launch a counter invasion')
-        elif marines >= 300:
-            print('Roth: We have enough Marines for a counter invasion')
-            print('Roth: Shall we launch shuttles?')
-            counter_invasion = input('Press y to counter-invade Laconia, or n to leave it to them')
-            if counter_invasion == 'y':
-                print('You: Despite the aggravating nature of the Laconians, we should help them out')
-                print('Roth: Marine assault shuttles launching now')
-                print('Roth: Bombardment ships firing now')
-                print('LC: Much obliged Admiral')
-                print('LC: Our forces are counter attacking')
-                print('Roth: Our Marines are rolling up the enemy')
-                print('LC: Your assistance is noted')
-                print('LC: Some Laconian shuttles are on the way to you')
-                print('LC: On board are some supplies and a company of our best veterans\n')
-                player_supplies += 2
-                marines += 200
-            elif counter_invasion == 'n':
-                print('You: If these Laconian pricks are so hard, lets leave them to it')
-                print('You: Launch a bombardment at the enemy landing sites')
-                print('Roth: Very well sir')
-                print('Roth: At least the enemy is trapped here without their ships\n')
-        print('You: Now that Laconia has been dealt with, we should see what we can salvage from the system')
-        print('You: What do the sensors report, Roth?')
-        print('Roth: Laconia had extensive orbital shipyards and warehouses')
-        print('Roth: Most of these have been destroyed, along with their ships')
-        print('Roth: But a handful are only damaged\n')
-        print('Roth: We have managed to retrive some supplies of fuel and ammo from a few undamaged warehouses')
-        player_supplies += 5
-        
-        damaged_ships = {
-            'battleships': 2,
-            'cruisers': 9,
-            'escorts': 23
-        }
+    while True:
+        engage_decision_mission_six = input('press y to engage, or n to disengage:\n')
+        if engage_decision_mission_six == 'y':
+            print('You: Yes. At the very least, we should be able to remove orbital support for the enemy landing')
+            fight_battle(enemy_firepower, enemy_group_six)
+            player_experience += 0.1
+            print('Roth: Nice work Admiral')
+            print('Roth: Enemy ships destroyed or in retreat')
+            print('You: Get me Laconia Command')
+            print('LC: Laconia Command here')
+            print('You: Status report Laconia Command')
+            print('LC: The enemy has invaded us')
+            print('Roth: This must be the famous Laconic wit')
+            print('You: I can see that, Laconia')
+            print('You: Shall I support your forces?')
+            print('LC: If you want')
+            print('You: Grrrrrr')
+            print('You: Roth, move some battleships into bombardment orbits')
+            print('Roth: Done sir. But we can only use a limited bombardment on an allied world')
+            print("Roth: We will want to spare as many of Laconia's factories as possible")
+            if marines < 300:
+                print('Roth: Unfortunately, we do not have enough Marines to launch a counter invasion')
+            elif marines >= 300:
+                print('Roth: We have enough Marines for a counter invasion')
+                print('Roth: Shall we launch shuttles?')
+                while True:
+                    counter_invasion = input('Press y to counter-invade Laconia, or n to leave it to them')
+                    if counter_invasion == 'y':
+                        print('You: Despite the aggravating nature of the Laconians, we should help them out')
+                        print('Roth: Marine assault shuttles launching now')
+                        print('Roth: Bombardment ships firing now')
+                        print('LC: Much obliged Admiral')
+                        print('LC: Our forces are counter attacking')
+                        print('Roth: Our Marines are rolling up the enemy')
+                        print('LC: Your assistance is noted')
+                        print('LC: Some Laconian shuttles are on the way to you')
+                        print('LC: On board are some supplies and a company of our best veterans\n')
+                        player_supplies += 2
+                        marines += 200
+                        break
+                    elif counter_invasion == 'n':
+                        print('You: If these Laconian pricks are so hard, lets leave them to it')
+                        print('You: Launch a bombardment at the enemy landing sites')
+                        print('Roth: Very well sir')
+                        print('Roth: At least the enemy is trapped here without their ships\n')
+                        break
+                    else:
+                        print('Please enter either y or n')
+            print('You: Now that Laconia has been dealt with, we should see what we can salvage from the system')
+            print('You: What do the sensors report, Roth?')
+            print('Roth: Laconia had extensive orbital shipyards and warehouses')
+            print('Roth: Most of these have been destroyed, along with their ships')
+            print('Roth: But a handful are only damaged\n')
+            print('Roth: We have managed to retrive some supplies of fuel and ammo from a few undamaged warehouses')
+            player_supplies += 5
+            
+            damaged_ships = {
+                'battleships': 2,
+                'cruisers': 9,
+                'escorts': 23
+            }
 
-        for key, value in damaged_ships.items():
-            print(f'Roth: There are {value} damaged {key}')
-        
-        print(f'Roth: We also have {player_supplies} repair supplies')
-        print('Roth: It will take a lot of supplies to get these wrecks ship-shape')
-        crew_required = (
-            damaged_ships['battleships'] * minimum_crew['battleship']
-            + damaged_ships['cruisers'] * minimum_crew['cruiser']
-            + damaged_ships['escorts'] * minimum_crew['escort']
-        )
-        print('Roth: We will need to crew them as well')
-        print(f'Roth: We will require {crew_required} sailors to do that')
-        print(f'Roth: We currently have {excess_crew} sailors available')
-        if crew_required < excess_crew and player_supplies > 20:
-            print('Roth: We have enough sailors and supplies')
-            print('Roth: Shall we salvage them?')
-            salvage_decision = input('Press y to salvage the damaged ships, or n to move on')
-            if salvage_decision == 'y':
-                print('You: At this point, we need all the ships we can get\n')
-                player_ships['battleships'] += damaged_ships['battleships']
-                player_ships['cruisers'] += damaged_ships['cruisers']
-                player_ships['escorts'] += damaged_ships['escorts']
-                player_supplies -= 15
-            elif salvage_decision == 'n':
-                print('You: I cannot spare the sailors and supplies, much as that pains me\n')
-        elif crew_required > excess_crew:
-            print('Roth: We cannot spare the sailors Admiral\n')
-        elif player_supplies < 20:
-            print('Roth: We do not have the repair supplies on hand to repair these ships\n')
+            for key, value in damaged_ships.items():
+                print(f'Roth: There are {value} damaged {key}')
+            
+            print(f'Roth: We also have {player_supplies} repair supplies')
+            print('Roth: It will take a lot of supplies to get these wrecks ship-shape')
+            crew_required = (
+                damaged_ships['battleships'] * minimum_crew['battleship']
+                + damaged_ships['cruisers'] * minimum_crew['cruiser']
+                + damaged_ships['escorts'] * minimum_crew['escort']
+            )
+            print('Roth: We will need to crew them as well')
+            print(f'Roth: We will require {crew_required} sailors to do that')
+            print(f'Roth: We currently have {excess_crew} sailors available')
+            if crew_required < excess_crew and player_supplies > 20:
+                print('Roth: We have enough sailors and supplies')
+                print('Roth: Shall we salvage them?')
+                salvage_decision = input('Press y to salvage the damaged ships, or n to move on')
+                if salvage_decision == 'y':
+                    print('You: At this point, we need all the ships we can get\n')
+                    player_ships['battleships'] += damaged_ships['battleships']
+                    player_ships['cruisers'] += damaged_ships['cruisers']
+                    player_ships['escorts'] += damaged_ships['escorts']
+                    player_supplies -= 15
+                elif salvage_decision == 'n':
+                    print('You: I cannot spare the sailors and supplies, much as that pains me\n')
+            elif crew_required > excess_crew:
+                print('Roth: We cannot spare the sailors Admiral\n')
+            elif player_supplies < 20:
+                print('Roth: We do not have the repair supplies on hand to repair these ships\n')
+            
+            break
 
-    elif engage_decision_mission_six == 'n':
-        print('You: I think not - follow-on forces should be able to handle them')
-        update_enemy_bypassed(enemy_group_six)
-        enemy_groups_bypassed += 1
+        elif engage_decision_mission_six == 'n':
+            print('You: I think not - follow-on forces should be able to handle them')
+            update_enemy_bypassed(enemy_group_six)
+            enemy_groups_bypassed += 1
+            break
+        
+        else:
+            print('Please enter either y or n')
     
     print('Roth: Well, Laconia is mess, but we have done what we could')
     print('You: Indeed. Where next?')
@@ -1012,11 +1143,17 @@ def mission_seven():
     global player_ships
     print('\n  BEGIN MISSION 7  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     print('Roth: Arriving at Carthage in 3...2...1')
     print('Roth: ADMIRAL! They are right on top of us!')
     print('Roth: We cannot disengage!')
@@ -1072,13 +1209,18 @@ def mission_seven():
         print('Roth: You remember that High Command was planning a counter attack?')
         print('Roth: They want us to lead it')
         print('Roth: Do you want to do that?')
-        bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
-        if bonus_decision == 'y':
-            print('You: Indeed - we will be able to turn the tables on them')
-            bonus_mission()
-        elif bonus_decision == 'n':
-            print('You: I appreciate the thought, but I do not think we are strong enough')
-            campaign_report()
+        while True:
+            bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
+            if bonus_decision == 'y':
+                print('You: Indeed - we will be able to turn the tables on them')
+                bonus_mission()
+                break
+            elif bonus_decision == 'n':
+                print('You: I appreciate the thought, but I do not think we are strong enough')
+                campaign_report()
+                break
+            else:
+                print('Please enter either y or n')
 
     elif enemy_groups_damaged == 8:
         print('Roth: High Command is praising your aggression')
@@ -1100,13 +1242,18 @@ def mission_seven():
         print('Roth: They still think it is viable')
         print('Roth: They want us to lead it')
         print('Roth: Do you want to do that?')
-        bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
-        if bonus_decision == 'y':
-            print('You: Indeed - we will be able to turn the tables on them')
-            bonus_mission()
-        elif bonus_decision == 'n':
-            print('You: I appreciate the thought, but I do not think we are strong enough')
-            campaign_report()
+        while True:
+            bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
+            if bonus_decision == 'y':
+                print('You: Indeed - we will be able to turn the tables on them')
+                bonus_mission()
+                break
+            elif bonus_decision == 'n':
+                print('You: I appreciate the thought, but I do not think we are strong enough')
+                campaign_report()
+                break
+            else:
+                print('Please enter either y or n')
     
     elif enemy_groups_destroyed >= 1:
         print('Roth: High Command is appreciative of your service')
@@ -1115,7 +1262,6 @@ def mission_seven():
         print('Roth: You remember that High Command was planning a counter attack?')
         print(f'Roth: The fact that only {enemy_groups_destroyed} enemy groups were destroyed means that High Command does not feel able to launch it')
         campaign_report()
-
 
 
 def bonus_mission():
@@ -1143,11 +1289,18 @@ def bonus_mission():
     print('Roth: If we hit them, we could damage the ability of the Syndicate the replace their ship losses long-term')
     print('\n')
     print('Roth: Do you want to review the new status of the fleet, Admiral?')
-    fleet_status_decision = input('Please press y to see fleet status or n to begin the mission:\n')  # gonna need some input checking here
-    if fleet_status_decision == 'y':
-        player_fleet_status()
-    else:
-        print('Roth: Very well Admiral')
+    while True:
+        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        if fleet_status_decision == 'y':
+            print('You: Please Roth')
+            player_fleet_status()
+            break
+        elif fleet_status_decision == 'n':
+            print('Roth: Very well Admiral')
+            break
+        else:
+            print('Please enter y or n')
+    print('\n')
     enemy_group_final = {
         'battleships': 40,
         'cruisers': 95,
@@ -1168,31 +1321,37 @@ def bonus_mission():
         print(f'Roth: We have {firepower_difference} more turrets than they do')
 
     print('Roth: This will be one mother of a fight, Admiral')
-    print('Roth: We have clearly rattled them ')
+    print('Roth: We have clearly rattled them')
+    print('Roth: But perhaps this is too much for us')
     print('Roth: Shall we engage?')
-    engage_decision_mission_x = input('press y to engage, or n to disengage:\n')
-    if engage_decision_mission_x == 'y':
-        print("You: We're here and we're ready. Let's do this")
-        fight_battle(enemy_firepower, enemy_group_final)
-        player_experience += 0.1
-        print('\n')
-        print('Roth: Enemy forces destroyed or in retreat')
-        print('You: Excellent. Move in and start destroying the shipyards')
-        print('Roth: Very good sir')
-        print('Roth: Their shipyards are wrecked sir')
-        print('You: Excellent, mission accomplished then')
-        print("You: Let's head on home for some well deserved leave")
-        print('Roth: A capital idea sir')
-        campaign_report()
-    elif engage_decision_mission_x == 'n':
-        print('You: How can they have so many ships?!?')
-        print("You: I mislike this. We can't take these fellas without insane casualties")
-        print('You: Sound the retreat')
-        print('Roth: I concur Admiral - retreating now')
-        print('Roth: A shame we had to retreat Admiral')
-        print('Roth: But better that than fighting when hopelessly outclassed')
-        print('You: Indeed, I think I will be content with success in our defensive campaign')
-        campaign_report()
+    while True:
+        engage_decision_bonus_mission_ = input('press y to engage, or n to disengage:\n')
+        if engage_decision_bonus_mission == 'y':
+            print("You: We're here and we're ready. Let's do this")
+            fight_battle(enemy_firepower, enemy_group_final)
+            player_experience += 0.1
+            print('\n')
+            print('Roth: Enemy forces destroyed or in retreat')
+            print('You: Excellent. Move in and start destroying the shipyards')
+            print('Roth: Very good sir')
+            print('Roth: Their shipyards are wrecked sir')
+            print('You: Excellent, mission accomplished then')
+            print("You: Let's head on home for some well deserved leave")
+            print('Roth: A capital idea sir')
+            campaign_report()
+            break
+        elif engage_decision_bonus_mission == 'n':
+            print('You: How can they have so many ships?!?')
+            print("You: I mislike this. We can't take these fellas without insane casualties")
+            print('You: Sound the retreat')
+            print('Roth: I concur Admiral - retreating now')
+            print('Roth: A shame we had to retreat Admiral')
+            print('Roth: But better that than fighting when hopelessly outclassed')
+            print('You: Indeed, I think I will be content with success in our defensive campaign')
+            campaign_report()
+            break
+        else:
+            print('Please enter either y or n')
 
 
 def campaign_report():
@@ -1222,14 +1381,14 @@ def campaign_report():
     print('\n')
     if player_experience == 1.1:
         print('Roth: We only fought one battle - our final engagement')
-        print('Roth: As a result, our sailors do not have much experience')
-    elif player_experience > 1.1 and player_experience < 1.3:
+        print('Roth: As a result, our sailors do not have much combat experience')
+    elif player_experience > 1.1 and player_experience < 1.4:
         print('Roth: We fought a handful of battles')
         print('Roth: As a result, our sailors have considerable combat experience')
-    elif player_experience >= 1.3 and player_experience < 1.6:
+    elif player_experience >= 1.4 and player_experience < 1.7:
         print('Roth: We fought the enemy several times')
         print('Roth: As a result, our sailors have a lot of combat experience')
-    elif player_experience >= 1.6:
+    elif player_experience >= 1.7:
         print('Roth: We fought the enemy at every opportunity')
         print('Roth: As a result, our sailors are probably some of the best in human space')
     starting_marines = (
@@ -1237,7 +1396,7 @@ def campaign_report():
         + (player_starting_ships['cruisers'] * 20)
     )
     print(f'Roth: We started with {starting_marines} marines')
-    print(f'Roth: We ended our campaign with {marines}')
+    print(f'Roth: We ended our campaign with {marines} marines')
     if marine_experience == 1.0:
         print('Roth: Our Marines gain no combat experience in our campaign')
     elif marines_experience > 1.0 and marines_experience < 1.3:
