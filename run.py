@@ -1225,7 +1225,8 @@ def mission_seven():
     print('\n  BEGIN MISSION 7  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
-        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        fleet_status_decision = input(
+            'Press y to see fleet status or n to move on:\n').lower()
         if fleet_status_decision == 'y':
             player_fleet_status()
             break
@@ -1256,11 +1257,12 @@ def mission_seven():
         print(f'Roth: The enemy has {value} {key}')
     print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
 
-    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    firepower_difference = firepower_comparator(
+        player_firepower, enemy_firepower)
     if firepower_difference < 0:
-        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets')
     else:
-        print(f'Roth: We have {firepower_difference} more turrets than they do')
+        print(f'Roth: We have {firepower_difference} more turrets')
 
     print('Roth: This will be a hard fight, Admiral')
     print('Roth: We must engage')
@@ -1268,36 +1270,41 @@ def mission_seven():
     player_experience += 0.1
     print('Roth: Phew...That was a doozy of the fight')
     print('Roth: Nice bit of ship-handling Adniral')
-    print('Roth: With the defeat of that group, all of the Syndicate attack groups have been repulsed')
+    print('Roth: All of the Syndicate attack groups have been repulsed')
     print('Roth: A messenger ship from High Command has arrived')
     if enemy_groups_bypassed == 7:
-        print('Roth: It appears that High Command is extremely displeased with your performance')
-        print('Roth: You refused to engage the enemy unless absolutely necessary')
+        print('Roth: High Command is very displeased with your performance')
+        print('Roth: You refused to engage the enemy unless it was necessary')
         print('Roth: They are calling for your head')
         print('Roth: You are to be placed under arrest immediately')
-        print('Roth: Follow-on forces took extreme casualties fighting the enemy groups we bypassed')
+        print('Roth: Follow-on forces took massive casualties')
+        print('Roth: They took the brunt of the fighting')
+        print('Roth: They were chasing down the groups we bypassed')
         print('You have failed the game by refusing to fight the enemy\n')
         main()
-    
+
     elif enemy_groups_destroyed == 8:
         print('Roth: The message is overflowing with praise')
-        print('Roth: They commend your aggression and willingness to engage the enemy')
+        print('Roth: They commend your willingness to engage the enemy')
         print('Roth: You never failed to engage the enemy')
         print('Roth: And you prosecuted them to the utmost')
         print('Roth: Not a single enemy ship got past us')
         print('Roth: Follow-on forces are dismayed at the lack of targets!\n')
         print('Roth: We have inflicted extreme losses on the enemy')
-        print('Roth: You remember that High Command was planning a counter attack?')
+        print('Roth: You remember that there was a counter attack planned?')
         print('Roth: They want us to lead it')
-        print('Roth: Do you want to do that?')
+        print('Roth: Do you want in?')
         while True:
-            bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
+            bonus_decision = input(
+                'Press y to launch a counter-attack, or n to hold off:\n')
             if bonus_decision == 'y':
-                print('You: Indeed - we will be able to turn the tables on them')
+                print('You: Hell yes!')
+                print('You: We will be able to turn the tables on them!')
                 bonus_mission()
                 break
             elif bonus_decision == 'n':
-                print('You: I appreciate the thought, but I do not think we are strong enough')
+                print('You: I appreciate the thought')
+                print('You: But I do not think we are strong enough')
                 campaign_report()
                 break
             else:
@@ -1306,47 +1313,55 @@ def mission_seven():
     elif enemy_groups_damaged == 8:
         print('Roth: High Command is praising your aggression')
         print('Roth: But they frown on your lack of staying power')
-        print('Roth: All of the enemy groups got past us, though we did manage to inflict')
-        print('Roth: Follow-on forces appreciate the damage we did though, even if they took some casualties\n')
-        print('Roth: You remember that High Command was planning a counter attack?')
-        print('Roth: The fact that the none of the enemy groups were decisively stopped means that the Alliance is not in a position to launch it')
+        print('Roth: All of the enemy groups got past us')
+        print('Roth: But we did managed to inflict some losses')
+        print('Roth: Follow-on forces appreciate the damage we did though')
+        print('Roth: But they took moderate casualties\n')
+        print('Roth: Remember that Command was planning a counter-attack?')
+        print('Roth: None of the enemy groups were decisively stopped')
+        print('Roth: Therefore the Alliance is not in a position to launch it')
         print('Roth: Nonetheless, congratulations are in order')
         print('Roth: We managed to stop a major Syndicate attack')
         print('Roth: They will think twice about trying that again')
         campaign_report()
-    
+
     elif enemy_groups_destroyed >= 5:
         print('Roth: High Command is praising your ability')
         print(f'Roth: {enemy_groups_destroyed} enemy groups were destroyed')
         print('Roth: We have inflicted severe casualties on the enemy')
-        print('Roth: You remember that High Command was planning a counter attack?')
+        print('Roth: Remember that Command was planning a counter-attack?')
         print('Roth: They still think it is viable')
         print('Roth: They want us to lead it')
         print('Roth: Do you want to do that?')
         while True:
-            bonus_decision = input('Press y to launch a counter-attack, or n to hold off:\n')
+            bonus_decision = input(
+                'Press y to launch a counter-attack, or n to hold off:\n')
             if bonus_decision == 'y':
-                print('You: Indeed - we will be able to turn the tables on them')
+                print('You: Yes - we will be able to turn the tables on them')
                 bonus_mission()
                 break
             elif bonus_decision == 'n':
-                print('You: I appreciate the thought, but I do not think we are strong enough')
+                print('You: I appreciate the thought')
+                print('You: But I do not think we are strong enough')
                 campaign_report()
                 break
             else:
                 print('Please enter either y or n')
-    
+
     elif enemy_groups_destroyed >= 1:
         print('Roth: High Command is appreciative of your service')
         print(f'Roth: {enemy_groups_destroyed} enemy groups were destroyed')
         print('Roth: We have inflicted modest casualties on the enemy')
-        print('Roth: You remember that High Command was planning a counter attack?')
-        print(f'Roth: The fact that only {enemy_groups_destroyed} enemy groups were destroyed means that High Command does not feel able to launch it')
+        print('Roth: Follow-on forces took severe casualties')
+        print('Roth: Remember that Command was planning a counter attack?')
+        print('Roth: High Command does not feel able to launch it')
         campaign_report()
 
 
 def bonus_mission():
     global player_experience
+    global missile_volleys
+    global mine_stocks
     print('\n  BEGIN BONUS MISSION   \n')
     print('Roth: We are preparating for our counter attack, Admiral')
     print('Roth: In preparation, High Command has reinforced and resupplied us')
@@ -1356,7 +1371,7 @@ def bonus_mission():
     player_ships['battleships'] += player_total_damaged['battleships']
     player_ships['cruisers'] += player_total_damaged['cruisers']
     player_ships['escorts'] += player_total_damaged['escorts']
-    print('Roth: In addition, High Command has assigned us some of our follow-on forces')
+    print('Roth: Command has also assigned us some of our follow-on forces')
     player_ships['battleships'] += 5
     player_ships['cruisers'] += 12
     player_ships['escorts'] += 29
@@ -1367,11 +1382,13 @@ def bonus_mission():
     print('Roth: High Command has also given us our mission')
     print('Roth: We are to raid the Syndicate system of Pella')
     print('Roth: Pella is a military staging area with many ship yards')
-    print('Roth: If we hit them, we could damage the ability of the Syndicate the replace their ship losses long-term')
+    print('Roth: We need to destroy these ship yards')
+    print('Roth: We could hamper ability to replace their losses long-term')
     print('\n')
     print('Roth: Do you want to review the new status of the fleet, Admiral?')
     while True:
-        fleet_status_decision = input('Press y to see fleet status or n to move on:\n').lower()
+        fleet_status_decision = input(
+            'Press y to see fleet status or n to move on:\n').lower()
         if fleet_status_decision == 'y':
             print('You: Please Roth')
             player_fleet_status()
@@ -1388,25 +1405,27 @@ def bonus_mission():
         'escorts': 287
     }
 
-    enemy_firepower = enemy_firepower_calculator(enemy_group_three)
+    enemy_firepower = enemy_firepower_calculator(enemy_group_final)
     player_firepower = calculate_player_firepower(player_ships)
     print('Roth: Whoa....the enemy is here in massive numbers')
     for key, value in enemy_group_final.items():
         print(f'Roth: The enemy has {value} {key}')
     print(f'Based on their numbers, the enemy have {enemy_firepower} turrets')
 
-    firepower_difference = firepower_comparator(player_firepower, enemy_firepower)
+    firepower_difference = firepower_comparator(
+        player_firepower, enemy_firepower)
     if firepower_difference < 0:
-        print(f'Roth: We have {abs(firepower_difference)} fewer turrets than they do')
+        print(f'Roth: We have {abs(firepower_difference)} fewer turrets')
     else:
-        print(f'Roth: We have {firepower_difference} more turrets than they do')
+        print(f'Roth: We have {firepower_difference} more turrets')
 
     print('Roth: This will be one mother of a fight, Admiral')
     print('Roth: We have clearly rattled them')
     print('Roth: But perhaps this is too much for us')
     print('Roth: Shall we engage?')
     while True:
-        engage_decision_bonus_mission_ = input('press y to engage, or n to disengage:\n')
+        engage_decision_bonus_mission = input(
+            'press y to engage, or n to disengage:\n')
         if engage_decision_bonus_mission == 'y':
             print("You: We're here and we're ready. Let's do this")
             fight_battle(enemy_firepower, enemy_group_final)
@@ -1423,12 +1442,13 @@ def bonus_mission():
             break
         elif engage_decision_bonus_mission == 'n':
             print('You: How can they have so many ships?!?')
-            print("You: I mislike this. We can't take these fellas without insane casualties")
+            print('You: I mislike this')
+            print("You: We can't take these fellas without insane casualties")
             print('You: Sound the retreat')
             print('Roth: I concur Admiral - retreating now')
             print('Roth: A shame we had to retreat Admiral')
-            print('Roth: But better that than fighting when hopelessly outclassed')
-            print('You: Indeed, I think I will be content with success in our defensive campaign')
+            print('Roth: Better that than fighting when hopelessly outclassed')
+            print("You: I'll be content with victory in defence")
             campaign_report()
             break
         else:
@@ -1437,7 +1457,7 @@ def bonus_mission():
 
 def campaign_report():
     print('\n CAMPAIGN REPORT')
-    print('Roth: Admiral, I took the liberty of compiling a report on our campaign')
+    print('Roth: I took the liberty of compiling a report on our campaign')
     print('\n')
     for key, value in player_starting_ships.items():
         print(f'Roth: We started with {value} {key}')
@@ -1462,16 +1482,16 @@ def campaign_report():
     print('\n')
     if player_experience == 1.1:
         print('Roth: We only fought one battle - our final engagement')
-        print('Roth: As a result, our sailors do not have much combat experience')
+        print('Roth: Hence, our sailors do not have much combat experience')
     elif player_experience > 1.1 and player_experience < 1.4:
         print('Roth: We fought a handful of battles')
-        print('Roth: As a result, our sailors have considerable combat experience')
+        print('Roth: Hence, our sailors have considerable combat experience')
     elif player_experience >= 1.4 and player_experience < 1.7:
         print('Roth: We fought the enemy several times')
         print('Roth: As a result, our sailors have a lot of combat experience')
     elif player_experience >= 1.7:
         print('Roth: We fought the enemy at every opportunity')
-        print('Roth: As a result, our sailors are probably some of the best in human space')
+        print('Roth: Our sailors are probably some of the best in human space')
     starting_marines = (
         (player_starting_ships['battleships'] * 40)
         + (player_starting_ships['cruisers'] * 20)
@@ -1480,14 +1500,14 @@ def campaign_report():
     print(f'Roth: We ended our campaign with {marines} marines')
     if marine_experience == 1.0:
         print('Roth: Our Marines gain no combat experience in our campaign')
-    elif marines_experience > 1.0 and marines_experience < 1.3:
-        print('Roth: Our Marines gained some combat experience in our campaign')
+    elif marine_experience > 1.0 and marine_experience < 1.3:
+        print('Roth: Our Marines gained some experience in our campaign')
     elif marine_experience >= 1.3 and marine_experience < 1.6:
-        print('Roth: Our Marines gained a considerable amount of combat experience')
-    elif marines_experience >= 1.6:
+        print('Roth: Our Marines gained a considerable amount of experience')
+    elif marine_experience >= 1.6:
         print('Roth: Our Marines gained a lot of combat experience')
-        print('Roth: They are probably some of the finest boarding troops in human space')
-    
+        print('Roth: They are probably some of the best troops in human space')
+
 
 def update_enemy(
         effective_enemy_strength, enemy_group_strength,
