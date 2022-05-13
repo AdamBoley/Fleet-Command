@@ -144,7 +144,7 @@ I chose these values because Marines in the Lost Fleet setting wear vacuum rated
 
 Towards the end of the project's development, I decided to tackle the numerous formatting errors that had cropped up. Since the project contains many long strings of text that help inform the player, reformatting was challenging. 
 
-For function calls with several arguments, I placed the arguments onto indented new lines
+For function calls with several arguments, I placed all of the arguments onto indented new lines
 
 For inputs assigned to variables, I used the backslash character to place the continuation text onto new lines
 
