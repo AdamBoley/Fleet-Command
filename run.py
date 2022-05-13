@@ -1417,11 +1417,13 @@ def update_enemy(effective_enemy_strength, enemy_group_strength, firepower_facto
     global enemy_losses
     global enemy_local_losses
     global enemy_battle_losses
-    enemy_battleship_losses = math.ceil(effective_enemy_strength['battleships'] * firepower_factor * player_experience)
-    enemy_cruiser_losses = math.ceil(effective_enemy_strength['cruisers'] * firepower_factor * player_experience)
-    enemy_escort_losses = math.ceil(effective_enemy_strength['escorts'] * firepower_factor * player_experience)
-    #  firepower factor can be negative
-    #  This affects all calculations and bizarrely returns increased enemy ship values
+    damage_factor = firepower_factor * player_experience
+    if damage_factor > 1:
+        damage_factor = 1
+    enemy_battleship_losses = math.ceil(effective_enemy_strength['battleships'] * damage_factor)
+    enemy_cruiser_losses = math.ceil(effective_enemy_strength['cruisers'] * damage_factor)
+    enemy_escort_losses = math.ceil(effective_enemy_strength['escorts'] * damage_factor)
+
     enemy_group_strength = {
         'battleships': (enemy_group_strength['battleships'] - enemy_battleship_losses),
         'cruisers': (enemy_group_strength['cruisers'] - enemy_cruiser_losses),
@@ -1657,20 +1659,26 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
                 print('Roth: Shall we conduct a firing run targeting 25% of the enemy ships?')
-                proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: I like the sound of those odds')
-                    print('You: All ships, fire as targets enter weapons range!')
-                    print('Roth: Engaging per your orders Admiral!\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                
-                elif proceed_decision == 'n':
-                    print('You: Hmmm, I mislike those odds')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: I like the sound of those odds')
+                        print('You: All ships, fire as targets enter weapons range!')
+                        print('Roth: Engaging per your orders Admiral!\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: Hmmm, I mislike those odds')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter either y or n')
 
             elif tactic == 2:
                 print('You: We will hit half of their ships in our firing run')
@@ -1739,20 +1747,26 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
                 print('Roth: Shall we conduct a firing run targeting 50% of the enemy ships?')
-                proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: I like the sound of those odds')
-                    print('You: All ships, fire as targets enter weapons range!')
-                    print('Roth: Engaging per your orders Admiral!\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                
-                elif proceed_decision == 'n':
-                    print('You: Hmmm, I mislike those odds')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: I like the sound of those odds')
+                        print('You: All ships, fire as targets enter weapons range!')
+                        print('Roth: Engaging per your orders Admiral!\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: Hmmm, I mislike those odds')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter either y or n')
         
             elif tactic == 3:
                 print('You: We will aim to hit three-quarters of them in our firing run')
@@ -1822,20 +1836,26 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
                 print('Roth: Shall we conduct a firing run targeting 75% of the enemy ships?')
-                proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: I like the sound of those odds')
-                    print('You: All ships, fire as targets enter weapons range!')
-                    print('Roth: Engaging per your orders Admiral!\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                
-                elif proceed_decision == 'n':
-                    print('You: Hmmm, I mislike those odds')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: I like the sound of those odds')
+                        print('You: All ships, fire as targets enter weapons range!')
+                        print('Roth: Engaging per your orders Admiral!\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: Hmmm, I mislike those odds')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter either y or n')
         
             elif tactic == 4:
                 print('You: Maximum attack! Target all enemy ships!')
@@ -1905,20 +1925,26 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
                 print('Roth: Shall we conduct a firing run targeting all of the enemy ships?')
-                proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: I like the sound of those odds')
-                    print('You: All ships, fire as targets enter weapons range!')
-                    print('Roth: Engaging per your orders Admiral!\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                
-                elif proceed_decision == 'n':
-                    print('You: Hmmm, I mislike those odds')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to continue with your attack, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: I like the sound of those odds')
+                        print('You: All ships, fire as targets enter weapons range!')
+                        print('Roth: Engaging per your orders Admiral!\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: Hmmm, I mislike those odds')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter either y or n')
 
             elif tactic == 5:
                 global missile_volleys
@@ -1973,21 +1999,27 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 1% of our fuel and ammunition\n')
 
                 print('Roth: Shall we fire a missile barrage?')
-                proceed_decision = input('Press y to fire a missile barrage, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: Fire missiles!')
-                    print('Roth: Firing missiles!\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                    missile_volleys -= 1
-                    print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
-                
-                elif proceed_decision == 'n':
-                    print('You: We would be wasting our missiles')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to fire a missile barrage, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: Fire missiles!')
+                        print('Roth: Firing missiles!\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        missile_volleys -= 1
+                        print(f'Roth: We now have enough missiles for {missile_volleys} barrages')
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: We would be wasting our missiles')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter either y or n')
         
             elif tactic == 6:
                 global mine_stocks
@@ -2043,22 +2075,28 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print('Roth: We will consume a about 2% of our fuel\n')
 
                 print('Roth: Shall we lay a minefield?')
-                proceed_decision = input('Press y to lay a minefield, or n to break off:\n')
-                if proceed_decision == 'y':
-                    print('You: Yes - lay mines')
-                    print('Roth: Deploying mines now Admiral\n')
-                    enemy_group_strength = update_enemy(
-                            effective_enemy_strength, enemy_group_strength,
-                            firepower_factor, player_experience)
-                    player_ships = update_player(losses_factor)
-                    player_supplies -= 1
-                    mine_stocks -= 1
-                    print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
-                
-                elif proceed_decision == 'n':
-                    print('You: We would be wasting our mines')
-                    print('You: I will consider a different approach\n')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                while True:
+                    proceed_decision = input('Press y to lay a minefield, or n to break off:\n')
+                    if proceed_decision == 'y':
+                        print('You: Yes - lay mines')
+                        print('Roth: Deploying mines now Admiral\n')
+                        enemy_group_strength = update_enemy(
+                                effective_enemy_strength, enemy_group_strength,
+                                firepower_factor, player_experience)
+                        player_ships = update_player(losses_factor)
+                        player_supplies -= 1
+                        mine_stocks -= 1
+                        print(f'Roth: We now have enough mines for {mine_stocks} mine-fields')
+                        break
+                    
+                    elif proceed_decision == 'n':
+                        print('You: We would be wasting our mines')
+                        print('You: I will consider a different approach\n')
+                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        break
+                    
+                    else:
+                        print('Please enter y or n')
 
         except ValueError:
             print('Please enter a number between 1 and 6 to select your tactic')
