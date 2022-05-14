@@ -2974,44 +2974,65 @@ def tactics():
     print('You: Broadly speaking, we can use 6 tactics:')
     for key, value in tactical_library.items():
         print(f'We can {value}')
-    
+
     print('You: Attacking 25% of the enemy has several advantages')
-    print('You: We will ')
-    print('You: If we choose to attack 25% of the enemy, '
-    + 'we will aim to concentrate our firepower against a relatively small number of enemy ships. ' 
-    + 'We should destroy many of those ships we target, and suffer few losses, ' 
-    + 'but it will take a long time and a lot of ammunition and fuel to wear down a sizeable enemy force\n')
+    print('You: We will greatly concentrate our firepower')
+    print('You: We destroy many enemy ships')
+    print('You: We should also face little return fire, so losses will be low')
+    print("You: It's a good approach for facing down superior enemy numbers")
+    print('You: However, there are disadvantages too')
+    print('You: It will take a lot of fuel and ammo to wear down enemy forces')
+    print('\n')
+    print('You: Attacking 50% of the enemy has advantages too')
+    print('You: Our fire will be less concentrated')
+    print('You: We will also be exposed to more enemy fire')
+    print('You: So we could take heavier losses')
+    print('You: But we will require fewer firing runs overall')
+    print('You: So we be more efficient in terms of fuel and ammo')
+    print('\n')
+    print('You: Striking 75% of the enemy has advantages as well')
+    print('You: We will spread out out fire even more')
+    print('You: And potentially be exposed to more enemy fire')
+    print('You: We could suffer more casualties')
+    print('You: But we could require far fewer firing runs')
+    print('You: So, we should use less fuel and ammo')
+    print('You: This is a could approach for weakened enemy groups')
+    print('\n')
+    print('You: Finally, we could attack all of the enemy')
+    print('You: This would be risky, throwing caution to the wind')
+    print('You: Our fire will be very spread out')
+    print('You: And we could suffer badly')
+    print('You: But we will use very little fuel and ammo')
+    print('You: This is the perfect tactic for smaller enemy groups')
+    print('\n')
 
-    print('You: If we choose to attack 50% of the enemy, '
-    + 'we will spread out our fire more, and be exposed to more enemy fire and hence suffer more casualties, '
-    + 'but overall, we will expend less fuel and ammunition\n')
-    
-    print('You: If we choose to attack 75% of the enemy, we will spread out our fire even more, '
-    + 'and could suffer more casualties, but we will end the fight quickly and hence expend much less fuel and ammo. '
-    + 'However, given the risk, this approach is best used against weakened enemy groups\n')
-    
-    print('You: If we choose to attack all of the enemy, '
-    + 'we will through caution to the wind - our firepower will be spread out, and we could suffer many casualties '
-    + 'but this is the perfect approach to quickly finishing off weakened enemy groups\n')
-    
-    print('You: We could also choose to fire a barrage of missiles. '
-    + 'Missiles are long range weapons, so we will be safe from return fire, but if we use missiles against '
-    + 'many enemy ships, they may shoot down many of the missiles. That said, using a missile barrage '
-    + 'could be a good way to soften up an enemy group before a conventional firing run. Our ships also do not '
-    + 'carry many missiles, so we should use them sparingly and only when necessary\n')
-    
-    print('You: We could also choose to lay a minefield. '
-    + 'If we use a minefield, we will not face any return fire, as we will lay the minefield and lure the enemy into it. '
-    + 'Mines are powerful, and since they are stealthed, cannot be shot down. '
-    + 'Our ships do not carry many mines, so we should not waste them against small enemy groups\n')
+    print('You: We could also choose to fire a barrage of missiles')
+    print('You: Missiles are long range weapons')
+    print('You: So, we will be safe from return fire')
+    print('You: However, strong enemy groups could shoot down many missiles')
+    print('You: That said, they are a good way of softening up enemy groups')
+    print('You: Then we can go in with a conventional firing run')
+    print('You: Our missile stocks are limited')
+    print('You: So they should be used sparingly')
+    print('\n')
 
-    print('You: Once the battle is done, some enemy ships may be salvageable. '
-    + 'These would make excellent additions to the fleet, provided we can spare the crews. '
-    + 'Our ships carry Marines, and we can use them to board enemy ships and clear out the crews. '
-    + 'This is risky, as the enemy crews will no doubt be dug in and using their internal defences.\n')
+    print('You: We could also choose to lay a minefield')
+    print('You: We can lay mines and the pull back')
+    print('You: The enemy will then run into our mines')
+    print('You: So, we will not face any return fire')
+    print('You: Mines are potent and cannot be shot down')
+    print('You: We do not have many mines')
+    print('You: So we should carefully consider using them')
 
+    print('You: Once the battle is done, some enemy ships may be salvageable')
+    print('You: We will need to use our Marines to board them')
+    print('You: They would make excellent additions to the fleet')
+    print('You: However, we could lose many Marines')
+    print('You: We would then be without an important capability')
+    print('\n')
     print('Roth: Thank you Admiral, that was informative')
-    print('You: You are welcome Roth - watch and learn, and maybe you will command a fleet youself one day')
+    print('You: You are welcome Roth - watch and learn')
+    print('Maybe you will command a fleet youself one day')
 
 
 def main():
@@ -3019,17 +3040,30 @@ def main():
     Contains main program functions
     """
     print('Welcome to Fleet Command, a space battle simulator game')
-    
-    print('The Alliance, a confederation of democratically-ruled star-systems, has been at war with the autocratic Syndicate Worlds for 20 years\n')
-    print('The war shows no sign of ending, as both sides are locked in a stalemate\n')
-    print('Do you want to start a new game?')
-    new_game_decision = input('Press y to start the game:\n')
-    if new_game_decision == 'y':
-        print('You are a promising young naval officer, and you have just been given command of a fleet\n')
-        print('The Syndicate Worlds have gathered a mighty fleet, and have attacked at multiple points\n')
-        print('You have been charged with defending the Alliance\n')
 
-        new_game()
+    print('The Alliance is a confederation of democratic star-systems')
+    print('The Syndicate Worlds are an autocratic empire')
+    print('These two power have been at war for 20 years')
+    print('The war shows no sign of ending')
+    print('Both sides are locked in a stalemate')
+    print('Neither can gain an advantage')
+    print('But maybe that is about to change')
+    print('You are a promising young naval officer')
+    print('You have just been given command of a fleet')
+    print('The Syndicate Worlds have gathered a mighty fleet')
+    print('They have attacked at multiple points')
+    print('You have been charged with defending the Alliance\n')
+    print('Do you want to start a new game?')
+    while True:
+        new_game_decision = input('Press y to start the game:\n')
+        if new_game_decision == 'y':
+            new_game()
+            break
+        elif new_game_decision == 'n':
+            print('')
+            break
+        else:
+            print('Please enter either y or n')
 
 
 if __name__ == '__main__':
