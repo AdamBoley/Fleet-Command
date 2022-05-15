@@ -1334,7 +1334,7 @@ def mission_seven():
     print('Roth: Nice bit of ship-handling Adniral')
     print('Roth: All of the Syndicate attack groups have been repulsed')
     print('Roth: A messenger ship from High Command has arrived')
-    if enemy_groups_bypassed == 7:
+    if enemy_groups_bypassed >= 7:
         print('Roth: High Command is very displeased with your performance')
         print('Roth: You refused to engage the enemy unless it was necessary')
         print('Roth: They are calling for your head')
@@ -1343,7 +1343,7 @@ def mission_seven():
         print('Roth: They took the brunt of the fighting')
         print('Roth: They were chasing down the groups we bypassed')
         print('You have failed the game by refusing to fight the enemy\n')
-        main()
+        campaign_report()
 
     elif enemy_groups_destroyed == 8:
         print('Roth: The message is overflowing with praise')
@@ -1597,6 +1597,20 @@ def campaign_report():
     elif marine_experience >= 1.6:
         print('Roth: Our Marines gained a lot of combat experience')
         print('Roth: They are probably some of the best troops in human space')
+    print('\n')
+    print('You have seen what you accomplished')
+    print('Can you do better?')
+    while True:
+        new_game_decision = input('Press y to start a new game or n to quit')
+        if new_game_decision == 'y':
+            new_game_reset()
+            new_game()
+            break
+        elif new_game_decision == 'n':
+            main()
+            break
+        else:
+            print('Please enter either y or n')
 
 
 def update_enemy(

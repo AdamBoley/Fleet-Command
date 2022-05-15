@@ -263,7 +263,7 @@ Choice                 | Response                      | Expected Outcome       
 See fleet status       | Yes - key press y             | View player ships, marines, supplies and crew          | View player ships, marines, supplies and crew                |
 See fleet status       | No - key press n              | Proceed to mission narrative, stop at engage decision  | Proceed to mission narrative, stop at engage decision        |
 See fleet status       | Invalid - key press != y or n | Restate input prompt                                   | Restate input prompt                                         |
-Engage / disengage     | Engage - key press y          | Launch fight_battle function, stop at tactic selection | 
+Engage / disengage     | Engage - key press y          | Launch fight_battle function, stop at tactic selection | Launch fight_battle function, stop at tactic selection       |
 Engage / disengage     | Disengage - key press n       | Launch mission 3, stop at fleet status decision        | Launch mission three, stop at fleet status decision          |
 Engage / disengage     | Invalid - key press != y or n | Restate input prompt                                   | Restate input prompt                                         |
 
@@ -276,7 +276,7 @@ See fleet status       | Yes - key press y             | View player ships, mari
 See fleet status       | No - key press n              | Proceed to mission narrative, stop at decision on which group to engage | Proceed to mission narrative, stop at decision on which group to engage  |
 See fleet status       | Invalid - key press != y or n | Restate input prompt                                                    | Restate input prompt                                                     |
 Engage / disengage     | Engage - key press y          | Proceed to mission narrative, stop at decision on which group to engage | Proceed to mission narrative, stop at decision on which group to engage  |
-Engage / disengage     | Disengage - key press n       | Launch mission four, stop a fleet status decision                       | Launch mission four, stop a fleet status decision                        | 
+Engage / disengage     | Disengage - key press n       | Launch mission four, stop at fleet status decision                      | Launch mission four, stop a fleet status decision                        | 
 Engage / disengage     | Invalid - key press != y or n | Restate input prompt                                                    | Restate input prompt                                                     |
 Which group to engage  | key press 1                   | Engage sub-group 1                                                      | Engage sub-group 1                                                       |
 Which group to engage  | key press 2                   | Engage sub-group 2                                                      | Engage sub-group 2                                                       |
@@ -285,17 +285,17 @@ Which group to engage  | Invalid - key press != 1 or 2 | Restate input prompt   
 
 
 M4
-Choice                     | Response                      | Expected Outcome                                                       | Actual Outcome                                         |
----------------------------| ----------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------|
-See fleet status           | Yes - key press y             | View player ships, marines, supplies and crew                          | View player ships, marines, supplies and crew          |
-See fleet status           | No - key press n              | Proceed to mission narrative, stop at engage decision                  | Proceed to mission narrative, stop at engage decision  |
-See fleet status           | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                   |
-Engage / disengage         | Engage - key press y          | Launch fight_battle function, stop at tactic selection                 | Launch fight_battle function, stop at tactic selection |
-Engage / disengage         | Disengage - key press n       | Launch mission five, stop a fleet status decision                      | 
-Engage / disengage         | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                   |
-Trade sailors for supplies | Yes - key press y             | Add supplies, remove crew - must be inspected at start of next mission | 
-Trade sailors for supplies | No - key press n              | Move to next mission                                                   | Move to next mission                                   |
-Trade sailors for supplies | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                   |
+Choice                     | Response                      | Expected Outcome                                                       | Actual Outcome                                                         |
+---------------------------| ----------------------------- | ---------------------------------------------------------------------- | -----------------------------------------------------------------------|
+See fleet status           | Yes - key press y             | View player ships, marines, supplies and crew                          | View player ships, marines, supplies and crew                          |
+See fleet status           | No - key press n              | Proceed to mission narrative, stop at engage decision                  | Proceed to mission narrative, stop at engage decision                  |
+See fleet status           | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                                   |
+Engage / disengage         | Engage - key press y          | Launch fight_battle function, stop at tactic selection                 | Launch fight_battle function, stop at tactic selection                 |
+Engage / disengage         | Disengage - key press n       | Launch mission five, stop at fleet status decision                     | Launch mission five, stop at fleet status decision                     |
+Engage / disengage         | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                                   |
+Trade sailors for supplies | Yes - key press y             | Add supplies, remove crew - must be inspected at start of next mission | Add supplies, remove crew - must be inspected at start of next mission |
+Trade sailors for supplies | No - key press n              | Move to next mission                                                   | Move to next mission                                                   |
+Trade sailors for supplies | Invalid - key press != y or n | Restate input prompt                                                   | Restate input prompt                                                   |
 
 M5
 Choice                 | Response                      | Expected Outcome                                       | Actual Outcome                                         |
@@ -323,9 +323,9 @@ Engage / disengage      | Invalid - key press != y or n | Restate input prompt  
 Counter-invade decision | Yes - key press y             | Counter-invade Laconia                                 | Counter-invade Laconia                                 |
 Counter-invade decision | No - key press n              | Move to salvage damaged ships decision                 | Move to salvage damaged ships decision                 |
 Counter-invade decision | Invalid - key press != y or n | Restate input prompt                                   | Restate input prompt                                   |
-Salvage damaged ships   | Yes - key press y             | Salvage damaged ships, add to player fleet             |
-Salvage damaged ships   | No - key press n              | Move to next mission                                   | 
-Salvage damaged ships   | Invalid - key press != y or n | Restate input prompt                                   | MOVES TO NEXT MISSION                                  |
+Salvage damaged ships   | Yes - key press y             | Salvage damaged ships, add to player fleet             | Salvage damaged ships, add to player fleet             |
+Salvage damaged ships   | No - key press n              | Move to next mission                                   | Move to next mission                                   |
+Salvage damaged ships   | Invalid - key press != y or n | Restate input prompt                                   | Restates input prompt                                  |
 
 
 M7
@@ -334,17 +334,17 @@ Choice                 | Response                      | Expected Outcome       
 See fleet status       | Yes - key press y             | View player ships, marines, supplies and crew            | View player ships, marines, supplies and crew            |
 See fleet status       | No - key press n              | Proceed to mission narrative, proceed to tactic decision | Proceed to mission narrative, proceed to tactic decision |
 See fleet status       | Invalid - key press != y or n | Restate input prompt                                     | Restate input prompt                                     |
-Launch counter attack  | Yes - key press y             | Launch mission 8                                         |
-Launch counter attack  | No - key press n              | Call campaign report and see data related to campaign    |
-Launch counter attack  | Invalid - key press != y or n | Restate input prompt                                     | Restate input prompt
+Launch counter attack  | Yes - key press y             | Launch mission 8                                         | Launch mission 8                                         |
+Launch counter attack  | No - key press n              | Call campaign report and see data related to campaign    | 
+Launch counter attack  | Invalid - key press != y or n | Restate input prompt                                     | Restate input prompt                                     |
 
 M8
 Choice                 | Response                      | Expected Outcome                                       | Actual Outcome                                         |
 -----------------------| ----------------------------- | ------------------------------------------------------ | -------------------------------------------------------|
 See fleet status       | Yes - key press y             | View player ships, marines, supplies and crew          | View player ships, marines, supplies and crew          |
-See fleet status       | No - key press n              | Proceed to mission narrative, stop at engage decision  |
-See fleet status       | Invalid - key press != y or n | Restate input prompt                                   |
-Engage / disengage     | Engage - key press y          | Launch fight_battle function, stop at tactic selection | 
+See fleet status       | No - key press n              | Proceed to mission narrative, stop at engage decision  | Proceed to mission narrative, stop at engage decision  |
+See fleet status       | Invalid - key press != y or n | Restate input prompt                                   | Restate input prompt                                   |
+Engage / disengage     | Engage - key press y          | Launch fight_battle function, stop at tactic selection | Launch fight_battle function, stop at tactic selection |
 Engage / disengage     | Disengage - key press n       | Call campaign report and see data related to campaign  | Call campaign report and see data related to campaign  |
 Engage / disengage     | Invalid - key press != y or n | Restate input prompt                                   | Restate input prompt                                   |
 
@@ -380,7 +380,7 @@ Choose a ship to board      | key press 3 - Board an escort with no escorts rema
 Choose a ship to board      | key press 4 - stop boarding ships                              | Move to next mission                                 | Move to next mission                                 |
 Choose a ship to board      | key press 5 - Board all remaining enemy ships                  | Move all available ships to player ships             | Move all available ships to player ships             | 
 Choose a ship to board      | Any valid key press with insufficient Marines remaining        | Restate input prompt                                 | Restate input prompt                                 |
-Choose a ship to board      | Any valid key press with insufficient supplies remaining       | Restate input prompt                                 | 
+Choose a ship to board      | Any valid key press with insufficient supplies remaining       | Restate input prompt                                 |                                  |
 Choose a ship to board      | Invalid key press - NaN or key press > 5                       | Restate input prompt                                 | Restate input prompt                                 |
 
 
@@ -389,37 +389,48 @@ New game decision
 
 ## Balance testing
 
-This section covers testing of how easy or difficult it is to play, win and lose the game. A variety of scenarios were tested.
+This section covers testing of how easy or difficult it is to play, win and lose the game. A variety of scenarios were tested.<br>
 
-Scenario - player avoids engaging enemy groups by pressing n when presented with engage decision. 
-Outcome - Player is forced to engage in mission 7, as intended. Player also loses the game victory conditions are checked after the fight in mission 7
+Scenario - player avoids engaging enemy groups by pressing n when presented with engage decision. <br>
+Outcome - Player is forced to engage in mission 7, as intended. Player is informed that they have lost the game when victory conditions are checked after the fight in mission 7. Player is then taken to campaign report function<br>
 
-Scenario - player chooses to engage, but never follows through, breaking off with enemy ships still present
-Outcome - 
+Scenario - player chooses to engage, but never follows through, breaking off with enemy ships still present<br>
+Outcome - Player is informed that they have lost the game when victory conditions are checked after the fight in mission 7. Player is then taken to campaign report function<br>
 
-Scenario - player only chooses to engage with tactic 1, the least risky, but slowest tactic. Player does not make use of the boarding mechanic to conserve supplies
-Outcome - 
+Scenario - player only chooses to engage with tactic 1, the least risky, but slowest tactic. Player does not make use of the boarding mechanic. Player chooses not to take on additional supplies if given the choice. Player does not accept reinforcements if given the choice<br>
+Outcome - Player destroys all enemy groups up to end of mission 7. Player has 19 supplies at end of mission 7. Player has good numbers of battleships and cruisers, but very low numbers of escorts. Player can actually make it through the bonus mission without running out of supplies. The game also takes a long time to complete, and it quite monotonous in the doing. <br>
+Conclusion - Player starts with too many supplies. Also, the calculations are set up in such a way that every time the player conducts a firing run, they will lose at least 1 escort. This accounts for the high escort losses. However, the player's battleships and cruisers take few losses due to those calculations. This keeps the player's firepower rating quite high, allowing them to keep an advantage over the small effective enemy numbers. Hence, the player never needs to . <br>
+Outcome after correction - 
 
-Scenario - player only chooses to engage with tactic 2, a riskier, but faster tactic than tactic 1. Player does not make use of the boarding mechanic to conserve supplies
-Outcome - 
+Scenario - player only chooses to engage with tactic 2, a riskier, but faster tactic than tactic 1. Player does not make use of the boarding mechanic<br>
+Outcome - This test proved very interesting. I got to mission 7 and took very heavy casualties as predicted, but then got reduced to 1 battleship and 1 cruiser. Repeated firing runs using tactic 2 continued to destroy small numbers of enemy ships, but failed to sustain more casualties. The test was eventually abandoned after several of these firing runs, as I could see that these last player ships would not be destroyed. <br>
+Conclusion - Clearly the calculations underpinning the game require tweaking. The calculations that determine the losses of player cruisers and battleships use the math.floor method, which was used to represent the armour of cruisers and battleships allowing them to shrug off hits that destroy escorts. This may need to be converted to math.ceil, or additional condtional checks may need to be implemented that check to see if the player has a very low number of ships, and if so, have them all destroyed in the next firing run, since once the player has so few ships, the enemy can concentrate all of their fire on those few ships and destroy them easily.<br>
+Outcome after correction - 
 
-Scenario - player only choose to engage with tactic 3, a risker, but faster tactic than tactic 2. Player does not make use of the boarding mechanic to conserve supplies
-Outcome - 
+Scenario - player only choose to engage with tactic 3, a risker, but faster tactic than tactic 2. Player does not make use of the boarding mechanic<br>
+Outcome - Again, this test proved interesting. Heavy casualties were sustained, but when I was reduced to 1 cruiser and 1 battleship, I was unable to lose these. Again, this test was abandoned<br>
+Conclusion - Same as conclusion to tactic 2 testing
+Outcome after correction -
 
-Scenario - player only chooses to engage with tactic 4, the riskiest but fastest tactic. Player does not make use of the boarding mechanic to conserve supplies
-Outcome - 
+Scenario - player only chooses to engage with tactic 4, the riskiest but fastest tactic. Player does not make use of the boarding mechanic<br>
+Outcome - Same outcome as tests with tactics 2 and 3<br>
+Conclusion - Same conclusion to tactic 2 and 3
+Outcome after correction -
 
-Scenario - player only chooses to engage with mines and missiles 
-Outcome - 
+Scenario - player only chooses to engage with mines and missiles <br>
+Outcome - Player runs out of mines and missiles after 6 firing runs<br>
 
-Scenerio - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, but does not attempt to board enemy ships
-Outcome - 
+Scenerio - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, but does not attempt to board enemy ships<br>
+Outcome - <br>
 
-Scenario - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, and makes use of the boarding mechanic
-Outcome - 
+Scenario - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, and makes use of the boarding mechanic<br>
+Outcome - <br>
+<br>
 
-Conclusion - 
+Overall conclusion - 
 
+
+A handful of times, the battles didn't end when all enemy ships were destroyed. 
 
 # Credits
 
