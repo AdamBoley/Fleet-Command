@@ -50,7 +50,7 @@ The basic plot of the Lost Fleet books involves a 100-year long war between two 
 
 The series as a whole contains detailed battle sequences that a reader can easily picture in their head. Beyond this, Campbell takes pains to consider the strategic and logistical implications of Geary's actions - food, fuel and ammunition levels are mentioned at length, and these have an effect on Geary's decisions - sometimes Geary is forced to use an unorthodox or risky approach simply because his fuel and ammunitions reserves are too low, or his ships are too damaged to do otherwise. 
 
-This project is a homage of sorts to the Lost Fleet series. The project therefore is a text-based tactical decisions game run in the terminal, with some strategic elements planned. The player takes the role of an admiral who has been placed in command of a fleet of naval spaceships. The player's objective is to take these ships and defend the Alliance against a large Syndicate Worlds attack across multiple fronts. If the player is successful enough, and has enough ships remaining in their fleet, they may be able to launch a counter-attack to take advantage of the enemy's losses. 
+This project is a homage of sorts to the Lost Fleet series. The project therefore is a text-based tactical decisions game run in the terminal, with some strategic elements planned. The player takes the role of an admiral who has been placed in command of a fleet of naval spaceships. The player's objective is to take these ships and defend the Alliance against a large Syndicate Worlds attack across multiple fronts. If the player is successful enough, and meets the victory criteria, they may be able to launch a counter-attack to take advantage of the enemy's losses.
 
 # Scope
 
@@ -67,6 +67,8 @@ Users must be able to understand the situation presented by game - strong induct
 Users must be well-informed by the text content of the game - plenty of print statements with good informational text
 
 Users must be able to respond to prompting from the game by key-presses - input statements
+
+Responses to input prompts must handle incorrect / invalid inputs gracefully - While loops and Try / Except statements
 
 Users must be able to make informed tactical choices in the game - each decision point must have at least several ways of responding to it, each sufficiently different  
 
@@ -214,7 +216,39 @@ Black
 
 # Deployment
 
+As the project was nearing completion, Heroku and Github suffered security breaches, forcing Heroku to suspend the feature that allows direct linkage to a Github repository for deployment. 
+
 # Testing
+
+As Fleet Command is a tactical choice-based game that relies heavily on user input, it must be thoroughly tested to ensure that there are no errors that could cause a crash. 
+
+The game must also be balanced, to ensure that a player can both win and lose the game based on their choices. The player cannot just stick to one option when fighting battles. Players who pick tactics 3 or 4 (the riskiest, most casualty-heavy, but quickest approaches) must run out of ships quickly. Players who rely on tactics 1 and 2 (the safer, slower approaches) must run out of supplies. 
+
+## Function testing
+
+This section covers the testing of the basic functionality of the game. Does it work as intended? Does it respond to player inputs? How does it handle incorrect / invalid inputs?
+
+I have chosen to hold the result of this testing in a markdown table. Column 1 is the mission or feature in which the choice takes place. Column 2 is the choice itself. Column 3 is the response to the choice. Column 4 is the outcome. 
+
+Mission | Choice                 | Response                  | Expected Outcome                               | Actual Outcome                                 |
+------- | --------------------- -| ------------------------- | ---------------------------------------------- | -----------------------------------------------|
+Intro   | Enter player name      | Enter 'Adam'              | Prints 'Good Morning Admiral Adam'             | Prints 'Good Morning Admiral Adam'
+Intro   | Enter flagship name    | Enter 'Dragon'            | Prints 'Welcome aboard the Battleship 'Dragon' | Prints 'Welcome aboard the Battleship 'Dragon'
+Intro   | See fleet status       | 
+Intro   | See fleet status       | 
+Intro   | See fleet status       | 
+Intro   | See fleet capabilities |
+Intro   | See fleet capabilities |
+Intro   | See fleet capabilities |
+Intro   | See tactics            |
+Intro   | See tactics            |
+Intro   | See tactics            |
+1       | Engage / disengage     | Engage - key press y      | Launch fight_battle function        | 
+1       | Engage / disengage     | Disengage - key press n   | Launch mission two                  |
+2       | See fleet status       | 
+2       | See fleet status       | 
+2       | See fleet status       |
+
 
 # Credits
 
@@ -224,6 +258,7 @@ https://www.freecodecamp.org/news/if-name-main-python-example/ - dunder name = d
 for demonstration of best practices
 Allows run.py to be imported to other files
 
+Lanchester's Square Law - for combat power calculations
 
 My Mentor Ronan McLelland
 

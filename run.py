@@ -1,3 +1,8 @@
+"""
+run.py file
+All dictionaries, variables and functions
+necessary for the game to run are contained within this file
+"""
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
@@ -352,7 +357,7 @@ def new_game():
 
 def mission_one():
     """
-    Mission one
+    Mission 1
     light combat with no real consequences
     intended as an introduction to the game
     """
@@ -419,7 +424,8 @@ def mission_one():
 
 def mission_two():
     """
-    Mission Two - heavier combat, requires the player to use their
+    Mission 2
+    Heavier combat, requires the player to use their
     experience from Mission One to win
     """
     global player_experience
@@ -494,6 +500,12 @@ def mission_two():
 
 
 def mission_three():
+    """
+    Mission 3
+    A more complex mission
+    The player is presented with two enemy sub-fleets to deal with
+    They must choose which to deal with first
+    """
     global player_experience
     global player_supplies
     global marines
@@ -580,6 +592,11 @@ def mission_three():
     print(f'Roth: They have {allied_firepower} turrets')
 
     def osiris_fleet():
+        """
+        Small function within mission 3
+        Called if player chooses to aid the allied ships in Osiris
+        If successful, player is granted reinforcements
+        """
         global player_experience
         global osiris_fleet_helped
         global player_ships
@@ -599,6 +616,12 @@ def mission_three():
         print('OF: Transferring our ships to your command')
 
     def osiris_docks():
+        """
+        Small functions within mission 3
+        Called if the player chooses to aid the Osiris Dockyards
+        If successful, the player is granted additional supplies
+        and Marines
+        """
         global player_experience
         global osiris_docks_helped
         global marines
@@ -750,6 +773,12 @@ def mission_three():
 
 
 def mission_four():
+    """
+    Mission 4
+    Strong enemy resistance
+    After combat, player is offered a choice of trading some
+    sailors for suuplies
+    """
     global player_experience
     global player_supplies
     global excess_crew
@@ -851,6 +880,12 @@ def mission_four():
 
 
 def mission_five():
+    """
+    Mission 5
+    Player must save an allied convoy
+    Heavy enemy resistance
+    But this may be reduced if the player has sufficient mines
+    """
     global player_experience
     global mine_stocks
     global player_ships
@@ -1033,6 +1068,8 @@ def mission_five():
         elif engage_decision_mission_five == 'n':
             print('You: The enemy will likely be coming through in strength')
             print('You: If we retake Laconia, however, we can cut them off')
+            print('You: All hands, secure from battle stations')
+            print('You: Roth, set course for Laconia')
             update_enemy_bypassed(enemy_group_five_actual)
             enemy_groups_bypassed += 1
             break
@@ -1043,6 +1080,13 @@ def mission_five():
 
 
 def mission_six():
+    """
+    Mission 6
+    Light enemy resistance
+    Intended as a rest and recovery mission before final mission
+    Player should take few losses
+    And may be able to pick up some reinforcements
+    """
     global player_experience
     global marines
     global player_supplies
@@ -1220,6 +1264,18 @@ def mission_six():
 
 
 def mission_seven():
+    """
+    Last campaign mission
+    Player has no chance to avoid battle
+    They must fight it out
+    Then ends the game
+    Player's achievements are checked against
+    victory conditions
+    If player has performed poorly, they lose
+    if player has performed well, but not spectacularly, they win
+    if player has performed brilliantly, they win and are offered the
+    chance to play a difficult bonus mission
+    """
     global player_experience
     global player_ships
     print('\n  BEGIN MISSION 7  \n')
@@ -1359,6 +1415,12 @@ def mission_seven():
 
 
 def bonus_mission():
+    """
+    Bonus mission function
+    Not guaranteed to be called
+    Very heavy enemy resistance
+    Player must all their experience to win
+    """
     global player_experience
     global missile_volleys
     global mine_stocks
@@ -1456,6 +1518,11 @@ def bonus_mission():
 
 
 def campaign_report():
+    """
+    Campaign report function
+    Sums up information about the player's campaign
+    prints player losses, enemy losses, etc
+    """
     print('\n CAMPAIGN REPORT')
     print('Roth: I took the liberty of compiling a report on our campaign')
     print('\n')
@@ -3040,14 +3107,15 @@ def main():
     Contains main program functions
     """
     print('Welcome to Fleet Command, a space battle simulator game')
-
+    print('\n')
     print('The Alliance is a confederation of democratic star-systems')
     print('The Syndicate Worlds are an autocratic empire')
-    print('These two power have been at war for 20 years')
+    print('These two powers have been at war for 20 years')
     print('The war shows no sign of ending')
     print('Both sides are locked in a stalemate')
     print('Neither can gain an advantage')
     print('But maybe that is about to change')
+    print('\n')
     print('You are a promising young naval officer')
     print('You have just been given command of a fleet')
     print('The Syndicate Worlds have gathered a mighty fleet')
@@ -3055,12 +3123,12 @@ def main():
     print('You have been charged with defending the Alliance\n')
     print('Do you want to start a new game?')
     while True:
-        new_game_decision = input('Press y to start the game:\n')
+        new_game_decision = input('Press y to start the game, or n to quit:\n')
         if new_game_decision == 'y':
             new_game()
             break
         elif new_game_decision == 'n':
-            print('')
+            main()
             break
         else:
             print('Please enter either y or n')
