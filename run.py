@@ -3042,6 +3042,7 @@ def tactics():
     for key, value in tactical_library.items():
         print(f'We can {value}')
 
+    print('\n')
     print('You: Attacking 25% of the enemy has several advantages')
     print('You: We will greatly concentrate our firepower')
     print('You: We destroy many enemy ships')
