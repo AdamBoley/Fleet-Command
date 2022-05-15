@@ -201,7 +201,9 @@ I then realised that I had dealt with a similar issue before, when writing the c
 
 Hence, I decided to create a new variable in update_enemy called damage_factor, which multiplies the passed value of firepower_factor and player_experience together. A conditional check checks to see if the value of damage_factor is greater than 1 and if so, corrects it to 1. The damage_factor is then used in the calculations where firepower_factor and player_experience were. This solution worked and had the desired effect of not being able to destroy more enemy ships than are present. 
 
-As the project was nearing completion, testing of the many user input decisions was undertaken. Several bugs were noted, mostly input statements requiring input validation and needing new line commands. These were noted but not fixed during the commit that added the testing and results. 
+As the project was nearing completion, testing of the many user input decisions was undertaken. Several bugs were noted, mostly input statements requiring input validation and needing new line commands. These were noted but not fixed during the commit that added the testing and results.
+
+Balance testing was also undertaken as the project neared completion. This tested the calculations that underpinned the project to determine. The first 4 tests each tested scenarios in which the player exclusively turned to one conventional tactic - tactics 1, 2, 3 and 4. When exclusively using tactic 1, I was just about able to win the game and the bonus mission without running out of supplies, though this took a long time to do. When using tactics 2, 3 and 4, I expected to lose the game due to heavy casualties. However, this was not the case. After several missions in which various levels of casualties were taken, I was reduced to 1 battleship and 1 cruiser. From there on, these last two ships proved impossible to lose. I determined that this was due to the calculations, which use the math.floor rounding method. The justification for this was that I wanted to model the superior armour and shields that battleships and cruisers carry, allowing them increased durability. The math.floor method rounds the number of player ships that the player would lose to 0, essentially making the player invulnerable. From these tests, I determined that I need to severely reduce the level of supplies that the player begins with, perhaps to a level of around 30 to 40, and that I need to tweak the way in which the calculations in the update_player function are performed, and perhaps include conditional checks that watch for very low numbers of player ships.  
 
 
 # Technologies
@@ -335,7 +337,7 @@ See fleet status       | Yes - key press y             | View player ships, mari
 See fleet status       | No - key press n              | Proceed to mission narrative, proceed to tactic decision | Proceed to mission narrative, proceed to tactic decision |
 See fleet status       | Invalid - key press != y or n | Restate input prompt                                     | Restate input prompt                                     |
 Launch counter attack  | Yes - key press y             | Launch mission 8                                         | Launch mission 8                                         |
-Launch counter attack  | No - key press n              | Call campaign report and see data related to campaign    | 
+Launch counter attack  | No - key press n              | Call campaign report and see data related to campaign    | Call campaign report and see data related to campaign
 Launch counter attack  | Invalid - key press != y or n | Restate input prompt                                     | Restate input prompt                                     |
 
 M8
@@ -440,7 +442,7 @@ https://www.freecodecamp.org/news/if-name-main-python-example/ - dunder name = d
 for demonstration of best practices
 Allows run.py to be imported to other files
 
-Lanchester's Square Law - for combat power calculations
+Lanchester's Square Law - for combat power calculations - http://www.doolanshire.net/
 
 My Mentor Ronan McLelland
 
