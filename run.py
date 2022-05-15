@@ -859,7 +859,7 @@ def mission_four():
         print('You: We have gained some combat experience')
         while True:
             crew_trade = input(
-                'Press y to trade sailors for supplies, or n to refuse')
+                'Press y to trade sailors for supplies, or n to refuse:\n')
             if crew_trade == 'y':
                 print('You: A capital idea. We could use the supplies')
                 excess_crew -= 1000
@@ -1174,7 +1174,7 @@ def mission_six():
                 print('Roth: Shall we launch shuttles?')
                 while True:
                     counter_invasion = input(
-                        'Press y to counter invade, or n to leave them to it')
+                        'Press y to land Marines, or n to leave them to it:\n')
                     if counter_invasion == 'y':
                         print('You: We should help the Laconians out')
                         print('You: In spite of their aggravating nature')
@@ -1229,16 +1229,22 @@ def mission_six():
             if crew_required < excess_crew and player_supplies > 20:
                 print('Roth: We have enough sailors and supplies')
                 print('Roth: Shall we salvage them?')
-                salvage_decision = input(
-                    'Press y to salvage the damaged ships, or n to move on')
-                if salvage_decision == 'y':
-                    print('You: We need all the ships we can get\n')
-                    player_ships['battleships'] += damaged_ships['battleships']
-                    player_ships['cruisers'] += damaged_ships['cruisers']
-                    player_ships['escorts'] += damaged_ships['escorts']
-                    player_supplies -= 15
-                elif salvage_decision == 'n':
-                    print('You: I cannot spare the sailors and supplies\n')
+                while True:
+                    salvage_decision = input(
+                        'Press y to salvage the ships, or n to move on:\n')
+                    if salvage_decision == 'y':
+                        print('You: We need all the ships we can get\n')
+                        player_ships['battleships'] += (
+                            damaged_ships['battleships'])
+                        player_ships['cruisers'] += damaged_ships['cruisers']
+                        player_ships['escorts'] += damaged_ships['escorts']
+                        player_supplies -= 15
+                        break
+                    elif salvage_decision == 'n':
+                        print('You: I cannot spare the sailors and supplies\n')
+                        break
+                    else:
+                        print('Please enter either y or n')
             elif crew_required > excess_crew:
                 print('Roth: We cannot spare the sailors Admiral\n')
             elif player_supplies < 20:
@@ -1410,6 +1416,23 @@ def mission_seven():
         print('Roth: We have inflicted modest casualties on the enemy')
         print('Roth: Follow-on forces took severe casualties')
         print('Roth: Remember that Command was planning a counter attack?')
+        print('Roth: High Command does not feel able to launch it')
+        campaign_report()
+
+    elif enemy_groups_damaged >= 2:
+        print('Roth: High Command is displeased with your performance')
+        print('Roth: They order that you be placed under arrest')
+        print(f'Roth: We damaged {enemy_groups_damaged} groups')
+        print('Roth: Many enemy ships got past us')
+        print('Roth: Follow-on forces took major losses')
+        print('Roth: Remember that Command was planning a counter-attack?')
+        print('Roth: Few of the enemy groups were decisively stopped')
+        print('Roth: Therefore the Alliance is not in a position to launch it')
+        campaign_report()
+
+    else:
+        print('Roth: We met with mixed success')
+        print('Roth: Remember that Command was planning a counter-attack?')
         print('Roth: High Command does not feel able to launch it')
         campaign_report()
 
@@ -2421,60 +2444,68 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 enemy_group_strength['escorts'] > 0):
             print('Roth: The enemy group has still active ships Admiral!')
             print('Roth: Shall we re-engage?')
-            reengage_decision = input(
-                'Press y to re-engage the enemy, or n to leave them:\n')
-            if reengage_decision == 'y':
-                print('You: Indeed we shall! Good hunting!')
-                fight_engagement(enemy_firepower, enemy_group_strength)
-            elif reengage_decision == 'n':
-                print('You: We have done enough damage')
-                print('You: I do not want to risk our ships further')
-                update_enemy_bypassed(enemy_group_strength)
-                enemy_groups_damaged += 1
+            while True:
+                reengage_decision = input(
+                    'Press y to re-engage the enemy, or n to leave them:\n')
+                if reengage_decision == 'y':
+                    print('You: Indeed we shall! Good hunting!')
+                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    break
+                elif reengage_decision == 'n':
+                    print('You: We have done enough damage')
+                    print('You: I do not want to risk our ships further')
+                    update_enemy_bypassed(enemy_group_strength)
+                    enemy_groups_damaged += 1
 
-                player_total_destroyed = {
-                    'battleships': player_total_destroyed['battleships'] + (
-                        player_destroyed_ships['battleships']),
-                    'cruisers': player_total_destroyed['cruisers'] + (
-                        player_destroyed_ships['cruisers']),
-                    'escorts': player_total_destroyed['escorts'] + (
-                        player_destroyed_ships['escorts'])
-                }
+                    player_total_destroyed = {
+                        'battleships': (
+                            player_total_destroyed['battleships']
+                            + player_destroyed_ships['battleships']),
+                        'cruisers': player_total_destroyed['cruisers'] + (
+                            player_destroyed_ships['cruisers']),
+                        'escorts': player_total_destroyed['escorts'] + (
+                            player_destroyed_ships['escorts'])
+                    }
 
-                player_total_damaged = {
-                    'battleships': player_total_damaged['battleships'] + (
-                        player_damaged_ships['battleships']),
-                    'cruisers': player_total_damaged['cruisers'] + (
-                        player_damaged_ships['cruisers']),
-                    'escorts': player_total_damaged['escorts'] + (
-                        player_damaged_ships['escorts'])
-                }
+                    player_total_damaged = {
+                        'battleships': (
+                            player_total_damaged['battleships']
+                            + player_damaged_ships['battleships']),
+                        'cruisers': player_total_damaged['cruisers'] + (
+                            player_damaged_ships['cruisers']),
+                        'escorts': player_total_damaged['escorts'] + (
+                            player_damaged_ships['escorts'])
+                    }
 
-                for key, value in enemy_battle_losses.items():
-                    print(f'Roth: We destroyed {value} {key} in that battle')
-                print('\n')
+                    for key, value in enemy_battle_losses.items():
+                        print(f'Roth: We destroyed {value} {key}')
+                    print('\n')
 
-                for key, value in player_battle_losses.items():
-                    print(f'Roth: {value} of our {key} were knocked out')
-                print('\n')
+                    for key, value in player_battle_losses.items():
+                        print(f'Roth: {value} of our {key} were knocked out')
+                    print('\n')
 
-                print('Roth: Of those...\n')
+                    print('Roth: Of those...\n')
 
-                total_crew_calculator()
-                excess_crew_calculator()
+                    total_crew_calculator()
+                    excess_crew_calculator()
 
-                for key, value in player_destroyed_ships.items():
-                    print(f'Roth: {value} of our {key} were destroyed')
-                print('Roth: We cannot recover them\n')
+                    for key, value in player_destroyed_ships.items():
+                        print(f'Roth: {value} of our {key} were destroyed')
+                    print('Roth: We cannot recover them\n')
 
-                for key, value in player_damaged_ships.items():
-                    print(f'Roth: {value} of our {key} were badly damaged')
-                print('Roth: They cannot keep up with the fleet')
-                print('Roth: We will have to leave them behind')
-                print('Roth: Follow-on forces might be able to repair them')
-                print('Roth: They may return to us in time\n')
+                    for key, value in player_damaged_ships.items():
+                        print(f'Roth: {value} of our {key} were badly damaged')
+                    print('Roth: They cannot keep up with the fleet')
+                    print('Roth: We will have to leave them behind')
+                    print('Roth: Follow-on forces could repair them')
+                    print('Roth: They may return to us in time\n')
 
-                reset_battle_losses()
+                    reset_battle_losses()
+                    break
+
+                else:
+                    print('Please enter either y or n')
 
         elif (enemy_group_strength['battleships'] == 0 and
                 enemy_group_strength['cruisers'] == 0 and
@@ -3126,9 +3157,11 @@ def main():
     while True:
         new_game_decision = input('Press y to start the game, or n to quit:\n')
         if new_game_decision == 'y':
+            new_game_reset()
             new_game()
             break
         elif new_game_decision == 'n':
+            new_game_reset()
             main()
             break
         else:
