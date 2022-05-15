@@ -199,6 +199,7 @@ def new_game_reset():
     global player_ships
     global player_total_destroyed
     global player_total_damaged
+    global salvaged_ships
     global enemy_losses
     global enemy_battle_losses
     global enemy_local_losses
@@ -222,12 +223,17 @@ def new_game_reset():
         'cruisers': player_starting_ships['cruisers'],
         'escorts': player_starting_ships['escorts']
     }
-    player_total_damaged = {
+    player_total_destroyed = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
     player_total_damaged = {
+        'battleships': 0,
+        'cruisers': 0,
+        'escorts': 0
+    }
+    salvaged_ships = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
@@ -2721,9 +2727,12 @@ def update_enemy_bypassed(enemy_group_strength):
     """
     global enemy_bypassed
     enemy_bypassed = {
-        'battleships': enemy_group_strength['battleships'],
-        'cruisers': enemy_group_strength['cruisers'],
-        'escorts': enemy_group_strength['escorts']
+        'battleships': enemy_bypassed['battleships'] + (
+            enemy_group_strength['battleships']),
+        'cruisers': enemy_bypassed['cruisers'] + (
+            enemy_group_strength['cruisers']),
+        'escorts': enemy_bypassed['escorts'] + (
+            enemy_group_strength['escorts'])
     }
     return enemy_bypassed
 
