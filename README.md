@@ -400,34 +400,44 @@ Scenario - player chooses to engage, but never follows through, breaking off wit
 Outcome - Player is informed that they have lost the game when victory conditions are checked after the fight in mission 7. Player is then taken to campaign report function<br>
 
 Scenario - player only chooses to engage with tactic 1, the least risky, but slowest tactic. Player does not make use of the boarding mechanic. Player chooses not to take on additional supplies if given the choice. Player does not accept reinforcements if given the choice<br>
-Outcome - Player destroys all enemy groups up to end of mission 7. Player has 19 supplies at end of mission 7. Player has good numbers of battleships and cruisers, but very low numbers of escorts. Player can actually make it through the bonus mission without running out of supplies. The game also takes a long time to complete, and it quite monotonous in the doing. <br>
-Conclusion - Player starts with too many supplies. Also, the calculations are set up in such a way that every time the player conducts a firing run, they will lose at least 1 escort. This accounts for the high escort losses. However, the player's battleships and cruisers take few losses due to those calculations. This keeps the player's firepower rating quite high, allowing them to keep an advantage over the small effective enemy numbers. Hence, the player never needs to . <br>
+Outcome - Player destroys all enemy groups up to end of mission 7. Player has 19 supplies at end of mission 7. Player has good numbers of battleships and cruisers, but very low numbers of escorts. Player can actually make it through the bonus mission without running out of supplies. The game also takes a long time to complete, and is quite monotonous when playing this way. <br>
+Conclusion - Player starts with too many supplies. Also, the calculations are set up in such a way that every time the player conducts a firing run, they will lose at least 1 escort. This accounts for the high escort losses. However, the player's battleships and cruisers take few losses due to those calculations. This keeps the player's firepower rating quite high, allowing them to keep an advantage over the small effective enemy numbers. Hence, the player never needs to accept reinforcements or board enemy ships in order to bolster their own numbers. <br>
+Correction - Drastically reduce supplies to a starting count of 50 or so. This should ensure that a player using the scenario described above will run out of supplies around mission 4 or 5<br>
 Outcome after correction - 
 
-Scenario - player only chooses to engage with tactic 2, a riskier, but faster tactic than tactic 1. Player does not make use of the boarding mechanic<br>
+<br>**Scenario** - player only chooses to engage with tactic 2, a riskier, but faster tactic than tactic 1. Player does not make use of the boarding mechanic<br>
 Outcome - This test proved very interesting. I got to mission 7 and took very heavy casualties as predicted, but then got reduced to 1 battleship and 1 cruiser. Repeated firing runs using tactic 2 continued to destroy small numbers of enemy ships, but failed to sustain more casualties. The test was eventually abandoned after several of these firing runs, as I could see that these last player ships would not be destroyed. <br>
-Conclusion - Clearly the calculations underpinning the game require tweaking. The calculations that determine the losses of player cruisers and battleships use the math.floor method, which was used to represent the armour of cruisers and battleships allowing them to shrug off hits that destroy escorts. This may need to be converted to math.ceil, or additional condtional checks may need to be implemented that check to see if the player has a very low number of ships, and if so, have them all destroyed in the next firing run, since once the player has so few ships, the enemy can concentrate all of their fire on those few ships and destroy them easily.<br>
-Outcome after correction - 
+<br>**Conclusion** - Clearly the calculations underpinning the game require tweaking. The calculations that determine the losses of player cruisers and battleships use the math.floor method, which was used to represent the armour of cruisers and battleships allowing them to shrug off hits that destroy escorts. This may need to be converted to math.ceil, or additional condtional checks may need to be implemented that check to see if the player has a very low number of ships, and if so, have them all destroyed in the next firing run, since once the player has so few ships, the enemy can concentrate all of their fire on those few ships and destroy them easily.<br>
+<br>**Correction** - The math.floor calculations that are used in the update_player function to calculate player losses were changed to use the round method. However, to prevent excessive losses, the losses_factor is now divided by 1.5 for battleships. This is to replicate the greater survivability of battleships over cruisers and escorts. <br>
+However, I was still able to finish the game and the bonus mission without taking excessive losses. <br>
+I then considered the fight_engagement function. There, I was dividing the losses_factor by 5. This had been a convenient constant that lowered the losses_factor to a reasonable figure when implementing the Square Law combat power approach. I considered that 5 was perhaps too high, and that it would be better to use a dynamic method that responds to the conditions.<br>
+I also considered that toward the mid-game and end-game, the value of player_experience could be having an outsized effect. I reduced experience gains from + 0.10 per mission to + 0.03 per mission, with +0.02 for each of the two battles in mission 3. With + 0.10 per mission, the player could achieve a + 70% bonus to firepower. Using the new values provides a maximum bonus of + 22%.   
+The conditional checks for negative player ship values were also repurposed to check for player ship values that are less than or equal to 1. If so, the value is corrected to 0. The justifcation is that once the player has been reduced to 1 ship of each class, they have basically lost, and will be easily overwhelmed by even small enemy groups. <br>
+<br>**Outcome after correction** - With these corrections, I lost the game at mission 7. This is good - it proves that using a single approach will cause the player to lose. This fulfils User Story #6 which requires that a player making bad decisions must lose.  
 
-Scenario - player only choose to engage with tactic 3, a risker, but faster tactic than tactic 2. Player does not make use of the boarding mechanic<br>
-Outcome - Again, this test proved interesting. Heavy casualties were sustained, but when I was reduced to 1 cruiser and 1 battleship, I was unable to lose these. Again, this test was abandoned<br>
-Conclusion - Same as conclusion to tactic 2 testing
-Outcome after correction -
+<br>**Scenario** - player only choose to engage with tactic 3, a risker, but faster tactic than tactic 2. Player does not make use of the boarding mechanic<br>
+<br>**Outcome** - Again, this test proved interesting. Heavy casualties were sustained, but when I was reduced to 1 cruiser and 1 battleship, I was unable to lose these. Again, this test was abandoned<br>
+<br>**Conclusion** - Same as conclusion to tactic 2 testing
+<br>**Correction** - Same as correction to tactic 2 testing
+<br>**Outcome after correction** - With the corrections detailed above, I lost the game at mission 7. Again, this is good and fulfuls User Story #6. 
 
-Scenario - player only chooses to engage with tactic 4, the riskiest but fastest tactic. Player does not make use of the boarding mechanic<br>
-Outcome - Same outcome as tests with tactics 2 and 3<br>
-Conclusion - Same conclusion to tactic 2 and 3
-Outcome after correction -
+<br>**Scenario** - player only chooses to engage with tactic 4, the riskiest but fastest tactic. Player does not make use of the boarding mechanic<br>
+<br>**Outcome** - Same outcome as tests with tactics 2 and 3<br>
+<br>**Conclusion** - Same as conclusion to tactic 2 and 3
+<br>**Correction** - Same as correction to tactic 2 and 3
+<br>**Outcome after correction** - With the corrections detailed above, I lost the game at Mission 4. As before, this is good, and proves that a user must use a variety of tactics to win the game. 
 
-Scenario - player only chooses to engage with mines and missiles <br>
-Outcome - Player runs out of mines and missiles after 6 firing runs<br>
+<br>**Scenario** - player only chooses to engage with mines and missiles <br>
+<br>**Outcome** - Player runs out of mines and missiles after 6 firing runs<br>
+<br>**Conclusion** - 3 uses each of missiles and mines is sufficient<br>
 
-Scenerio - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, but does not attempt to board enemy ships<br>
-Outcome - <br>
+<br>**Scenerio** - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, but does not attempt to board enemy ships<br>
+<br>**Outcome** - <br>
+<br>**Conclusion** - <br>
 
-Scenario - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, and makes use of the boarding mechanic<br>
-Outcome - <br>
-<br>
+<br>**Scenario** - player tries to win by using a variety of tactics to balance damage inflicted with supply consumption and ship losses, and makes use of the boarding mechanic<br>
+<br>**Outcome** - <br>
+<br>**Conclusion** - <br>
 
 Overall conclusion - 
 
