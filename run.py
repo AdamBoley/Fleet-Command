@@ -184,6 +184,7 @@ player_supplies = 30
 
 osiris_fleet_helped = 0
 osiris_docks_helped = 0
+osiris_more_ships = 0
 
 enemy_groups_destroyed = 0
 enemy_groups_damaged = 0
@@ -518,6 +519,9 @@ def mission_three():
     global player_ships
     global enemy_groups_bypassed
     global enemy_groups_damaged
+    global mine_stocks
+    global missile_volleys
+    global osiris_more_ships
     print('\n  BEGIN MISSION THREE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -750,15 +754,20 @@ def mission_three():
                         print('Please enter either y or n')
 
             if osiris_fleet_helped == 1 and osiris_docks_helped == 1:
+                osiris_more_ships = 1
                 print('Roth: Nicely done Admiral!')
                 print('Roth: Osiris is secure')
                 print('Roth: In appreciation, Osiris has reinforced us')
-                print('Roth: More ships, supplies and Marines')
+                print('Roth: More supplies, mines, missiles and Marines')
                 player_ships['battleships'] += 1
                 player_ships['cruisers'] += 2
                 player_ships['escorts'] += 8
                 player_supplies += 5
                 marines += 100
+                missile_volleys += 1
+                mine_stocks += 1
+                print('Roth: They have also released some more ships')
+                print('Roth: A battleship, 2 cruisers and 8 escorts')
 
             break
 
@@ -3074,7 +3083,10 @@ def player_fleet_status():
         print(f'Roth: {value} enemy {key} have be boarded and salvaged')
     print('\n')
     print(f'Roth: We currently have {total_crew} sailors in the fleet')
-    print(f'Roth: However, we can spare {excess_crew} for other duties\n')
+    if excess_crew <= 0:
+        print('Roth: We cannot spare any crew for other duties')
+    else:
+        print(f'Roth: However, we can spare {excess_crew} for other duties\n')
     if player_experience == 1:
         print('Roth: Our crews are trained, but green and inexperienced\n')
     elif player_experience > 1 and player_experience <= 1.1:
