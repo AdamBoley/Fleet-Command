@@ -179,8 +179,8 @@ salvaged_ships = {
 
 player_name = ''
 flagship_name = ''
-starting_supplies = 100
-player_supplies = 100
+starting_supplies = 30
+player_supplies = 30
 
 osiris_fleet_helped = 0
 osiris_docks_helped = 0
@@ -280,7 +280,7 @@ def new_game_reset():
     marine_experience = 1.0
     player_name = ''
     flagship_name = ''
-    player_supplies = 100
+    player_supplies = 30
     enemy_groups_destroyed = 0
     enemy_groups_damaged = 0
     enemy_groups_bypassed = 0
@@ -1791,7 +1791,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         'escorts': enemy_group_strength['escorts']
     }
 
-    def fight_engagement(enemy_firepower, enemy_group_strength):
+    number_enemy_ships = (
+        starting_enemy_ships['battleships']
+        + starting_enemy_ships['cruisers']
+        + starting_enemy_ships['escorts']
+    )
+
+    def fight_engagement(
+            enemy_firepower, enemy_group_strength, number_enemy_ships):
         """
         A long, complex function that is called for each firing run
         """
@@ -1809,11 +1816,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
-
+        print('\n')
         print('You: we have several options:')
         for key, value in tactical_library.items():
             print(f'{key} - We can {value}')
-
+        print('\n')
         try:
             tactic = int(input(
                 'Type a number from 1 to 6 to select your tactic:\n'))
@@ -1821,7 +1828,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 print(f'{tactic} is an invalid selection')
                 print('Enter a number between 1 and 6 to select your tactic')
                 player_supplies += 1
-                fight_engagement(enemy_firepower, enemy_group_strength)
+                fight_engagement(
+                    enemy_firepower, enemy_group_strength,
+                    number_enemy_ships)
 
             if tactic == 1:
                 print('You: We will aim to hit 25% of them in our firing run')
@@ -1903,7 +1912,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print(f'Roth: We will probably lose {ppl}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammo')
                 print('\n')
 
                 print('Roth: Shall we proceed?')
@@ -1923,7 +1931,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2008,7 +2018,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print(f'Roth: We will probably lose {ppl}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammo')
                 print('\n')
 
                 print('Roth: Shall we proceed?')
@@ -2028,7 +2037,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2113,7 +2124,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print(f'Roth: We will probably lose {ppl}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammo')
                 print('\n')
 
                 print('Roth: Shall we proceed?')
@@ -2133,7 +2143,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2219,7 +2231,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print(f'Roth: We will probably lose {ppl}% of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammo')
                 print('\n')
 
                 print('Roth: Shall we proceed?')
@@ -2239,7 +2250,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: Hmmm, I mislike those odds')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2255,10 +2268,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 elif missile_volleys > 0 and missile_volleys < 1:
                     print('Roth: We have some missiles')
                     print("Roth: But we can't break through enemy defences")
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    fight_engagement(
+                        enemy_firepower, enemy_group_strength,
+                        number_enemy_ships)
                 elif missile_volleys == 0:
                     print('Roth: We currently have no missiles remaining')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    fight_engagement(
+                        enemy_firepower, enemy_group_strength,
+                        number_enemy_ships)
 
                 target_factor = 1
 
@@ -2292,18 +2309,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     firepower_factor = 1
                 losses_factor = 0
 
-                print(f'The firepower_factor is {firepower_factor}')
-                print(f'The losses factor is {losses_factor}')
-                """
-                Remove the above prints for deployment
-                """
-
                 projected_enemy_destroyed = (round(firepower_factor, 2)) * 100
                 ped = projected_enemy_destroyed
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print('Roth: We will not lose any of our ships')
-                print('Roth: We will consume a about 1% of our fuel and ammo')
                 print('\n')
 
                 print('Roth: Shall we fire a missile barrage?')
@@ -2324,7 +2334,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: We would be wasting our missiles')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2340,10 +2352,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 elif mine_stocks > 0 and mine_stocks < 1:
                     print('Roth: We have some mines')
                     print('Roth: But not enough to lay a decent field')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    fight_engagement(
+                        enemy_firepower, enemy_group_strength,
+                        number_enemy_ships)
                 elif mine_stocks == 0:
                     print('Roth: We currently have no mines remaining')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    fight_engagement(
+                        enemy_firepower, enemy_group_strength,
+                        number_enemy_ships)
 
                 target_factor = 1
                 effective_enemy_strength = calculate_effective_enemy_strength(
@@ -2379,7 +2395,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                 print(f'Roth: We can probably destroy {ped}% of the enemy')
                 print('Roth: We will not lose any of our ships')
-                print('Roth: We will consume a about 2% of our fuel\n')
 
                 print('Roth: Shall we lay a minefield?')
                 while True:
@@ -2400,7 +2415,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     elif proceed_decision == 'n':
                         print('You: We would be wasting our mines')
                         print('You: I will consider a different approach\n')
-                        fight_engagement(enemy_firepower, enemy_group_strength)
+                        fight_engagement(
+                            enemy_firepower, enemy_group_strength,
+                            number_enemy_ships)
                         break
 
                     else:
@@ -2437,6 +2454,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print('Roth: Multiple hull breaches!')
             print('Roth: The reactor is melting down!')
             print('Roth: Oh Sh......')
+            print('BOOOOOOOOOOOM')
             print('Your tactical decisions have resulted in defeat')
             print('Would you like to try again?')
             new_game_decision = input('Press y to try again or n to quit:\n')
@@ -2471,7 +2489,9 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     'Press y to re-engage the enemy, or n to leave them:\n')
                 if reengage_decision == 'y':
                     print('You: Indeed we shall! Good hunting!')
-                    fight_engagement(enemy_firepower, enemy_group_strength)
+                    fight_engagement(
+                        enemy_firepower, enemy_group_strength,
+                        number_enemy_ships)
                     break
                 elif reengage_decision == 'n':
                     print('You: We have done enough damage')
@@ -2569,7 +2589,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             for key, value in player_destroyed_ships.items():
                 print(f'Roth: {value} of our {key} were destroyed outright')
             print('Roth: We cannot recover them\n')
-
+            number_destroyed_player = int(
+                player_destroyed_ships['battleships']
+                + player_destroyed_ships['cruisers']
+                + player_destroyed_ships['escorts']
+            )
             for key, value in player_damaged_ships.items():
                 print(f'Roth: {value} of our {key} were badly damaged')
             print('Roth: They cannot keep up with the fleet')
@@ -2588,6 +2612,16 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 'escorts': math.floor(
                     starting_enemy_ships['escorts'] * 0.10)
             }
+            supplies_gained_enemy = math.floor(
+                number_enemy_ships / 30
+            )
+            supplies_gained_player = math.floor(
+                number_destroyed_player / 20
+            )
+            sg = supplies_gained_enemy + supplies_gained_player
+            player_supplies += sg
+            print(f'Roth: We salvaged {sg} supplies from destroyed ships')
+            print('\n')
 
             print('Roth: Shall we attempt to board the enemy ships?')
             while True:
@@ -2604,7 +2638,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 else:
                     print('Please enter either y or n')
 
-    fight_engagement(enemy_firepower, enemy_group_strength)
+    fight_engagement(
+        enemy_firepower, enemy_group_strength, number_enemy_ships)
 
 
 def total_crew_calculator():
