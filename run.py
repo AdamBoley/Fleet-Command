@@ -148,8 +148,8 @@ boarding_tactics = {
     '1': 'We can board a battleship',
     '2': 'We can board a cruiser',
     '3': 'We can board an escort',
-    '4': 'We can stop boarding enemy ships',
-    '5': 'We can board all of the enemy ships at once'
+    '4': 'We can board all of the enemy ships at once',
+    '5': 'We can stop boarding enemy ships'
 }
 
 marines = (
@@ -166,9 +166,9 @@ marine_experience_gains = {
 }
 
 boarded_ships = {
-    'battleship': 0,
-    'cruiser': 0,
-    'escort': 0
+    'battleships': 0,
+    'cruisers': 0,
+    'escorts': 0
 }
 
 salvaged_ships = {
@@ -2926,11 +2926,6 @@ def boarding_operation(boardable_ships):
                 break
 
             elif ship_to_board == '4':
-                print('You: We have salvaged enough ships. Scuttle the rest')
-                print('Roth: Indeed, better to save our Marines')
-                break
-
-            elif ship_to_board == '5':
                 marines_required = (
                     boardable_ships['battleships'] * 500
                     + boardable_ships['cruisers'] * 120
@@ -3015,6 +3010,11 @@ def boarding_operation(boardable_ships):
                     boardable_ships['cruisers'] = 0
                     boardable_ships['escorts'] = 0
 
+                break
+
+            elif ship_to_board == '5':
+                print('You: We have salvaged enough ships. Scuttle the rest')
+                print('Roth: Indeed, better to save our Marines')
                 break
 
             else:
