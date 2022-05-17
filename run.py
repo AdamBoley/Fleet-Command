@@ -8,7 +8,7 @@ necessary for the game to run are contained within this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import math
 
-player_starting_ships = {
+PLAYER_STARTING_SHIPS = {
     'battleships': 20,
     'cruisers': 50,
     'escorts': 150
@@ -32,25 +32,25 @@ PLAYER_TOTAL_DAMAGED = {
     'escorts': 0,
 }
 
-player_local_losses = {
+PLAYER_LOCAL_LOSSES = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-player_battle_losses = {
+PLAYER_BATTLE_LOSSES = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-player_destroyed_ships = {
+PLAYER_DESTROYED_SHIPS = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-player_damaged_ships = {
+PLAYER_DAMAGED_SHIPS = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
@@ -159,7 +159,7 @@ MARINES = (
 
 MARINE_EXPERIENCE = 1.0
 
-MARINE_EXPERIENCE_gains = {
+MARINES_EXPERIENCES_GAINS = {
     'battleship': 0.05,
     'cruiser': 0.03,
     'escort': 0.01
@@ -246,9 +246,9 @@ def new_game_reset():
     global ENEMY_GROUPS_BYPASSED
 
     PLAYER_SHIPS = {
-        'battleships': player_starting_ships['battleships'],
-        'cruisers': player_starting_ships['cruisers'],
-        'escorts': player_starting_ships['escorts']
+        'battleships': PLAYER_STARTING_SHIPS['battleships'],
+        'cruisers': PLAYER_STARTING_SHIPS['cruisers'],
+        'escorts': PLAYER_STARTING_SHIPS['escorts']
     }
     PLAYER_TOTAL_DESTROYED = {
         'battleships': 0,
@@ -1147,10 +1147,14 @@ def mission_six():
     print('Roth: But the initial force has shattered allied resistance here')
     print('Roth: The enemy chose their target well')
     print('Roth: Laconia was a centre of military production')
-    print('Roth: We might be able to salvage some ships and supplies here')
+    print('Roth: We might be able to salvage some supplies here')
+    print('Roth: Sir, we have a message from the Laconian defence forces')
+    print('Roth: They report significant damage, and request assistance')
+    print('You: Very well, we will aid them once the enemy here is defeated')
+    print('\n')
     print('Roth: Sir, sensors report that the splinter force is still here')
     print('Roth: They are supporting an invasion of Laconia')
-    print('Roth: Laconian defence forces will be outnumbered and outgunned')
+    print('Roth: Laconian ground forces will be outnumbered and outgunned')
     print("Roth: The enemy are concentrated at Laconia's factories")
     print('Roth: They are trying to cripple our military industry')
     print('You: What do we have on the enemy group here?')
@@ -1221,7 +1225,7 @@ def mission_six():
                         print('LC: Some supply shuttles are on the way to you')
                         print('LC: On board are some supplies')
                         print('LC: And a company of our best veterans\n')
-                        PLAYER_SUPPLIES += 2
+                        PLAYER_SUPPLIES += 3
                         MARINES += 200
                         break
                     elif counter_invasion == 'n':
@@ -1238,28 +1242,21 @@ def mission_six():
             print('Roth: Laconia had extensive shipyards and warehouses')
             print('Roth: Most of these have been destroyed, their ships too')
             print('Roth: But a handful are only damaged\n')
-            print('Roth: We have managed to retrive some supplies as well')
-            PLAYER_SUPPLIES += 5
+            print('Roth: We have managed to retrive some supplies from them')
+            print('Roth: We are now clear to assistance the defence forces')
+            PLAYER_SUPPLIES += 8
 
             for key, value in LACONIA_SHIPS.items():
                 print(f'Roth: There are {value} damaged {key}')
 
             print(f'Roth: We also have {PLAYER_SUPPLIES} repair supplies')
             print('Roth: It will take a lot to get these wrecks ship-shape')
-            crew_required = (
-                LACONIA_SHIPS['battleships'] * MINIMUM_SHIP_CREW['battleship']
-                + LACONIA_SHIPS['cruisers'] * MINIMUM_SHIP_CREW['cruiser']
-                + LACONIA_SHIPS['escorts'] * MINIMUM_SHIP_CREW['escort']
-            )
-            print('Roth: We will need to crew them as well')
-            print(f'Roth: We will require {crew_required} sailors to do that')
-            print(f'Roth: We currently have {EXCESS_CREW} sailors available')
-            if crew_required < EXCESS_CREW and PLAYER_SUPPLIES > 20:
-                print('Roth: We have enough sailors and supplies')
-                print('Roth: Shall we salvage them?')
+            if PLAYER_SUPPLIES > 20:
+                print('Roth: We have enough supplies')
+                print('Roth: Shall we repair the ships?')
                 while True:
                     salvage_decision = input(
-                        'Press y to salvage the ships, or n to move on:\n')
+                        'Press y to repair the ships, or n to move on:\n')
                     if salvage_decision == 'y':
                         LACONIA_SHIPS_HELPED = 1
                         print('You: We need all the ships we can get\n')
@@ -1267,15 +1264,14 @@ def mission_six():
                             LACONIA_SHIPS['battleships'])
                         PLAYER_SHIPS['cruisers'] += LACONIA_SHIPS['cruisers']
                         PLAYER_SHIPS['escorts'] += LACONIA_SHIPS['escorts']
+                        MARINES += 200
                         PLAYER_SUPPLIES -= 15
                         break
                     elif salvage_decision == 'n':
-                        print('You: I cannot spare the sailors and supplies\n')
+                        print('You: I cannot spare the supplies\n')
                         break
                     else:
                         print('Please enter either y or n')
-            elif crew_required > EXCESS_CREW:
-                print('Roth: We cannot spare the sailors Admiral\n')
             elif PLAYER_SUPPLIES < 20:
                 print('Roth: We do not have the supplies for the repairs\n')
 
@@ -1577,7 +1573,7 @@ def campaign_report():
     print('\n CAMPAIGN REPORT')
     print('Roth: I took the liberty of compiling a report on our campaign')
     print('\n')
-    for key, value in player_starting_ships.items():
+    for key, value in PLAYER_STARTING_SHIPS.items():
         print(f'Roth: We started with {value} {key}')
     print('\n')
     for key, value in PLAYER_SHIPS.items():
@@ -1611,8 +1607,8 @@ def campaign_report():
         print('Roth: We fought the enemy at every opportunity')
         print('Roth: Our sailors are probably some of the best in human space')
     starting_marines = (
-        (player_starting_ships['battleships'] * 40)
-        + (player_starting_ships['cruisers'] * 20)
+        (PLAYER_STARTING_SHIPS['battleships'] * 40)
+        + (PLAYER_STARTING_SHIPS['cruisers'] * 20)
     )
     print(f'Roth: We started with {starting_marines} Marines')
     print(f'Roth: We ended our campaign with {MARINES} Marines')
@@ -1724,10 +1720,10 @@ def update_player(losses_factor):
     """
     global PLAYER_SHIPS
     global PLAYER_TOTAL_DESTROYED  # possibly remove this, unnecessary
-    global player_local_losses
-    global player_battle_losses
-    global player_destroyed_ships
-    global player_damaged_ships
+    global PLAYER_LOCAL_LOSSES
+    global PLAYER_BATTLE_LOSSES
+    global PLAYER_DESTROYED_SHIPS
+    global PLAYER_DAMAGED_SHIPS
     global MARINES
 
     player_battleship_losses = (
@@ -1737,35 +1733,35 @@ def update_player(losses_factor):
     player_escort_losses = (
         round(PLAYER_SHIPS['escorts'] * losses_factor))
 
-    player_battle_losses = {
+    PLAYER_BATTLE_LOSSES = {
         'battleships': (
-            player_battle_losses['battleships'] + player_battleship_losses),
+            PLAYER_BATTLE_LOSSES['battleships'] + player_battleship_losses),
         'cruisers': (
-            player_battle_losses['cruisers'] + player_cruiser_losses),
+            PLAYER_BATTLE_LOSSES['cruisers'] + player_cruiser_losses),
         'escorts': (
-            player_battle_losses['escorts'] + player_escort_losses)
+            PLAYER_BATTLE_LOSSES['escorts'] + player_escort_losses)
     }
 
-    player_destroyed_ships = {
-        'battleships': math.ceil(player_battle_losses['battleships'] * 0.30),
-        'cruisers': math.ceil(player_battle_losses['cruisers'] * 0.40),
-        'escorts': math.ceil(player_battle_losses['escorts'] * 0.50)
+    PLAYER_DESTROYED_SHIPS = {
+        'battleships': math.ceil(PLAYER_BATTLE_LOSSES['battleships'] * 0.30),
+        'cruisers': math.ceil(PLAYER_BATTLE_LOSSES['cruisers'] * 0.40),
+        'escorts': math.ceil(PLAYER_BATTLE_LOSSES['escorts'] * 0.50)
     }
 
-    player_damaged_ships = {
-        'battleships': math.floor(player_battle_losses['battleships'] * 0.70),
-        'cruisers': math.floor(player_battle_losses['cruisers'] * 0.60),
-        'escorts': math.floor(player_battle_losses['escorts'] * 0.50)
+    PLAYER_DAMAGED_SHIPS = {
+        'battleships': math.floor(PLAYER_BATTLE_LOSSES['battleships'] * 0.70),
+        'cruisers': math.floor(PLAYER_BATTLE_LOSSES['cruisers'] * 0.60),
+        'escorts': math.floor(PLAYER_BATTLE_LOSSES['escorts'] * 0.50)
     }
 
     MARINES -= (
-        int(math.ceil(player_destroyed_ships['battleships'] * 40 * 0.20))
-        + int(math.ceil(player_destroyed_ships['cruisers'] * 20 * 0.30))
-        + int(math.ceil(player_damaged_ships['battleships'] * 40 * 0.10))
-        + int(math.ceil(player_damaged_ships['cruisers'] * 20 * 0.20))
+        int(math.ceil(PLAYER_DESTROYED_SHIPS['battleships'] * 40 * 0.20))
+        + int(math.ceil(PLAYER_DESTROYED_SHIPS['cruisers'] * 20 * 0.30))
+        + int(math.ceil(PLAYER_DAMAGED_SHIPS['battleships'] * 40 * 0.10))
+        + int(math.ceil(PLAYER_DAMAGED_SHIPS['cruisers'] * 20 * 0.20))
     )
 
-    player_local_losses = {
+    PLAYER_LOCAL_LOSSES = {
         'battleships': player_battleship_losses,
         'cruisers': player_cruiser_losses,
         'escorts': player_escort_losses
@@ -2460,7 +2456,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: The enemy now has {value} {key} remaining')
         print('\n')
 
-        for key, value in player_local_losses.items():
+        for key, value in PLAYER_LOCAL_LOSSES.items():
             print(f'Roth: That run cost us {value} {key}')
         print('\n')
 
@@ -2523,41 +2519,41 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     PLAYER_TOTAL_DESTROYED = {
                         'battleships': (
                             PLAYER_TOTAL_DESTROYED['battleships']
-                            + player_destroyed_ships['battleships']),
+                            + PLAYER_DESTROYED_SHIPS['battleships']),
                         'cruisers': PLAYER_TOTAL_DESTROYED['cruisers'] + (
-                            player_destroyed_ships['cruisers']),
+                            PLAYER_DESTROYED_SHIPS['cruisers']),
                         'escorts': PLAYER_TOTAL_DESTROYED['escorts'] + (
-                            player_destroyed_ships['escorts'])
+                            PLAYER_DESTROYED_SHIPS['escorts'])
                     }
 
                     PLAYER_TOTAL_DAMAGED = {
                         'battleships': (
                             PLAYER_TOTAL_DAMAGED['battleships']
-                            + player_damaged_ships['battleships']),
+                            + PLAYER_DAMAGED_SHIPS['battleships']),
                         'cruisers': PLAYER_TOTAL_DAMAGED['cruisers'] + (
-                            player_damaged_ships['cruisers']),
+                            PLAYER_DAMAGED_SHIPS['cruisers']),
                         'escorts': PLAYER_TOTAL_DAMAGED['escorts'] + (
-                            player_damaged_ships['escorts'])
+                            PLAYER_DAMAGED_SHIPS['escorts'])
                     }
 
                     for key, value in ENEMY_BATTLE_LOSSES.items():
                         print(f'Roth: We destroyed {value} {key}')
                     print('\n')
 
-                    for key, value in player_battle_losses.items():
+                    for key, value in PLAYER_BATTLE_LOSSES.items():
                         print(f'Roth: {value} of our {key} were knocked out')
                     print('\n')
 
                     print('Roth: Of those...\n')
 
-                    TOTAL_CREW_calculator()
-                    EXCESS_CREW_calculator()
+                    total_crew_calculator()
+                    excess_crew_calculator()
 
-                    for key, value in player_destroyed_ships.items():
+                    for key, value in PLAYER_DESTROYED_SHIPS.items():
                         print(f'Roth: {value} of our {key} were destroyed')
                     print('Roth: We cannot recover them\n')
 
-                    for key, value in player_damaged_ships.items():
+                    for key, value in PLAYER_DAMAGED_SHIPS.items():
                         print(f'Roth: {value} of our {key} were badly damaged')
                     print('Roth: They cannot keep up with the fleet')
                     print('Roth: We will have to leave them behind')
@@ -2578,44 +2574,44 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             PLAYER_TOTAL_DESTROYED = {
                 'battleships': PLAYER_TOTAL_DESTROYED['battleships'] + (
-                    player_destroyed_ships['battleships']),
+                    PLAYER_DESTROYED_SHIPS['battleships']),
                 'cruisers': PLAYER_TOTAL_DESTROYED['cruisers'] + (
-                    player_destroyed_ships['cruisers']),
+                    PLAYER_DESTROYED_SHIPS['cruisers']),
                 'escorts': PLAYER_TOTAL_DESTROYED['escorts'] + (
-                    player_destroyed_ships['escorts'])
+                    PLAYER_DESTROYED_SHIPS['escorts'])
             }
 
             PLAYER_TOTAL_DAMAGED = {
                 'battleships': PLAYER_TOTAL_DAMAGED['battleships'] + (
-                    player_damaged_ships['battleships']),
+                    PLAYER_DAMAGED_SHIPS['battleships']),
                 'cruisers': PLAYER_TOTAL_DAMAGED['cruisers'] + (
-                    player_damaged_ships['cruisers']),
+                    PLAYER_DAMAGED_SHIPS['cruisers']),
                 'escorts': PLAYER_TOTAL_DAMAGED['escorts'] + (
-                    player_damaged_ships['escorts'])
+                    PLAYER_DAMAGED_SHIPS['escorts'])
             }
 
             for key, value in ENEMY_BATTLE_LOSSES.items():
                 print(f'Roth: We destroyed {value} {key} in that battle')
             print('\n')
 
-            for key, value in player_battle_losses.items():
+            for key, value in PLAYER_BATTLE_LOSSES.items():
                 print(f'Roth: {value} of our {key} were knocked out')
             print('\n')
 
             print('Roth: Of those...\n')
 
-            TOTAL_CREW_calculator()
-            EXCESS_CREW_calculator()
+            total_crew_calculator()
+            excess_crew_calculator()
 
-            for key, value in player_destroyed_ships.items():
+            for key, value in PLAYER_DESTROYED_SHIPS.items():
                 print(f'Roth: {value} of our {key} were destroyed outright')
             print('Roth: We cannot recover them\n')
             number_destroyed_player = int(
-                player_destroyed_ships['battleships']
-                + player_destroyed_ships['cruisers']
-                + player_destroyed_ships['escorts']
+                PLAYER_DESTROYED_SHIPS['battleships']
+                + PLAYER_DESTROYED_SHIPS['cruisers']
+                + PLAYER_DESTROYED_SHIPS['escorts']
             )
-            for key, value in player_damaged_ships.items():
+            for key, value in PLAYER_DAMAGED_SHIPS.items():
                 print(f'Roth: {value} of our {key} were badly damaged')
             print('Roth: They cannot keep up with the fleet')
             print('Roth: They will have to be left behind')
@@ -2663,24 +2659,24 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         enemy_firepower, enemy_group_strength, number_enemy_ships)
 
 
-def TOTAL_CREW_calculator():
+def total_crew_calculator():
     """
     Function that is called in the fight_engagement and player_fleet_status
     functions to calculate the total crew available to the player
     """
     global TOTAL_CREW
     TOTAL_CREW = TOTAL_CREW - ((
-        player_battle_losses['battleships'] * SHIP_CREW['battleship']
-        + player_battle_losses['cruisers'] * SHIP_CREW['cruiser']
-        + player_battle_losses['escorts'] * SHIP_CREW['escort'])
+        PLAYER_BATTLE_LOSSES['battleships'] * SHIP_CREW['battleship']
+        + PLAYER_BATTLE_LOSSES['cruisers'] * SHIP_CREW['cruiser']
+        + PLAYER_BATTLE_LOSSES['escorts'] * SHIP_CREW['escort'])
         -
-        (player_battle_losses['battleships'] * RECOVERED_CREW['battleship']
-            + player_battle_losses['cruisers'] * RECOVERED_CREW['cruiser']
-            + player_battle_losses['escorts'] * RECOVERED_CREW['escort']))
+        (PLAYER_BATTLE_LOSSES['battleships'] * RECOVERED_CREW['battleship']
+            + PLAYER_BATTLE_LOSSES['cruisers'] * RECOVERED_CREW['cruiser']
+            + PLAYER_BATTLE_LOSSES['escorts'] * RECOVERED_CREW['escort']))
     return TOTAL_CREW
 
 
-def EXCESS_CREW_calculator():
+def excess_crew_calculator():
     """
     Function that is called in the fight_engagement and
     player_fleet_status functions to calculate the excess crew
@@ -2821,7 +2817,7 @@ def boarding_operation(boardable_ships):
     global MARINE_EXPERIENCE
     global SALVAGED_SHIPS
 
-    available_crew = EXCESS_CREW_calculator()
+    available_crew = excess_crew_calculator()
 
     BOARDED_SHIPS = {
         'battleship': 0,
@@ -2857,7 +2853,7 @@ def boarding_operation(boardable_ships):
                 if boardable_ships['battleships'] == 0:
                     print('Roth: There are no enemy battleships to board')
                     boarding_operation(boardable_ships)
-                elif MARINES < 500:
+                elif MARINES < 250:
                     print('Roth: We do not have enough Marines')
                     print('Roth: We cannot board the battleship')
                     print('Roth: We might be able to board an enemy cruiser')
@@ -2865,7 +2861,7 @@ def boarding_operation(boardable_ships):
                 else:
                     print('Roth: Very well, assault shuttles away')
                     boardable_ships['battleships'] -= 1
-                    marine_casualties = int(500 - (MARINE_EXPERIENCE * 250))
+                    marine_casualties = int(250 - (MARINE_EXPERIENCE * 125))
                     MARINES -= marine_casualties
                     PLAYER_SHIPS['battleships'] += 1
                     BOARDED_SHIPS['battleship'] += 1
@@ -3021,9 +3017,9 @@ def boarding_operation(boardable_ships):
                 print('Please enter a number between 1 and 5')
 
         MARINE_EXPERIENCE = (
-            BOARDED_SHIPS['battleship'] * MARINE_EXPERIENCE_gains['battleship']
-            + BOARDED_SHIPS['cruiser'] * MARINE_EXPERIENCE_gains['cruiser']
-            + BOARDED_SHIPS['escort'] * MARINE_EXPERIENCE_gains['escort']
+            BOARDED_SHIPS['battleship'] * MARINES_EXPERIENCES_GAINS['battleship']
+            + BOARDED_SHIPS['cruiser'] * MARINES_EXPERIENCES_GAINS['cruiser']
+            + BOARDED_SHIPS['escort'] * MARINES_EXPERIENCES_GAINS['escort']
         )
 
         BOARDED_SHIPS = {
@@ -3035,29 +3031,29 @@ def boarding_operation(boardable_ships):
 
 def reset_battle_losses():
     """
-    Sets the values of all keys within player_battle_losses,
-    player_destroyed_ships,
-    player_damaged_ships
+    Sets the values of all keys within PLAYER_BATTLE_LOSSES,
+    PLAYER_DESTROYED_SHIPS,
+    PLAYER_DAMAGED_SHIPS
     and ENEMY_BATTLE_LOSSES to 0
     """
-    global player_battle_losses
-    global player_destroyed_ships
-    global player_damaged_ships
+    global PLAYER_BATTLE_LOSSES
+    global PLAYER_DESTROYED_SHIPS
+    global PLAYER_DAMAGED_SHIPS
     global ENEMY_BATTLE_LOSSES
 
-    player_battle_losses = {
+    PLAYER_BATTLE_LOSSES = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
 
-    player_destroyed_ships = {
+    PLAYER_DESTROYED_SHIPS = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
 
-    player_damaged_ships = {
+    PLAYER_DAMAGED_SHIPS = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
