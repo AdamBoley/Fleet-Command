@@ -203,6 +203,8 @@ Ultimately, I went with the second method, as the first method would create an i
 
 I implemented the concept of experience as a way of balancing out the player's losses - when they fight, losses are pretty much inevitable due to the calculations, but the experience gained by the player's crews counters this. 
 
+Toward the end of the project, testing revealed that player_experience was having an outsized effect on the outcome of the game, particularly toward the end of the game. To compensate, I reduced experience gains from + 0.1 per mission to + 0.03 per mission. The former method was far too overpowered, akin to the player's ships growing new turrets!
+
 I decided to implement the boarding mechanic as another way of balancing out the player's losses, and to add flavour and additional choices to the game for the player to consider. I added the option to board all enemy ships at once when I noted that after the battle in the second mission, the calculations returned 16 enemy ships that could be boarded, which would be a boring slog for the player to board one after another. I added the option to abandon the boarding operation when I noted that a player might like to focus on adding certain ships to their fleet. 
 
 When working on commit #60, which overhauled the update_player function so that Marines are lost when the player's cruisers and battleships are damaged or destroyed, I chose for:
@@ -219,13 +221,23 @@ For function calls with several arguments, I placed all of the arguments onto in
 
 For inputs assigned to variables, I used the backslash character to place the continuation text onto new lines
 
-For strings, I tried several methods, such as string concatenation, but I ran into under-indentation and over-indentation errors. I found that indenting one tab and 2 spaces or 6 spaces solved this, but then noted that mixing spaces and tabs is not allowed in Python. This also produced very messy code. I eventually resorted to shortening my print statements so that none went over 79 characters. Whilst initially annoying, after a while I determined that I had probably been too verbose with my text. Reducing line lengths forced me to be clearer and more concise
+For strings, I tried several methods, such as string concatenation, but I ran into under-indentation and over-indentation errors. I found that indenting one tab and 2 spaces or 6 spaces solved this, but then noted that mixing spaces and tabs is not allowed in Python. This also produced very messy code. I eventually resorted to shortening my print statements so that none went over 79 characters. Whilst initially annoying, after a while I determined that I had probably been too verbose with my text. Reducing line lengths forced me to be clearer and more concise. 
 
 # Future Work
 
-armour rating
+As the project is a game, it has excellent scope for future work, much like commercial games may be improved with Downloadable Content. This should be relatively simple, since the core mechanics that simulate firing runs and boarding operations is in place, and more content would come in the form of additional missions.
 
-random number generator 
+As noted elsewhere, I initially struggled with properly simulating a space battle mathematically. I considered implementing some of sort of armour rating or shield rating function, which would reduce incoming damage, but ultimately the mathematics proved too difficult to implement. The armour rating / shield rating function could provide a threshold which incoming fire must over-match in order to be effective. If incoming fire cannot break armour or shields, then very little damage is sustained. However, if the incoming fire can break the armour or shields, then the effect could be devastating. This would probably function similarly to the Damage Threshold function in Fallout: New Vegas. 
+
+I also considered implementing many more tactics than were present in the final version of the game. More tactics that change not just how many enemy ships the player targets but also *what* they target as well could be a good addition. For example, if the player chooses to ignore an enemy group's capital ships and instead try to focus on stripping off their escorts, then on subsequent firing runs the player could gain an advantage, as the enemy would not have enough escorts to stop the players escorts from swarming in. 
+
+The game also models a very stupid enemy, who does not react to the player's actions. If the player chooses to target only 25% of the enemy group, the enemy does not try to counter that, whereas a human commander would. Also, if the player decides to skip a mission, the enemy has no say in that. In reality an enemy would try to engage the player if they wanted to do so. This also applies if the player wants to end a battle early. If the player chooses to do this, then the enemy cannot force the issue and re-engage. 
+
+At the start of the project, I considered implementing some sort of random number generator and using random numbers for things in the game. Most obviously, this would be things like combat losses, where random numbers could indicate unexpectedly effective or ineffective firing runs. Early versions of the code did import the randint library in expectation of this, but other problems demanded my attention and I never got around to properly exploring how I could use random numbers. 
+
+I also considered implementing specialised ship classes as well, such as mine-laying vessels and missile ships. These would have limited conventional firepower, but would carry large stocks of mines and missiles. These could increase the number of mine-fields and missile volleys available to the player, or could enhance the odds when these tactics are used.  
+
+Though the core mechanics are in place, I cannot rule out further changes should I come across a superior method of mathematically simulating an engagement. Indeed, the implementation of Lancester's Square Law is fairly basic, as the actual model uses differential equations and considers the time over which a battle takes place as well. 
 
 # Bugs
 
@@ -241,7 +253,7 @@ During some routine testing related to commit #44, I noted that when the battle 
 
 During testing related to commit #46, it was noted that when the game is failed and the option to start a new game is selected, the global dictionaries do not reset. Commit #46 was focussed on reworking the way in which the player's losses are calculated by adding the concept of damaged ships that will be repaired behind the lines and eventually returned to the player's fleet. This issue of dictionaries resetting is documented here, and will be dealt with in a future commit. 
 
-During testing related to commit #49, which implemented the new_game_reset function, I was deliberately trying to lose the game in order to test that the new function was working as intended. To lose, I choose option 4 - the riskiest and most casualty heavy approach. I noted that the when the enemy ships outnumbered the player's ships, the firepower_factor variable was negative. This produced negative enemy loss values and negative player loss values, which had the effect of __adding__ ships to the enemy and player fleets. This will require some reworking of the calculations.  
+During testing related to commit #49, which implemented the new_game_reset function, I was deliberately trying to lose the game in order to test that the new function was working as intended. To lose, I choose option 4 - the riskiest and most casualty heavy approach. I noted that the when the enemy ships outnumbered the player's ships, the firepower_factor variable was negative. This produced negative enemy loss values and negative player loss values, which had the effect of *adding* ships to the enemy and player fleets. This will require some reworking of the calculations.  
 
 Testing various solutions to this problem also revealed another bug - the calculation results for selecting tactic 4 when facing enemy_group_two in Mission Two were unexpectedly bad for the player. The player's firepower_factor was calculated as 0.34 or thereabouts, whereas the losses_factor was calculated as 0.56 or thereabouts, despite the player having more ships than the enemy, which would lead to a reasonable expectation of destroying more ships than they lose. The cause of this was the losses_factor calculation, and the result was a consequence of the value of the effective_enemy_firepower (1040) being greater than the value of effective_firepower_difference (610). 
 
