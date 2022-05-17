@@ -177,6 +177,30 @@ salvaged_ships = {
     'escorts': 0
 }
 
+osiris_group = {
+    'battleships': 4,
+    'cruisers': 14,
+    'escorts': 38
+}
+
+osiris_extra = {
+    'battleships': 1,
+    'cruisers': 2,
+    'escorts': 8
+}
+
+allied_convoy = {
+    'battleships': 3,
+    'cruisers': 10,
+    'escorts': 26
+}
+
+laconia_ships = {
+    'battleships': 2,
+    'cruisers': 9,
+    'escorts': 23
+}
+
 player_name = ''
 flagship_name = ''
 starting_supplies = 30
@@ -185,6 +209,8 @@ player_supplies = 30
 osiris_fleet_helped = 0
 osiris_docks_helped = 0
 osiris_more_ships = 0
+allied_convoy_joined = 0
+laconia_ships_helped = 0
 
 enemy_groups_destroyed = 0
 enemy_groups_damaged = 0
@@ -558,15 +584,9 @@ def mission_three():
         'escorts': 78
     }
 
-    allied_group = {
-        'battleships': 4,
-        'cruisers': 14,
-        'escorts': 38
-    }
-
     enemy_firepower_one = enemy_firepower_calculator(enemy_group_three_one)
     enemy_firepower_two = enemy_firepower_calculator(enemy_group_three_two)
-    allied_firepower = enemy_firepower_calculator(allied_group)
+    allied_firepower = enemy_firepower_calculator(osiris_group)
     player_firepower = calculate_player_firepower(player_ships)
 
     for key, value in enemy_group_three_one.items():
@@ -597,7 +617,7 @@ def mission_three():
         print(f'Roth: We have {firepower_diff_two} more turrets')
 
     print('\n')
-    for key, value in allied_group.items():
+    for key, value in osiris_group.items():
         print(f'Roth: Osiris force has {value} {key}')
     print(f'Roth: They have {allied_firepower} turrets')
 
@@ -619,9 +639,9 @@ def mission_three():
         fight_battle(enemy_firepower_one, enemy_group_three_one)
         player_experience += 0.02
         osiris_fleet_helped = 1
-        player_ships['battleships'] += allied_group['battleships']
-        player_ships['cruisers'] += allied_group['cruisers']
-        player_ships['escorts'] += allied_group['escorts']
+        player_ships['battleships'] += osiris_group['battleships']
+        player_ships['cruisers'] += osiris_group['cruisers']
+        player_ships['escorts'] += osiris_group['escorts']
         print('OF: Thank you for your assistance, Admiral')
         print('OF: Transferring our ships to your command')
 
@@ -759,9 +779,9 @@ def mission_three():
                 print('Roth: Osiris is secure')
                 print('Roth: In appreciation, Osiris has reinforced us')
                 print('Roth: More supplies, mines, missiles and Marines')
-                player_ships['battleships'] += 1
-                player_ships['cruisers'] += 2
-                player_ships['escorts'] += 8
+                player_ships['battleships'] += osiris_extra['battleships']
+                player_ships['cruisers'] += osiris_extra['cruisers']
+                player_ships['escorts'] += osiris_extra['escorts']
                 player_supplies += 5
                 marines += 100
                 missile_volleys += 1
@@ -907,7 +927,7 @@ def mission_five():
     global player_supplies
     global marines
     global enemy_groups_bypassed
-
+    global allied_convoy_joined
     print('\n  BEGIN MISSION FIVE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -951,11 +971,6 @@ def mission_five():
         'cruisers': 68,
         'escorts': 170
     }
-    allied_convoy = {
-        'battleships': 3,
-        'cruisers': 10,
-        'escorts': 26
-    }
 
     enemy_firepower_supposed = enemy_firepower_calculator(
         enemy_group_five_supposed)
@@ -989,6 +1004,7 @@ def mission_five():
         if join_up_decision == 'y':
             print('You: More ships are always welcome, even damaged ones')
             print('You: Repair crews are on their way')
+            allied_convoy_joined = 1
             player_supplies -= 10
             marines += 200
             break
@@ -1106,7 +1122,7 @@ def mission_six():
     global marines
     global player_supplies
     global enemy_groups_bypassed
-
+    global laconia_ships_helped
     print('\n  BEGIN MISSION SIX  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -1222,21 +1238,15 @@ def mission_six():
             print('Roth: We have managed to retrive some supplies as well')
             player_supplies += 5
 
-            damaged_ships = {
-                'battleships': 2,
-                'cruisers': 9,
-                'escorts': 23
-            }
-
-            for key, value in damaged_ships.items():
+            for key, value in laconia_ships.items():
                 print(f'Roth: There are {value} damaged {key}')
 
             print(f'Roth: We also have {player_supplies} repair supplies')
             print('Roth: It will take a lot to get these wrecks ship-shape')
             crew_required = (
-                damaged_ships['battleships'] * minimum_ship_crew['battleship']
-                + damaged_ships['cruisers'] * minimum_ship_crew['cruiser']
-                + damaged_ships['escorts'] * minimum_ship_crew['escort']
+                laconia_ships['battleships'] * minimum_ship_crew['battleship']
+                + laconia_ships['cruisers'] * minimum_ship_crew['cruiser']
+                + laconia_ships['escorts'] * minimum_ship_crew['escort']
             )
             print('Roth: We will need to crew them as well')
             print(f'Roth: We will require {crew_required} sailors to do that')
@@ -1248,11 +1258,12 @@ def mission_six():
                     salvage_decision = input(
                         'Press y to salvage the ships, or n to move on:\n')
                     if salvage_decision == 'y':
+                        laconia_ships_helped = 1
                         print('You: We need all the ships we can get\n')
                         player_ships['battleships'] += (
-                            damaged_ships['battleships'])
-                        player_ships['cruisers'] += damaged_ships['cruisers']
-                        player_ships['escorts'] += damaged_ships['escorts']
+                            laconia_ships['battleships'])
+                        player_ships['cruisers'] += laconia_ships['cruisers']
+                        player_ships['escorts'] += laconia_ships['escorts']
                         player_supplies -= 15
                         break
                     elif salvage_decision == 'n':
@@ -3068,20 +3079,56 @@ def player_fleet_status():
     player_firepower = calculate_player_firepower(player_ships)
     for key, value in player_ships.items():
         print(f'Roth: We currently have {value} {key}')
-    print('\n')
+    print('')
     print(f"Roth: We currently have {player_firepower} turrets")
     print(f'Roth: We have enough missiles for {missile_volleys} barrages')
     print(f'Roth: We have enough mines for {mine_stocks} mine-fields')
     print(f'Roth: We currently have {player_supplies} supplies\n')
-    for key, value in player_total_destroyed.items():
-        print(f'Roth: {value} of our {key} have been destroyed')
-    print('\n')
-    for key, value in player_total_damaged.items():
-        print(f'Roth: {value} of our {key} have been damaged and left behind')
-    print('\n')
-    for key, value in salvaged_ships.items():
-        print(f'Roth: {value} enemy {key} have be boarded and salvaged')
-    print('\n')
+    if (player_total_destroyed['battleships'] == 0 or
+        player_total_destroyed['cruisers'] == 0 or
+            player_total_destroyed['escorts'] == 0):
+        print('Roth: None of our ships have been destroyed')
+        print('\n')
+    else:
+        for key, value in player_total_destroyed.items():
+            print(f'Roth: {value} of our {key} have been destroyed')
+        print('\n')
+    if (player_total_damaged['battleships'] == 0 or
+        player_total_damaged['cruisers'] == 0 or
+            player_total_damaged['escorts'] == 0):
+        print('Roth: None of our ships have been damaged')
+        print('\n')
+    else:
+        for key, value in player_total_damaged.items():
+            print(f'Roth: {value} of our {key} have been damaged')
+        print('\n')
+    if (salvaged_ships['battleships'] == 0 or
+        salvaged_ships['cruisers'] == 0 or
+            salvaged_ships['escorts'] == 0):
+        print('Roth: No enemy ships have been salvaged')
+        print('\n')
+    else:
+        for key, value in salvaged_ships.items():
+            print(f'Roth: {value} enemy {key} have been salvaged')
+        print('\n')
+    if osiris_fleet_helped == 1:
+        print('Roth: The Osiris defence forces have joined us')
+        for key, value in osiris_group.items():
+            print(f'Roth: They brought {value} {key}')
+    if osiris_more_ships == 1:
+        print('Roth: Osiris also released some more ships')
+        for key, value in osiris_extra.items():
+            print(f'Roth: They gave us {value} {key}')
+    if allied_convoy_joined == 1:
+        print('Roth: The allied convoy from Medusa has joined up')
+        for key, value in allied_convoy.items():
+            print(f'Roth: They brought us {value} {key}')
+        print('\n')
+    if laconia_ships_helped == 1:
+        print('Roth: The allied ships from Laconia have joined up')
+        for key, value in laconia_ships.items():
+            print(f'Roth: They brought us {value} {key}')
+        print('\n')
     print(f'Roth: We currently have {total_crew} sailors in the fleet')
     if excess_crew <= 0:
         print('Roth: We cannot spare any crew for other duties')
