@@ -14,19 +14,19 @@ player_starting_ships = {
     'escorts': 150
 }
 
-player_ships = {
+PLAYER_SHIPS = {
     'battleships': 20,
     'cruisers': 50,
     'escorts': 150,
 }
 
-player_total_destroyed = {
+PLAYER_TOTAL_DESTROYED = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0,
 }
 
-player_total_damaged = {
+PLAYER_TOTAL_DAMAGED = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0,
@@ -56,86 +56,86 @@ player_damaged_ships = {
     'escorts': 0
 }
 
-enemy_losses = {
+ENEMY_LOSSES = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0,
 }
 
-enemy_local_losses = {
+ENEMY_LOCAL_LOSSES = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-enemy_battle_losses = {
+ENEMY_BATTLE_LOSSES = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-enemy_bypassed = {
+ENEMY_BYPASSED = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-ship_firepower = {
+SHIP_FIREPOWER = {
     'battleship': 20,
     'cruiser': 10,
     'escort': 5,
 }
 
-ship_crew = {
+SHIP_CREW = {
     'battleship': 2000,
     'cruiser': 1000,
     'escort': 200
 }
 
-minimum_ship_crew = {
-    'battleship': int(ship_crew['battleship'] * 0.80),
-    'cruiser': int(ship_crew['cruiser'] * 0.80),
-    'escort': int(ship_crew['escort'] * 0.80)
+MINIMUM_SHIP_CREW = {
+    'battleship': int(SHIP_CREW['battleship'] * 0.80),
+    'cruiser': int(SHIP_CREW['cruiser'] * 0.80),
+    'escort': int(SHIP_CREW['escort'] * 0.80)
 }
 
-player_experience = 1.0
+PLAYER_EXPERIENCE = 1.0
 
-recovered_crew = {
-    'battleship': int(ship_crew['battleship'] * 0.60),
-    'cruiser': int(ship_crew['cruiser'] * 0.50),
-    'escort': int(ship_crew['escort'] * 0.40)
+RECOVERED_CREW = {
+    'battleship': int(SHIP_CREW['battleship'] * 0.60),
+    'cruiser': int(SHIP_CREW['cruiser'] * 0.50),
+    'escort': int(SHIP_CREW['escort'] * 0.40)
 }
 
-total_crew = (
-    ship_crew['battleship'] * player_ships['battleships']
-    + ship_crew['cruiser'] * player_ships['cruisers']
-    + ship_crew['escort'] * player_ships['escorts']
+TOTAL_CREW = (
+    SHIP_CREW['battleship'] * PLAYER_SHIPS['battleships']
+    + SHIP_CREW['cruiser'] * PLAYER_SHIPS['cruisers']
+    + SHIP_CREW['escort'] * PLAYER_SHIPS['escorts']
 )
 
-excess_crew = (
-    total_crew - (
-        minimum_ship_crew['battleship'] * player_ships['battleships']
-        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
-        + minimum_ship_crew['escort'] * player_ships['escorts']
+EXCESS_CREW = (
+    TOTAL_CREW - (
+        MINIMUM_SHIP_CREW['battleship'] * PLAYER_SHIPS['battleships']
+        + MINIMUM_SHIP_CREW['cruiser'] * PLAYER_SHIPS['cruisers']
+        + MINIMUM_SHIP_CREW['escort'] * PLAYER_SHIPS['escorts']
     )
 )
 
-missile_volleys = 3
+MISSILE_VOLLEYS = 3
 
-missile_launchers = {
+MISSILE_LAUNCHERS = {
     'battleships': 4,
     'cruisers': 2,
     'escorts': 1
 }
 
-mine_stocks = 3
+MINE_STOCKS = 3
 
-mine_layers = {
+MINE_LAYERS = {
     'battleships': 2,
     'cruisers': 1
 }
 
-tactical_library = {
+TACTICAL_LIBRARY = {
     '1': 'attack 25% of the enemy',
     '2': 'attack 50% of the enemy',
     '3': 'attack 75% of the enemy',
@@ -144,7 +144,7 @@ tactical_library = {
     '6': 'lay a stealth mine-field'
 }
 
-boarding_tactics = {
+BOARDING_TACTICS = {
     '1': 'We can board a battleship',
     '2': 'We can board a cruiser',
     '3': 'We can board an escort',
@@ -152,69 +152,69 @@ boarding_tactics = {
     '5': 'We can stop boarding enemy ships'
 }
 
-marines = (
-    (player_ships['battleships'] * 40)
-    + (player_ships['cruisers'] * 20)
+MARINES = (
+    (PLAYER_SHIPS['battleships'] * 40)
+    + (PLAYER_SHIPS['cruisers'] * 20)
 )
 
-marine_experience = 1.0
+MARINE_EXPERIENCE = 1.0
 
-marine_experience_gains = {
+MARINE_EXPERIENCE_gains = {
     'battleship': 0.05,
     'cruiser': 0.03,
     'escort': 0.01
 }
 
-boarded_ships = {
+BOARDED_SHIPS = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-salvaged_ships = {
+SALVAGED_SHIPS = {
     'battleships': 0,
     'cruisers': 0,
     'escorts': 0
 }
 
-osiris_group = {
+OSIRIS_GROUP = {
     'battleships': 4,
     'cruisers': 14,
     'escorts': 38
 }
 
-osiris_extra = {
+OSIRIS_EXTRA = {
     'battleships': 1,
     'cruisers': 2,
     'escorts': 8
 }
 
-allied_convoy = {
+ALLIED_CONVOY = {
     'battleships': 3,
     'cruisers': 10,
     'escorts': 26
 }
 
-laconia_ships = {
+LACONIA_SHIPS = {
     'battleships': 2,
     'cruisers': 9,
     'escorts': 23
 }
 
-player_name = ''
-flagship_name = ''
-starting_supplies = 30
-player_supplies = 30
+PLAYER_NAME = ''
+FLAGSHIP_NAME = ''
+STARTING_SUPPLIES = 30
+PLAYER_SUPPLIES = 30
 
-osiris_fleet_helped = 0
-osiris_docks_helped = 0
-osiris_more_ships = 0
-allied_convoy_joined = 0
-laconia_ships_helped = 0
+OSIRIS_FLEET_HELPED = 0
+OSIRIS_DOCKS_HELPED = 0
+OSIRIS_MORE_SHIPS = 0
+ALLIED_CONVOY_JOINED = 0
+LACONIA_SHIPS_HELPED = 0
 
-enemy_groups_destroyed = 0
-enemy_groups_damaged = 0
-enemy_groups_bypassed = 0
+ENEMY_GROUPS_DESTROYED = 0
+ENEMY_GROUPS_DAMAGED = 0
+ENEMY_GROUPS_BYPASSED = 0
 
 
 def new_game_reset():
@@ -223,109 +223,109 @@ def new_game_reset():
     a player starts with the correct data when they
     lose a game and decide to restart
     """
-    global player_ships
-    global player_total_destroyed
-    global player_total_damaged
-    global salvaged_ships
-    global enemy_losses
-    global enemy_battle_losses
-    global enemy_local_losses
-    global enemy_bypassed
-    global player_experience
-    global missile_volleys
-    global mine_stocks
-    global total_crew
-    global excess_crew
-    global marines
-    global marine_experience
-    global player_name
-    global flagship_name
-    global player_supplies
-    global enemy_groups_destroyed
-    global enemy_groups_damaged
-    global enemy_groups_bypassed
+    global PLAYER_SHIPS
+    global PLAYER_TOTAL_DESTROYED
+    global PLAYER_TOTAL_DAMAGED
+    global SALVAGED_SHIPS
+    global ENEMY_LOSSES
+    global ENEMY_BATTLE_LOSSES
+    global ENEMY_LOCAL_LOSSES
+    global ENEMY_BYPASSED
+    global PLAYER_EXPERIENCE
+    global MISSILE_VOLLEYS
+    global MINE_STOCKS
+    global TOTAL_CREW
+    global EXCESS_CREW
+    global MARINES
+    global MARINE_EXPERIENCE
+    global PLAYER_NAME
+    global FLAGSHIP_NAME
+    global PLAYER_SUPPLIES
+    global ENEMY_GROUPS_DESTROYED
+    global ENEMY_GROUPS_DAMAGED
+    global ENEMY_GROUPS_BYPASSED
 
-    player_ships = {
+    PLAYER_SHIPS = {
         'battleships': player_starting_ships['battleships'],
         'cruisers': player_starting_ships['cruisers'],
         'escorts': player_starting_ships['escorts']
     }
-    player_total_destroyed = {
+    PLAYER_TOTAL_DESTROYED = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    player_total_damaged = {
+    PLAYER_TOTAL_DAMAGED = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    salvaged_ships = {
+    SALVAGED_SHIPS = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    enemy_losses = {
+    ENEMY_LOSSES = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    enemy_local_losses = {
+    ENEMY_LOCAL_LOSSES = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    enemy_battle_losses = {
+    ENEMY_BATTLE_LOSSES = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    enemy_bypassed = {
+    ENEMY_BYPASSED = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
     }
-    player_experience = 1.0
-    missile_volleys = 3
-    mine_stocks = 3
-    total_crew = (
-        ship_crew['battleship'] * player_ships['battleships']
-        + ship_crew['cruiser'] * player_ships['cruisers']
-        + ship_crew['escort'] * player_ships['escorts']
+    PLAYER_EXPERIENCE = 1.0
+    MISSILE_VOLLEYS = 3
+    MINE_STOCKS = 3
+    TOTAL_CREW = (
+        SHIP_CREW['battleship'] * PLAYER_SHIPS['battleships']
+        + SHIP_CREW['cruiser'] * PLAYER_SHIPS['cruisers']
+        + SHIP_CREW['escort'] * PLAYER_SHIPS['escorts']
     )
-    excess_crew = (
-        total_crew - (
-            minimum_ship_crew['battleship'] * player_ships['battleships']
-            + minimum_ship_crew['cruiser'] * player_ships['cruisers']
-            + minimum_ship_crew['escort'] * player_ships['escorts']
+    EXCESS_CREW = (
+        TOTAL_CREW - (
+            MINIMUM_SHIP_CREW['battleship'] * PLAYER_SHIPS['battleships']
+            + MINIMUM_SHIP_CREW['cruiser'] * PLAYER_SHIPS['cruisers']
+            + MINIMUM_SHIP_CREW['escort'] * PLAYER_SHIPS['escorts']
         )
     )
-    marines = (
-        (player_ships['battleships'] * 40)
-        + (player_ships['cruisers'] * 20)
+    MARINES = (
+        (PLAYER_SHIPS['battleships'] * 40)
+        + (PLAYER_SHIPS['cruisers'] * 20)
     )
-    marine_experience = 1.0
-    player_name = ''
-    flagship_name = ''
-    player_supplies = 30
-    enemy_groups_destroyed = 0
-    enemy_groups_damaged = 0
-    enemy_groups_bypassed = 0
+    MARINE_EXPERIENCE = 1.0
+    PLAYER_NAME = ''
+    FLAGSHIP_NAME = ''
+    PLAYER_SUPPLIES = 30
+    ENEMY_GROUPS_DESTROYED = 0
+    ENEMY_GROUPS_DAMAGED = 0
+    ENEMY_GROUPS_BYPASSED = 0
 
 
 def new_game():
     """
     Starts a new game
     """
-    global player_name
-    global flagship_name
+    global PLAYER_NAME
+    global FLAGSHIP_NAME
 
-    player_name = input('Please enter your name:\n')
-    flagship_name = input('Please enter the name of your flagship:\n')
-    print(f'Roth: Good morning Admiral {player_name}')
+    PLAYER_NAME = input('Please enter your name:\n')
+    FLAGSHIP_NAME = input('Please enter the name of your flagship:\n')
+    print(f'Roth: Good morning Admiral {PLAYER_NAME}')
     print('Roth: I am Captain Roth, your staff officer')
-    print(f'Roth: Welcome aboard the battleship {flagship_name}, Admiral')
-    print(f'Roth: The {flagship_name} is your command ship')
+    print(f'Roth: Welcome aboard the battleship {FLAGSHIP_NAME}, Admiral')
+    print(f'Roth: The {FLAGSHIP_NAME} is your command ship')
     print('Roth: From here you can issue orders to your fleet in battle')
     print('Roth: I will keep you updated with pertinent information')
     print('Roth: Do you want to see the status of the fleet now?')
@@ -395,19 +395,19 @@ def mission_one():
     intended as an introduction to the game
     """
     print('\n  BEGIN MISSION ONE  \n')
-    global player_experience
-    global enemy_groups_bypassed
+    global PLAYER_EXPERIENCE
+    global ENEMY_GROUPS_BYPASSED
     enemy_group_one = {
         'battleships': 4,
         'cruisers': 8,
         'escorts': 20
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_one)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
     print('This is the first mission.')
     print('You can expect light combat with no real consequences.')
     print('Experiment and get a feel for the game and how it works\n')
-    print(f'Roth: Admiral {player_name}, sensors have detected something!')
+    print(f'Roth: Admiral {PLAYER_NAME}, sensors have detected something!')
     print('Roth: Enemy warships have arrived at the jump point from Salamis!')
     print('Roth: The tactical suite is updating now - this group looks small')
     for key, value in enemy_group_one.items():
@@ -432,7 +432,7 @@ def mission_one():
         if engage_decision_mission_one == 'y':
             print('You: We engage! All hands - battle stations!')
             fight_battle(enemy_firepower, enemy_group_one)
-            player_experience += 0.03
+            PLAYER_EXPERIENCE += 0.03
             print('Roth: Congratulations Admiral')
             print('Roth: Our gunners are already notching their barrels')
             break
@@ -440,8 +440,8 @@ def mission_one():
             print('You: This is not worth our time')
             print('Roth: Disengage and leave them for follow-on forces')
             print('Roth: Discretion is the better part of valour, Admiral')
-            update_enemy_bypassed(enemy_group_one)
-            enemy_groups_bypassed += 1
+            update_ENEMY_BYPASSED(enemy_group_one)
+            ENEMY_GROUPS_BYPASSED += 1
             break
         else:
             print('Please enter y or n')
@@ -461,8 +461,8 @@ def mission_two():
     Heavier combat, requires the player to use their
     experience from Mission One to win
     """
-    global player_experience
-    global enemy_groups_bypassed
+    global PLAYER_EXPERIENCE
+    global ENEMY_GROUPS_BYPASSED
     print('\n  BEGIN MISSION TWO  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -485,7 +485,7 @@ def mission_two():
         'escorts': 100
     }
     enemy_firepower = enemy_firepower_calculator(enemy_group_two)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
     for key, value in enemy_group_two.items():
         print(f'The enemy group has {value} {key}')
@@ -509,13 +509,13 @@ def mission_two():
             print('You: We cannot allow a force this numerous to roam free')
             print('You: All hands, battle stations')
             fight_battle(enemy_firepower, enemy_group_two)
-            player_experience += 0.03
+            PLAYER_EXPERIENCE += 0.03
             break
 
         elif engage_decision_mission_two == 'n':
             print('You: No - follow-on forces should be able to handle them')
-            update_enemy_bypassed(enemy_group_two)
-            enemy_groups_bypassed += 1
+            update_ENEMY_BYPASSED(enemy_group_two)
+            ENEMY_GROUPS_BYPASSED += 1
             break
 
         else:
@@ -539,15 +539,15 @@ def mission_three():
     The player is presented with two enemy sub-fleets to deal with
     They must choose which to deal with first
     """
-    global player_experience
-    global player_supplies
-    global marines
-    global player_ships
-    global enemy_groups_bypassed
-    global enemy_groups_damaged
-    global mine_stocks
-    global missile_volleys
-    global osiris_more_ships
+    global PLAYER_EXPERIENCE
+    global PLAYER_SUPPLIES
+    global MARINES
+    global PLAYER_SHIPS
+    global ENEMY_GROUPS_BYPASSED
+    global ENEMY_GROUPS_DAMAGED
+    global MINE_STOCKS
+    global MISSILE_VOLLEYS
+    global OSIRIS_MORE_SHIPS
     print('\n  BEGIN MISSION THREE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -586,8 +586,8 @@ def mission_three():
 
     enemy_firepower_one = enemy_firepower_calculator(enemy_group_three_one)
     enemy_firepower_two = enemy_firepower_calculator(enemy_group_three_two)
-    allied_firepower = enemy_firepower_calculator(osiris_group)
-    player_firepower = calculate_player_firepower(player_ships)
+    allied_firepower = enemy_firepower_calculator(OSIRIS_GROUP)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
     for key, value in enemy_group_three_one.items():
         print(f'Roth: Sub-group  1 has {value} {key}')
@@ -617,7 +617,7 @@ def mission_three():
         print(f'Roth: We have {firepower_diff_two} more turrets')
 
     print('\n')
-    for key, value in osiris_group.items():
+    for key, value in OSIRIS_GROUP.items():
         print(f'Roth: Osiris force has {value} {key}')
     print(f'Roth: They have {allied_firepower} turrets')
 
@@ -627,9 +627,9 @@ def mission_three():
         Called if player chooses to aid the allied ships in Osiris
         If successful, player is granted reinforcements
         """
-        global player_experience
-        global osiris_fleet_helped
-        global player_ships
+        global PLAYER_EXPERIENCE
+        global OSIRIS_FLEET_HELPED
+        global PLAYER_SHIPS
         print('You: We need more ships, pronto')
         print('You: They will help us secure the rest of the system')
         print('Roth: Understood Admiral, setting course for the Osiris force')
@@ -637,11 +637,11 @@ def mission_three():
         print('OF: Thank the Living Stars! Reinforcements!')
         print('You: Hold on Osiris force. We will deal with the Syndics')
         fight_battle(enemy_firepower_one, enemy_group_three_one)
-        player_experience += 0.02
-        osiris_fleet_helped = 1
-        player_ships['battleships'] += osiris_group['battleships']
-        player_ships['cruisers'] += osiris_group['cruisers']
-        player_ships['escorts'] += osiris_group['escorts']
+        PLAYER_EXPERIENCE += 0.02
+        OSIRIS_FLEET_HELPED = 1
+        PLAYER_SHIPS['battleships'] += OSIRIS_GROUP['battleships']
+        PLAYER_SHIPS['cruisers'] += OSIRIS_GROUP['cruisers']
+        PLAYER_SHIPS['escorts'] += OSIRIS_GROUP['escorts']
         print('OF: Thank you for your assistance, Admiral')
         print('OF: Transferring our ships to your command')
 
@@ -650,14 +650,14 @@ def mission_three():
         Small functions within mission 3
         Called if the player chooses to aid the Osiris Dockyards
         If successful, the player is granted additional supplies
-        and Marines
+        and MARINES
         """
-        global player_experience
-        global osiris_docks_helped
-        global marines
-        global player_supplies
-        global missile_volleys
-        global mine_stocks
+        global PLAYER_EXPERIENCE
+        global OSIRIS_DOCKS_HELPED
+        global MARINES
+        global PLAYER_SUPPLIES
+        global MISSILE_VOLLEYS
+        global MINE_STOCKS
         print('You: We need the supplies from the orbital dockyards')
         print('You: They could prove invaluable for future battles')
         print('Roth: Understood Admiral, setting course for the dockyards')
@@ -668,21 +668,21 @@ def mission_three():
         print('You: Hold on, we will deal with the Syndic boarding fleet')
         print('You: Then we will help you clear out the boarders')
         fight_battle(enemy_firepower_one, enemy_group_three_two)
-        player_experience += 0.02
+        PLAYER_EXPERIENCE += 0.02
         print('Roth: Enemy support ships have been dealt with')
         print('You: Move escorts into fire support positions')
-        print(f'Roth: We have {marines} Marines')
-        if marines < 100:
-            print('Roth: We do not have enough Marines to ')
+        print(f'Roth: We have {MARINES} MARINES')
+        if MARINES < 100:
+            print('Roth: We do not have enough MARINES to ')
             print('Roth: We cannot launch a counter-boarding operation')
             print('Roth: But our fire support should still turn the tide')
             print('ODY: We are pushing them back with your fire support')
             print('ODY: But it is costing us badly')
             print('ODY: Syndicate boarding parties are surrendering!')
-            print('ODY: Transferring surviving Marines to your command, sir!')
-            marines += 500
-        elif marines <= 800:
-            print('Roth: We have enough Marines to assist the dockyards')
+            print('ODY: Transferring surviving MARINES to your command, sir!')
+            MARINES += 500
+        elif MARINES <= 800:
+            print('Roth: We have enough MARINES to assist the dockyards')
             print('Roth: We can launch a limited counter-boarding operation')
             print('Roth: We should drive out the Syndics with some effort')
             print('Roth: Launching assault shuttles now')
@@ -690,10 +690,10 @@ def mission_three():
             print('ODY: Enemy forces are breaking off to block you')
             print('ODY: We are rolling them up, but they are still costing us')
             print('ODY: Enemy forces have been defeated')
-            print('ODY: Transferring surviving Marines to you command')
-            marines += 750
-        elif marines > 800:
-            print('Roth: We have enough Marines to really help the dockyards')
+            print('ODY: Transferring surviving MARINES to you command')
+            MARINES += 750
+        elif MARINES > 800:
+            print('Roth: We have enough MARINES to really help the dockyards')
             print('Roth: We can launch a full counter-boarding operation')
             print('Roth: We should have this done in short order')
             print('Roth: Assault shuttles launching now')
@@ -701,14 +701,14 @@ def mission_three():
             print('ODY: We have them pinned!')
             print('ODY: We are rolling them up quickly!')
             print('ODY: Enemy forces defeated with minimal allied casualties')
-            print('ODY: Transferring surviving Marines to you command')
-            marines += 1000
-        osiris_docks_helped = 1
+            print('ODY: Transferring surviving MARINES to you command')
+            MARINES += 1000
+        OSIRIS_DOCKS_HELPED = 1
         print('ODY: You are welcome to our stockpiles for your fleet')
         print('ODY: We can provide fuel, ammunition, mines and missiles')
-        player_supplies += 15
-        missile_volleys += 1
-        mine_stocks += 1
+        PLAYER_SUPPLIES += 15
+        MISSILE_VOLLEYS += 1
+        MINE_STOCKS += 1
 
     print('Roth: Shall we aid Osiris?')
     while True:
@@ -739,7 +739,7 @@ def mission_three():
 
             print('Roth: That is one sub-group down')
             print('Roth: Shall we engage the other?')
-            if osiris_fleet_helped == 1:
+            if OSIRIS_FLEET_HELPED == 1:
                 while True:
                     engage_decision_two = input(
                         'Type y to help the docks or n to break off:\n')
@@ -751,12 +751,12 @@ def mission_three():
                         print('You: We have gained some allied ships')
                         print("You: I can't spare the ships to help the docks")
                         print('You: Disengage')
-                        update_enemy_bypassed(enemy_group_three_two)
+                        update_ENEMY_BYPASSED(enemy_group_three_two)
                         break
                     else:
                         print('Please enter either y or n')
 
-            elif osiris_docks_helped == 1:
+            elif OSIRIS_DOCKS_HELPED == 1:
                 while True:
                     engage_decision_two = input(
                         'Type y to help the allied ships or n to break off:\n')
@@ -764,28 +764,28 @@ def mission_three():
                         osiris_fleet()
                         break
                     elif engage_decision_two == 'n':
-                        print('You: We have picked up some additonal Marines')
+                        print('You: We have picked up some additonal MARINES')
                         print('You: And also some supplies and munitions')
                         print("You: I can't risk my forces further")
                         print('You: Disengage')
-                        update_enemy_bypassed(enemy_group_three_one)
+                        update_ENEMY_BYPASSED(enemy_group_three_one)
                         break
                     else:
                         print('Please enter either y or n')
 
-            if osiris_fleet_helped == 1 and osiris_docks_helped == 1:
-                osiris_more_ships = 1
+            if OSIRIS_FLEET_HELPED == 1 and OSIRIS_DOCKS_HELPED == 1:
+                OSIRIS_MORE_SHIPS = 1
                 print('Roth: Nicely done Admiral!')
                 print('Roth: Osiris is secure')
                 print('Roth: In appreciation, Osiris has reinforced us')
-                print('Roth: More supplies, mines, missiles and Marines')
-                player_ships['battleships'] += osiris_extra['battleships']
-                player_ships['cruisers'] += osiris_extra['cruisers']
-                player_ships['escorts'] += osiris_extra['escorts']
-                player_supplies += 5
-                marines += 100
-                missile_volleys += 1
-                mine_stocks += 1
+                print('Roth: More supplies, mines, missiles and MARINES')
+                PLAYER_SHIPS['battleships'] += OSIRIS_EXTRA['battleships']
+                PLAYER_SHIPS['cruisers'] += OSIRIS_EXTRA['cruisers']
+                PLAYER_SHIPS['escorts'] += OSIRIS_EXTRA['escorts']
+                PLAYER_SUPPLIES += 5
+                MARINES += 100
+                MISSILE_VOLLEYS += 1
+                MINE_STOCKS += 1
                 print('Roth: They have also released some more ships')
                 print('Roth: A battleship, 2 cruisers and 8 escorts')
 
@@ -796,9 +796,9 @@ def mission_three():
             print('You: Better to disengage')
             print("You: I won't spend ships and sailors on a doomed system")
             print('Roth: Very well, preparing for FTL')
-            update_enemy_bypassed(enemy_group_three_one)
-            update_enemy_bypassed(enemy_group_three_two)
-            enemy_groups_bypassed += 2
+            update_ENEMY_BYPASSED(enemy_group_three_one)
+            update_ENEMY_BYPASSED(enemy_group_three_two)
+            ENEMY_GROUPS_BYPASSED += 2
             break
 
         else:
@@ -814,10 +814,10 @@ def mission_four():
     After combat, player is offered a choice of trading some
     sailors for suuplies
     """
-    global player_experience
-    global player_supplies
-    global excess_crew
-    global enemy_groups_bypassed
+    global PLAYER_EXPERIENCE
+    global PLAYER_SUPPLIES
+    global EXCESS_CREW
+    global ENEMY_GROUPS_BYPASSED
 
     print('Roth: Admiral, we have intercepted some enemy communications')
     print('Roth: They indicate that a large enemy group is present at Cyrene')
@@ -846,7 +846,7 @@ def mission_four():
     }
 
     enemy_firepower = enemy_firepower_calculator(enemy_group_four)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
     for key, value in enemy_group_four.items():
         print(f'Roth: The enemy has {value} {key}')
@@ -869,15 +869,15 @@ def mission_four():
             print('You: We cannot allow a force of this strength to survive')
             print('You: All hands, battle stations')
             fight_battle(enemy_firepower, enemy_group_four)
-            player_experience += 0.03
+            PLAYER_EXPERIENCE += 0.03
             break
         elif engage_decision_mission_four == 'n':
             print('You: We are strong')
             print("You: But we'll suffer significant casualties if we fight")
             print('You: We must break off')
             print('You: Roth, signal follow-on forces to concentrate here')
-            update_enemy_bypassed(enemy_group_four)
-            enemy_groups_bypassed += 1
+            update_ENEMY_BYPASSED(enemy_group_four)
+            ENEMY_GROUPS_BYPASSED += 1
             break
         else:
             print('Please enter either y or n')
@@ -887,18 +887,18 @@ def mission_four():
     print('Roth: The first is a request that we detach 1000 veteran sailors')
     print('Roth: Their experience will be used to help train up new crews')
     print('Roth: In return, they will resupply us')
-    if player_experience <= 1.05:
+    if PLAYER_EXPERIENCE <= 1.05:
         print('You: Please inform them that we have no veterans to give them')
         print('Roth: Very well sir')
-    elif player_experience >= 1.10:
+    elif PLAYER_EXPERIENCE >= 1.10:
         print('You: We have gained some combat experience')
         while True:
             crew_trade = input(
                 'Press y to trade sailors for supplies, or n to refuse:\n')
             if crew_trade == 'y':
                 print('You: A capital idea. We could use the supplies')
-                excess_crew -= 1000
-                player_supplies += 5
+                EXCESS_CREW -= 1000
+                PLAYER_SUPPLIES += 5
                 break
             elif crew_trade == 'n':
                 print('You: I need those sailors for salvaging enemy ships')
@@ -921,13 +921,13 @@ def mission_five():
     Heavy enemy resistance
     But this may be reduced if the player has sufficient mines
     """
-    global player_experience
-    global mine_stocks
-    global player_ships
-    global player_supplies
-    global marines
-    global enemy_groups_bypassed
-    global allied_convoy_joined
+    global PLAYER_EXPERIENCE
+    global MINE_STOCKS
+    global PLAYER_SHIPS
+    global PLAYER_SUPPLIES
+    global MARINES
+    global ENEMY_GROUPS_BYPASSED
+    global ALLIED_CONVOY_JOINED
     print('\n  BEGIN MISSION FIVE  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -976,12 +976,12 @@ def mission_five():
         enemy_group_five_supposed)
     enemy_firepower_actual = enemy_firepower_calculator(
         enemy_group_five_actual)
-    player_firepower = calculate_player_firepower(player_ships)
-    allied_firepower = enemy_firepower_calculator(allied_convoy)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
+    allied_firepower = enemy_firepower_calculator(ALLIED_CONVOY)
 
-    for key, value in allied_convoy.items():
+    for key, value in ALLIED_CONVOY.items():
         print(f'Roth: The allied convoy has {value} {key}')
-    print(f'Based on their numbers, thy have {allied_firepower} turrets')
+    print(f'Based on their numbers, they have {allied_firepower} turrets')
 
     for key, value in enemy_group_five_supposed.items():
         print(f'Roth: The enemy force has {value} {key}')
@@ -1004,9 +1004,12 @@ def mission_five():
         if join_up_decision == 'y':
             print('You: More ships are always welcome, even damaged ones')
             print('You: Repair crews are on their way')
-            allied_convoy_joined = 1
-            player_supplies -= 10
-            marines += 200
+            PLAYER_SHIPS['battleships'] += ALLIED_CONVOY['battleships']
+            PLAYER_SHIPS['cruisers'] += ALLIED_CONVOY['cruisers']
+            PLAYER_SHIPS['escorts'] += ALLIED_CONVOY['escorts']
+            ALLIED_CONVOY_JOINED = 1
+            PLAYER_SUPPLIES -= 10
+            MARINES += 200
             break
         elif join_up_decision == 'n':
             print("You: I can't spare the supplies to repair your ships")
@@ -1024,14 +1027,14 @@ def mission_five():
             print('You: But we do not have to face the enemy head on')
             print('Roth: Admiral?')
             print('You: Roth, what are our stocks of mines like?')
-            if mine_stocks >= 1:
-                print(f'Roth: We have enough for {mine_stocks} fields')
+            if MINE_STOCKS >= 1:
+                print(f'Roth: We have enough for {MINE_STOCKS} fields')
                 print('You: Excellent. Lay a minefield at the jump point exit')
                 print('You: They will straight into our mines')
                 print('You: Then we will spring an ambush')
                 print('Roth: A cunning plan Admiral. Laying mines now')
-                if mine_stocks == 1:
-                    mine_stocks -= 1
+                if MINE_STOCKS == 1:
+                    MINE_STOCKS -= 1
                     print('Roth: We have laid a field of standard density sir')
                     print('Roth: When the enemy arrives, they will suffer')
                     print('Roth: They are here!')
@@ -1052,10 +1055,10 @@ def mission_five():
                     print('You: All hands, battle stations')
                     fight_battle(
                         enemy_firepower_one, enemy_group_five_actual_one)
-                    player_experience += 0.03
+                    PLAYER_EXPERIENCE += 0.03
 
-                elif mine_stocks >= 2:
-                    mine_stocks -= 2
+                elif MINE_STOCKS >= 2:
+                    MINE_STOCKS -= 2
                     print('Roth: We have laid a field of double density')
                     print('Roth: The enemy will be in for a nasty surprise')
                     print('Roth: They are here!')
@@ -1074,20 +1077,20 @@ def mission_five():
                     print('You: All hands, battle stations')
                     fight_battle(
                         enemy_firepower_two, enemy_group_five_actual_two)
-                    player_experience += 0.03
+                    PLAYER_EXPERIENCE += 0.03
                 print('Roth: Nicely done Admiral')
                 print('Roth: Enemy forces destroyed or in retreat')
                 print('Roth: Based on the enemy strength here... ')
                 print("Roth: ...we shouldn't face many enemies at Laconia")
 
-            elif mine_stocks == 0:
+            elif MINE_STOCKS == 0:
                 print('Roth: We have no mines in our inventory Admiral')
                 print('You: Looks like we will have to do this the hard way')
                 print('Roth: They are here!')
                 print('You: All hands, battle stations')
                 print("You: Let's dance")
                 fight_battle(enemy_firepower_actual, enemy_group_five_actual)
-                player_experience += 0.03
+                PLAYER_EXPERIENCE += 0.03
                 print('Roth: Nicely done Admiral')
                 print('Roth: Without mines, that was a tough fight')
                 print('Roth: Enemy forces destroyed or in retreat')
@@ -1101,8 +1104,8 @@ def mission_five():
             print('You: If we retake Laconia, however, we can cut them off')
             print('You: All hands, secure from battle stations')
             print('You: Roth, set course for Laconia')
-            update_enemy_bypassed(enemy_group_five_actual)
-            enemy_groups_bypassed += 1
+            update_ENEMY_BYPASSED(enemy_group_five_actual)
+            ENEMY_GROUPS_BYPASSED += 1
             break
 
         else:
@@ -1118,11 +1121,11 @@ def mission_six():
     Player should take few losses
     And may be able to pick up some reinforcements
     """
-    global player_experience
-    global marines
-    global player_supplies
-    global enemy_groups_bypassed
-    global laconia_ships_helped
+    global PLAYER_EXPERIENCE
+    global MARINES
+    global PLAYER_SUPPLIES
+    global ENEMY_GROUPS_BYPASSED
+    global LACONIA_SHIPS_HELPED
     print('\n  BEGIN MISSION SIX  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -1158,7 +1161,7 @@ def mission_six():
     }
 
     enemy_firepower = enemy_firepower_calculator(enemy_group_six)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
     for key, value in enemy_group_six.items():
         print(f'Roth: The enemy has {value} {key}')
@@ -1180,7 +1183,7 @@ def mission_six():
             print('You: Yes')
             print('You: We will at least remove support for the enemy landing')
             fight_battle(enemy_firepower, enemy_group_six)
-            player_experience += 0.03
+            PLAYER_EXPERIENCE += 0.03
             print('Roth: Nice work Admiral')
             print('Roth: Enemy ships destroyed or in retreat')
             print('You: Get me Laconia Command')
@@ -1197,15 +1200,15 @@ def mission_six():
             print('Roth: Laconia is an allied world')
             print("Roth: But we can't use a massive orbital bombardment")
             print("Roth: We will want to spare Laconia's factories")
-            if marines < 300:
-                print('Roth: Unfortunately, we do not have many Marines')
+            if MARINES < 300:
+                print('Roth: Unfortunately, we do not have many MARINES')
                 print('Roth: We cannot launch a counter invasion')
-            elif marines >= 300:
-                print('Roth: We have enough Marines for a limited landing')
+            elif MARINES >= 300:
+                print('Roth: We have enough MARINES for a limited landing')
                 print('Roth: Shall we launch shuttles?')
                 while True:
                     counter_invasion = input(
-                        'Press y to land Marines, or n to leave them to it:\n')
+                        'Press y to land MARINES, or n to leave them to it:\n')
                     if counter_invasion == 'y':
                         print('You: We should help the Laconians out')
                         print('You: In spite of their aggravating nature')
@@ -1213,13 +1216,13 @@ def mission_six():
                         print('Roth: Bombardment ships firing now')
                         print('LC: Much obliged Admiral')
                         print('LC: Our forces are counter attacking')
-                        print('Roth: Our Marines are rolling up the enemy')
+                        print('Roth: Our MARINES are rolling up the enemy')
                         print('LC: Your assistance is noted')
                         print('LC: Some supply shuttles are on the way to you')
                         print('LC: On board are some supplies')
                         print('LC: And a company of our best veterans\n')
-                        player_supplies += 2
-                        marines += 200
+                        PLAYER_SUPPLIES += 2
+                        MARINES += 200
                         break
                     elif counter_invasion == 'n':
                         print('You: If these Laconian pricks are so hard...')
@@ -1236,52 +1239,52 @@ def mission_six():
             print('Roth: Most of these have been destroyed, their ships too')
             print('Roth: But a handful are only damaged\n')
             print('Roth: We have managed to retrive some supplies as well')
-            player_supplies += 5
+            PLAYER_SUPPLIES += 5
 
-            for key, value in laconia_ships.items():
+            for key, value in LACONIA_SHIPS.items():
                 print(f'Roth: There are {value} damaged {key}')
 
-            print(f'Roth: We also have {player_supplies} repair supplies')
+            print(f'Roth: We also have {PLAYER_SUPPLIES} repair supplies')
             print('Roth: It will take a lot to get these wrecks ship-shape')
             crew_required = (
-                laconia_ships['battleships'] * minimum_ship_crew['battleship']
-                + laconia_ships['cruisers'] * minimum_ship_crew['cruiser']
-                + laconia_ships['escorts'] * minimum_ship_crew['escort']
+                LACONIA_SHIPS['battleships'] * MINIMUM_SHIP_CREW['battleship']
+                + LACONIA_SHIPS['cruisers'] * MINIMUM_SHIP_CREW['cruiser']
+                + LACONIA_SHIPS['escorts'] * MINIMUM_SHIP_CREW['escort']
             )
             print('Roth: We will need to crew them as well')
             print(f'Roth: We will require {crew_required} sailors to do that')
-            print(f'Roth: We currently have {excess_crew} sailors available')
-            if crew_required < excess_crew and player_supplies > 20:
+            print(f'Roth: We currently have {EXCESS_CREW} sailors available')
+            if crew_required < EXCESS_CREW and PLAYER_SUPPLIES > 20:
                 print('Roth: We have enough sailors and supplies')
                 print('Roth: Shall we salvage them?')
                 while True:
                     salvage_decision = input(
                         'Press y to salvage the ships, or n to move on:\n')
                     if salvage_decision == 'y':
-                        laconia_ships_helped = 1
+                        LACONIA_SHIPS_HELPED = 1
                         print('You: We need all the ships we can get\n')
-                        player_ships['battleships'] += (
-                            laconia_ships['battleships'])
-                        player_ships['cruisers'] += laconia_ships['cruisers']
-                        player_ships['escorts'] += laconia_ships['escorts']
-                        player_supplies -= 15
+                        PLAYER_SHIPS['battleships'] += (
+                            LACONIA_SHIPS['battleships'])
+                        PLAYER_SHIPS['cruisers'] += LACONIA_SHIPS['cruisers']
+                        PLAYER_SHIPS['escorts'] += LACONIA_SHIPS['escorts']
+                        PLAYER_SUPPLIES -= 15
                         break
                     elif salvage_decision == 'n':
                         print('You: I cannot spare the sailors and supplies\n')
                         break
                     else:
                         print('Please enter either y or n')
-            elif crew_required > excess_crew:
+            elif crew_required > EXCESS_CREW:
                 print('Roth: We cannot spare the sailors Admiral\n')
-            elif player_supplies < 20:
+            elif PLAYER_SUPPLIES < 20:
                 print('Roth: We do not have the supplies for the repairs\n')
 
             break
 
         elif engage_decision_mission_six == 'n':
             print('You: Follow-on forces should be able to handle these guys')
-            update_enemy_bypassed(enemy_group_six)
-            enemy_groups_bypassed += 1
+            update_ENEMY_BYPASSED(enemy_group_six)
+            ENEMY_GROUPS_BYPASSED += 1
             break
 
         else:
@@ -1308,8 +1311,7 @@ def mission_seven():
     if player has performed brilliantly, they win and are offered the
     chance to play a difficult bonus mission
     """
-    global player_experience
-    global player_ships
+    global PLAYER_EXPERIENCE
     print('\n  BEGIN MISSION 7  \n')
     print('Roth: Do you want to review the fleet, Admiral?')
     while True:
@@ -1339,7 +1341,7 @@ def mission_seven():
     }
 
     enemy_firepower = enemy_firepower_calculator(enemy_group_seven)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
     for key, value in enemy_group_seven.items():
         print(f'Roth: The enemy has {value} {key}')
@@ -1355,12 +1357,12 @@ def mission_seven():
     print('Roth: This will be a hard fight, Admiral')
     print('Roth: We must engage')
     fight_battle(enemy_firepower, enemy_group_seven)
-    player_experience += 0.03
+    PLAYER_EXPERIENCE += 0.03
     print('Roth: Phew...That was a doozy of the fight')
     print('Roth: Nice bit of ship-handling Adniral')
     print('Roth: All of the Syndicate attack groups have been repulsed')
     print('Roth: A messenger ship from High Command has arrived')
-    if enemy_groups_bypassed >= 7:
+    if ENEMY_GROUPS_BYPASSED >= 7:
         print('Roth: High Command is very displeased with your performance')
         print('Roth: You refused to engage the enemy unless it was necessary')
         print('Roth: They are calling for your head')
@@ -1371,7 +1373,7 @@ def mission_seven():
         print('You have failed the game by refusing to fight the enemy\n')
         campaign_report()
 
-    elif enemy_groups_destroyed == 8:
+    elif ENEMY_GROUPS_DESTROYED == 8:
         print('Roth: The message is overflowing with praise')
         print('Roth: They commend your willingness to engage the enemy')
         print('Roth: You never failed to engage the enemy')
@@ -1398,7 +1400,7 @@ def mission_seven():
             else:
                 print('Please enter either y or n')
 
-    elif enemy_groups_damaged == 8:
+    elif ENEMY_GROUPS_DAMAGED == 8:
         print('Roth: High Command is praising your aggression')
         print('Roth: But they frown on your lack of staying power')
         print('Roth: All of the enemy groups got past us')
@@ -1413,9 +1415,9 @@ def mission_seven():
         print('Roth: They will think twice about trying that again')
         campaign_report()
 
-    elif enemy_groups_destroyed >= 5:
+    elif ENEMY_GROUPS_DESTROYED >= 5:
         print('Roth: High Command is praising your ability')
-        print(f'Roth: {enemy_groups_destroyed} enemy groups were destroyed')
+        print(f'Roth: {ENEMY_GROUPS_DESTROYED} enemy groups were destroyed')
         print('Roth: We have inflicted severe casualties on the enemy')
         print('Roth: Remember that Command was planning a counter-attack?')
         print('Roth: They still think it is viable')
@@ -1436,19 +1438,19 @@ def mission_seven():
             else:
                 print('Please enter either y or n')
 
-    elif enemy_groups_destroyed >= 1:
+    elif ENEMY_GROUPS_DESTROYED >= 1:
         print('Roth: High Command is appreciative of your service')
-        print(f'Roth: {enemy_groups_destroyed} enemy groups were destroyed')
+        print(f'Roth: {ENEMY_GROUPS_DESTROYED} enemy groups were destroyed')
         print('Roth: We have inflicted modest casualties on the enemy')
         print('Roth: Follow-on forces took severe casualties')
         print('Roth: Remember that Command was planning a counter attack?')
         print('Roth: High Command does not feel able to launch it')
         campaign_report()
 
-    elif enemy_groups_damaged >= 2:
+    elif ENEMY_GROUPS_DAMAGED >= 2:
         print('Roth: High Command is displeased with your performance')
         print('Roth: They order that you be placed under arrest')
-        print(f'Roth: We damaged {enemy_groups_damaged} groups')
+        print(f'Roth: We damaged {ENEMY_GROUPS_DAMAGED} groups')
         print('Roth: Many enemy ships got past us')
         print('Roth: Follow-on forces took major losses')
         print('Roth: Remember that Command was planning a counter-attack?')
@@ -1470,22 +1472,22 @@ def bonus_mission():
     Very heavy enemy resistance
     Player must all their experience to win
     """
-    global player_experience
-    global missile_volleys
-    global mine_stocks
+    global PLAYER_EXPERIENCE
+    global MISSILE_VOLLEYS
+    global MINE_STOCKS
     print('\n  BEGIN BONUS MISSION   \n')
     print('Roth: We are preparating for our counter attack, Admiral')
     print('Roth: In preparation, Command has reinforced and resupplied us')
     print('Roth: Our damaged ships have been repaired and returned to us')
-    missile_volleys += 2
-    mine_stocks += 1
-    player_ships['battleships'] += player_total_damaged['battleships']
-    player_ships['cruisers'] += player_total_damaged['cruisers']
-    player_ships['escorts'] += player_total_damaged['escorts']
+    MISSILE_VOLLEYS += 2
+    MINE_STOCKS += 1
+    PLAYER_SHIPS['battleships'] += PLAYER_TOTAL_DAMAGED['battleships']
+    PLAYER_SHIPS['cruisers'] += PLAYER_TOTAL_DAMAGED['cruisers']
+    PLAYER_SHIPS['escorts'] += PLAYER_TOTAL_DAMAGED['escorts']
     print('Roth: Command has also assigned us some of our follow-on forces')
-    player_ships['battleships'] += 5
-    player_ships['cruisers'] += 12
-    player_ships['escorts'] += 29
+    PLAYER_SHIPS['battleships'] += 5
+    PLAYER_SHIPS['cruisers'] += 12
+    PLAYER_SHIPS['escorts'] += 29
     print('Roth: Recon indicates that we will need every ship')
     print('Roth: The Syndicate Worlds clearly anticipate a counter attack')
     print('Roth: They have drawn in a lot of their system defence forces')
@@ -1517,7 +1519,7 @@ def bonus_mission():
     }
 
     enemy_firepower = enemy_firepower_calculator(enemy_group_final)
-    player_firepower = calculate_player_firepower(player_ships)
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
     print('Roth: Whoa....the enemy is here in massive numbers')
     for key, value in enemy_group_final.items():
         print(f'Roth: The enemy has {value} {key}')
@@ -1540,7 +1542,7 @@ def bonus_mission():
         if engage_decision_bonus_mission == 'y':
             print("You: We're here and we're ready. Let's do this")
             fight_battle(enemy_firepower, enemy_group_final)
-            player_experience += 0.03
+            PLAYER_EXPERIENCE += 0.03
             print('\n')
             print('Roth: Enemy forces destroyed or in retreat')
             print('You: Excellent. Move in and start destroying the shipyards')
@@ -1578,50 +1580,50 @@ def campaign_report():
     for key, value in player_starting_ships.items():
         print(f'Roth: We started with {value} {key}')
     print('\n')
-    for key, value in player_ships.items():
+    for key, value in PLAYER_SHIPS.items():
         print(f'Roth: We finished our campaign with {value} {key}')
     print('\n')
-    for key, value in player_total_damaged.items():
+    for key, value in PLAYER_TOTAL_DAMAGED.items():
         print(f'Roth: We lost {value} {key} damaged')
     print('\n')
-    for key, value in player_total_destroyed.items():
+    for key, value in PLAYER_TOTAL_DESTROYED.items():
         print(f'Roth: We lost {value} {key} destroyed')
     print('\n')
-    for key, value in enemy_losses.items():
+    for key, value in ENEMY_LOSSES.items():
         print(f'Roth: We destroyed {value} enemy {key}')
     print('\n')
-    for key, value in enemy_bypassed.items():
+    for key, value in ENEMY_BYPASSED.items():
         print(f'Roth: We bypassed {value} enemy {key}')
     print('\n')
-    print(f'Roth: We started with {starting_supplies}% supply levels')
-    print(f'Roth: We end the campaign with {player_supplies}% supplies')
+    print(f'Roth: We started with {STARTING_SUPPLIES}% supply levels')
+    print(f'Roth: We end the campaign with {PLAYER_SUPPLIES}% supplies')
     print('\n')
-    if player_experience == 1.1:
+    if PLAYER_EXPERIENCE == 1.1:
         print('Roth: We only fought one battle - our final engagement')
         print('Roth: Hence, our sailors do not have much combat experience')
-    elif player_experience > 1.1 and player_experience < 1.4:
+    elif PLAYER_EXPERIENCE > 1.1 and PLAYER_EXPERIENCE < 1.4:
         print('Roth: We fought a handful of battles')
         print('Roth: Hence, our sailors have considerable combat experience')
-    elif player_experience >= 1.4 and player_experience < 1.7:
+    elif PLAYER_EXPERIENCE >= 1.4 and PLAYER_EXPERIENCE < 1.7:
         print('Roth: We fought the enemy several times')
         print('Roth: As a result, our sailors have a lot of combat experience')
-    elif player_experience >= 1.7:
+    elif PLAYER_EXPERIENCE >= 1.7:
         print('Roth: We fought the enemy at every opportunity')
         print('Roth: Our sailors are probably some of the best in human space')
-    starting_marines = (
+    starting_MARINES = (
         (player_starting_ships['battleships'] * 40)
         + (player_starting_ships['cruisers'] * 20)
     )
-    print(f'Roth: We started with {starting_marines} marines')
-    print(f'Roth: We ended our campaign with {marines} marines')
-    if marine_experience == 1.0:
-        print('Roth: Our Marines gain no combat experience in our campaign')
-    elif marine_experience > 1.0 and marine_experience < 1.3:
-        print('Roth: Our Marines gained some experience in our campaign')
-    elif marine_experience >= 1.3 and marine_experience < 1.6:
-        print('Roth: Our Marines gained a considerable amount of experience')
-    elif marine_experience >= 1.6:
-        print('Roth: Our Marines gained a lot of combat experience')
+    print(f'Roth: We started with {starting_MARINES} MARINES')
+    print(f'Roth: We ended our campaign with {MARINES} MARINES')
+    if MARINE_EXPERIENCE == 1.0:
+        print('Roth: Our MARINES gain no combat experience in our campaign')
+    elif MARINE_EXPERIENCE > 1.0 and MARINE_EXPERIENCE < 1.3:
+        print('Roth: Our MARINES gained some experience in our campaign')
+    elif MARINE_EXPERIENCE >= 1.3 and MARINE_EXPERIENCE < 1.6:
+        print('Roth: Our MARINES gained a considerable amount of experience')
+    elif MARINE_EXPERIENCE >= 1.6:
+        print('Roth: Our MARINES gained a lot of combat experience')
         print('Roth: They are probably some of the best troops in human space')
     print('\n')
     print('You have seen what you accomplished')
@@ -1641,16 +1643,16 @@ def campaign_report():
 
 def update_enemy(
         effective_enemy_strength, enemy_group_strength,
-        firepower_factor, player_experience):
+        firepower_factor, PLAYER_EXPERIENCE):
     """
     Updates enemy_group_strength dictionary
-    Updates global enemy_losses dictionary
+    Updates global ENEMY_LOSSES dictionary
     Returns updated enemy_group_strength dictionary to fight_engagement
     """
-    global enemy_losses
-    global enemy_local_losses
-    global enemy_battle_losses
-    damage_factor = firepower_factor * player_experience
+    global ENEMY_LOSSES
+    global ENEMY_LOCAL_LOSSES
+    global ENEMY_BATTLE_LOSSES
+    damage_factor = firepower_factor * PLAYER_EXPERIENCE
     if damage_factor > 1:
         damage_factor = 1
     enemy_battleship_losses = (
@@ -1669,25 +1671,25 @@ def update_enemy(
             enemy_group_strength['escorts'] - enemy_escort_losses)
     }
 
-    enemy_losses = {
-        'battleships': enemy_losses['battleships'] + enemy_battleship_losses,
-        'cruisers': enemy_losses['cruisers'] + enemy_cruiser_losses,
-        'escorts': enemy_losses['escorts'] + enemy_escort_losses
+    ENEMY_LOSSES = {
+        'battleships': ENEMY_LOSSES['battleships'] + enemy_battleship_losses,
+        'cruisers': ENEMY_LOSSES['cruisers'] + enemy_cruiser_losses,
+        'escorts': ENEMY_LOSSES['escorts'] + enemy_escort_losses
     }
 
-    enemy_local_losses = {
+    ENEMY_LOCAL_LOSSES = {
         'battleships': enemy_battleship_losses,
         'cruisers': enemy_cruiser_losses,
         'escorts': enemy_escort_losses
     }
 
-    enemy_battle_losses = {
+    ENEMY_BATTLE_LOSSES = {
         'battleships': (
-            enemy_battle_losses['battleships'] + enemy_battleship_losses),
+            ENEMY_BATTLE_LOSSES['battleships'] + enemy_battleship_losses),
         'cruisers': (
-            enemy_battle_losses['cruisers'] + enemy_cruiser_losses),
+            ENEMY_BATTLE_LOSSES['cruisers'] + enemy_cruiser_losses),
         'escorts': (
-            enemy_battle_losses['escorts'] + enemy_escort_losses)
+            ENEMY_BATTLE_LOSSES['escorts'] + enemy_escort_losses)
     }
 
     if enemy_group_strength['battleships'] < 0:
@@ -1714,26 +1716,26 @@ def update_enemy(
 
 def update_player(losses_factor):
     """
-    Updates global player_total_destroyed dictionary
-    Updates global player_ships dictionary
-    Checks if player_ships dictionary contains negative values,
+    Updates global PLAYER_TOTAL_DESTROYED dictionary
+    Updates global PLAYER_SHIPS dictionary
+    Checks if PLAYER_SHIPS dictionary contains negative values,
     and corrects to 0 if so
-    Returns updated player_ships dictionary
+    Returns updated PLAYER_SHIPS dictionary
     """
-    global player_ships
-    global player_total_destroyed  # possibly remove this, unnecessary
+    global PLAYER_SHIPS
+    global PLAYER_TOTAL_DESTROYED  # possibly remove this, unnecessary
     global player_local_losses
     global player_battle_losses
     global player_destroyed_ships
     global player_damaged_ships
-    global marines
+    global MARINES
 
     player_battleship_losses = (
-        round(player_ships['battleships'] * (losses_factor / 1.5)))
+        round(PLAYER_SHIPS['battleships'] * (losses_factor / 1.5)))
     player_cruiser_losses = (
-        round(player_ships['cruisers'] * (losses_factor)))
+        round(PLAYER_SHIPS['cruisers'] * (losses_factor)))
     player_escort_losses = (
-        round(player_ships['escorts'] * losses_factor))
+        round(PLAYER_SHIPS['escorts'] * losses_factor))
 
     player_battle_losses = {
         'battleships': (
@@ -1756,7 +1758,7 @@ def update_player(losses_factor):
         'escorts': math.floor(player_battle_losses['escorts'] * 0.50)
     }
 
-    marines -= (
+    MARINES -= (
         int(math.ceil(player_destroyed_ships['battleships'] * 40 * 0.20))
         + int(math.ceil(player_destroyed_ships['cruisers'] * 20 * 0.30))
         + int(math.ceil(player_damaged_ships['battleships'] * 40 * 0.10))
@@ -1769,31 +1771,31 @@ def update_player(losses_factor):
         'escorts': player_escort_losses
     }
 
-    player_ships = {
-        'battleships': player_ships['battleships'] - player_battleship_losses,
-        'cruisers': player_ships['cruisers'] - player_cruiser_losses,
-        'escorts': player_ships['escorts'] - player_escort_losses
+    PLAYER_SHIPS = {
+        'battleships': PLAYER_SHIPS['battleships'] - player_battleship_losses,
+        'cruisers': PLAYER_SHIPS['cruisers'] - player_cruiser_losses,
+        'escorts': PLAYER_SHIPS['escorts'] - player_escort_losses
     }
 
-    if player_ships['battleships'] <= 1:
-        player_ships = {
+    if PLAYER_SHIPS['battleships'] <= 1:
+        PLAYER_SHIPS = {
             'battleships': 0,
-            'cruisers': player_ships['cruisers'],
-            'escorts': player_ships['escorts']
+            'cruisers': PLAYER_SHIPS['cruisers'],
+            'escorts': PLAYER_SHIPS['escorts']
         }
-    if player_ships['cruisers'] <= 1:
-        player_ships = {
-            'battleships': player_ships['battleships'],
+    if PLAYER_SHIPS['cruisers'] <= 1:
+        PLAYER_SHIPS = {
+            'battleships': PLAYER_SHIPS['battleships'],
             'cruisers': 0,
-            'escorts': player_ships['escorts']
+            'escorts': PLAYER_SHIPS['escorts']
         }
-    if player_ships['escorts'] <= 1:
-        player_ships = {
-            'battleships': player_ships['battleships'],
-            'cruisers': player_ships['cruisers'],
+    if PLAYER_SHIPS['escorts'] <= 1:
+        PLAYER_SHIPS = {
+            'battleships': PLAYER_SHIPS['battleships'],
+            'cruisers': PLAYER_SHIPS['cruisers'],
             'escorts': 0
         }
-    return player_ships
+    return PLAYER_SHIPS
 
 
 def fight_battle(enemy_firepower, enemy_group_strength):
@@ -1822,23 +1824,23 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         """
         A long, complex function that is called for each firing run
         """
-        global enemy_losses
-        global player_ships
-        global player_total_destroyed
-        global player_supplies
-        global player_total_destroyed
-        global player_total_damaged
-        global total_crew
-        global enemy_groups_damaged
-        global enemy_groups_destroyed
+        global ENEMY_LOSSES
+        global PLAYER_SHIPS
+        global PLAYER_TOTAL_DESTROYED
+        global PLAYER_SUPPLIES
+        global PLAYER_TOTAL_DESTROYED
+        global PLAYER_TOTAL_DAMAGED
+        global TOTAL_CREW
+        global ENEMY_GROUPS_DAMAGED
+        global ENEMY_GROUPS_DESTROYED
 
-        player_firepower = calculate_player_firepower(player_ships)
+        player_firepower = calculate_player_firepower(PLAYER_SHIPS)
 
         for key, value in enemy_group_strength.items():
             print(f'The enemy have {value} {key}')
         print('\n')
         print('You: we have several options:')
-        for key, value in tactical_library.items():
+        for key, value in TACTICAL_LIBRARY.items():
             print(f'{key} - We can {value}')
         print('\n')
         try:
@@ -1847,7 +1849,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             if tactic > 6:
                 print(f'{tactic} is an invalid selection')
                 print('Enter a number between 1 and 6 to select your tactic')
-                player_supplies += 1
+                PLAYER_SUPPLIES += 1
                 fight_engagement(
                     enemy_firepower, enemy_group_strength,
                     number_enemy_ships)
@@ -1859,7 +1861,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
 
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 print(f'Roth: We have {player_firepower} turrets')
@@ -1907,7 +1909,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print('Roth: There is no difference in combat power')
                     print('Roth: We are evenly matched')
                     print('Roth: Are you sure this is a good idea?')
-                    if player_experience > 1.0:
+                    if PLAYER_EXPERIENCE > 1.0:
                         print('Roth: Our experience gives us a advantage')
                         print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
@@ -1943,8 +1945,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
                         break
 
                     elif proceed_decision == 'n':
@@ -1964,7 +1966,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
 
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 print(f'Roth: We have {player_firepower} turrets')
@@ -2013,7 +2015,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print('Roth: There is no difference in combat power')
                     print('Roth: We are evenly matched')
                     print('Roth: Are you sure this is a good idea?')
-                    if player_experience > 1.0:
+                    if PLAYER_EXPERIENCE > 1.0:
                         print('Roth: Our experience gives us a advantage')
                         print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
@@ -2049,8 +2051,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
                         break
 
                     elif proceed_decision == 'n':
@@ -2070,7 +2072,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
 
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 print(f'Roth: We have {player_firepower} turrets')
@@ -2119,7 +2121,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print('Roth: There is no difference in combat power')
                     print('Roth: We are evenly matched')
                     print('Roth: Are you sure this is a good idea?')
-                    if player_experience > 1.0:
+                    if PLAYER_EXPERIENCE > 1.0:
                         print('Roth: Our experience gives us a advantage')
                         print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
@@ -2155,8 +2157,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
                         break
 
                     elif proceed_decision == 'n':
@@ -2177,7 +2179,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
 
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 print(f'Roth: We have {player_firepower} turrets')
@@ -2226,7 +2228,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                     print('Roth: There is no difference in combat power')
                     print('Roth: We are evenly matched')
                     print('Roth: Are you sure this is a good idea?')
-                    if player_experience > 1.0:
+                    if PLAYER_EXPERIENCE > 1.0:
                         print('Roth: Our experience gives us a advantage')
                         print('Roth: But this will still be bloody')
                     firepower_factor = 0.50
@@ -2262,8 +2264,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Engaging per your orders Admiral!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
                         break
 
                     elif proceed_decision == 'n':
@@ -2278,19 +2280,19 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Please enter either y or n')
 
             elif tactic == 5:
-                global missile_volleys
+                global MISSILE_VOLLEYS
                 print('You: Fire missiles!')
-                if missile_volleys >= 2:
-                    print(f'Roth: We can fire {missile_volleys} barrages')
-                elif missile_volleys == 1:
+                if MISSILE_VOLLEYS >= 2:
+                    print(f'Roth: We can fire {MISSILE_VOLLEYS} barrages')
+                elif MISSILE_VOLLEYS == 1:
                     print('Roth: We have enough missiles for 1 barrage')
-                elif missile_volleys > 0 and missile_volleys < 1:
+                elif MISSILE_VOLLEYS > 0 and MISSILE_VOLLEYS < 1:
                     print('Roth: We have some missiles')
                     print("Roth: But we can't break through enemy defences")
                     fight_engagement(
                         enemy_firepower, enemy_group_strength,
                         number_enemy_ships)
-                elif missile_volleys == 0:
+                elif MISSILE_VOLLEYS == 0:
                     print('Roth: We currently have no missiles remaining')
                     fight_engagement(
                         enemy_firepower, enemy_group_strength,
@@ -2301,14 +2303,14 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
                 missiles_fired = (
-                    (player_ships['battleships']
-                        * missile_launchers['battleships'])
-                    + (player_ships['cruisers']
-                        * missile_launchers['cruisers'])
-                    + (player_ships['escorts']
-                        * missile_launchers['escorts'])
+                    (PLAYER_SHIPS['battleships']
+                        * MISSILE_LAUNCHERS['battleships'])
+                    + (PLAYER_SHIPS['cruisers']
+                        * MISSILE_LAUNCHERS['cruisers'])
+                    + (PLAYER_SHIPS['escorts']
+                        * MISSILE_LAUNCHERS['escorts'])
                 )
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 for key, value in effective_enemy_strength.items():
@@ -2344,10 +2346,10 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Firing missiles!\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
-                        missile_volleys -= 1
-                        print(f'Roth: We now have {missile_volleys} barrages')
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
+                        MISSILE_VOLLEYS -= 1
+                        print(f'Roth: We now have {MISSILE_VOLLEYS} barrages')
                         break
 
                     elif proceed_decision == 'n':
@@ -2362,19 +2364,19 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Please enter either y or n')
 
             elif tactic == 6:
-                global mine_stocks
+                global MINE_STOCKS
                 print('You: We will lay mines and lure the enemy into them')
-                if mine_stocks >= 2:
-                    print(f'Roth: We have mines for {mine_stocks} fields')
-                elif mine_stocks == 1:
+                if MINE_STOCKS >= 2:
+                    print(f'Roth: We have mines for {MINE_STOCKS} fields')
+                elif MINE_STOCKS == 1:
                     print('Roth: We have enough mines for 1 minefield')
-                elif mine_stocks > 0 and mine_stocks < 1:
+                elif MINE_STOCKS > 0 and MINE_STOCKS < 1:
                     print('Roth: We have some mines')
                     print('Roth: But not enough to lay a decent field')
                     fight_engagement(
                         enemy_firepower, enemy_group_strength,
                         number_enemy_ships)
-                elif mine_stocks == 0:
+                elif MINE_STOCKS == 0:
                     print('Roth: We currently have no mines remaining')
                     fight_engagement(
                         enemy_firepower, enemy_group_strength,
@@ -2384,10 +2386,10 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 effective_enemy_strength = calculate_effective_enemy_strength(
                     enemy_group_strength, target_factor)
                 mines_laid = (
-                    player_ships['battleships'] * mine_layers['battleships']
-                    + player_ships['cruisers'] * mine_layers['cruisers']
+                    PLAYER_SHIPS['battleships'] * MINE_LAYERS['battleships']
+                    + PLAYER_SHIPS['cruisers'] * MINE_LAYERS['cruisers']
                 )
-                for key, value in player_ships.items():
+                for key, value in PLAYER_SHIPS.items():
                     print(f'Roth: We have {value} {key}')
                 print('\n')
                 for key, value in effective_enemy_strength.items():
@@ -2424,11 +2426,11 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                         print('Roth: Deploying mines now Admiral\n')
                         enemy_group_strength = update_enemy(
                                 effective_enemy_strength, enemy_group_strength,
-                                firepower_factor, player_experience)
-                        player_ships = update_player(losses_factor)
-                        player_supplies -= 1
-                        mine_stocks -= 1
-                        print(f'Roth: We can now lay {mine_stocks} minefields')
+                                firepower_factor, PLAYER_EXPERIENCE)
+                        PLAYER_SHIPS = update_player(losses_factor)
+                        PLAYER_SUPPLIES -= 1
+                        MINE_STOCKS -= 1
+                        print(f'Roth: We can now lay {MINE_STOCKS} minefields')
                         break
 
                     elif proceed_decision == 'n':
@@ -2444,13 +2446,13 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
         except ValueError:
             print('Enter a number between 1 and 6 to select your tactic')
-            player_supplies += 1
+            PLAYER_SUPPLIES += 1
             fight_engagement(enemy_firepower, enemy_group_strength)
 
-        player_supplies -= 1
-        print(f'Roth: We now have {player_supplies} supplies\n')
+        PLAYER_SUPPLIES -= 1
+        print(f'Roth: We now have {PLAYER_SUPPLIES} supplies\n')
 
-        for key, value in enemy_local_losses.items():
+        for key, value in ENEMY_LOCAL_LOSSES.items():
             print(f'Roth: We destroyed {value} enemy {key} in that firing run')
         print('\n')
 
@@ -2462,13 +2464,13 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             print(f'Roth: That run cost us {value} {key}')
         print('\n')
 
-        for key, value in player_ships.items():
+        for key, value in PLAYER_SHIPS.items():
             print(f'Roth: We now have {value} {key}')
         print('\n')
 
-        if (player_ships['battleships'] == 0 and
-            player_ships['cruisers'] == 0 and
-                player_ships['escorts'] == 0):
+        if (PLAYER_SHIPS['battleships'] == 0 and
+            PLAYER_SHIPS['cruisers'] == 0 and
+                PLAYER_SHIPS['escorts'] == 0):
             print('Roth: Shields failing Admiral!')
             print('Roth: Multiple hull breaches!')
             print('Roth: The reactor is melting down!')
@@ -2483,7 +2485,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             elif new_game_decision == 'n':
                 main()
 
-        elif player_supplies == 0:
+        elif PLAYER_SUPPLIES == 0:
             print('Roth: Admiral, our ships are out of fuel and ammunition!')
             print('Roth: Enemy ships closing in!')
             print('Roth: We cannot fight back!')
@@ -2515,30 +2517,30 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 elif reengage_decision == 'n':
                     print('You: We have done enough damage')
                     print('You: I do not want to risk our ships further')
-                    update_enemy_bypassed(enemy_group_strength)
-                    enemy_groups_damaged += 1
+                    update_ENEMY_BYPASSED(enemy_group_strength)
+                    ENEMY_GROUPS_DAMAGED += 1
 
-                    player_total_destroyed = {
+                    PLAYER_TOTAL_DESTROYED = {
                         'battleships': (
-                            player_total_destroyed['battleships']
+                            PLAYER_TOTAL_DESTROYED['battleships']
                             + player_destroyed_ships['battleships']),
-                        'cruisers': player_total_destroyed['cruisers'] + (
+                        'cruisers': PLAYER_TOTAL_DESTROYED['cruisers'] + (
                             player_destroyed_ships['cruisers']),
-                        'escorts': player_total_destroyed['escorts'] + (
+                        'escorts': PLAYER_TOTAL_DESTROYED['escorts'] + (
                             player_destroyed_ships['escorts'])
                     }
 
-                    player_total_damaged = {
+                    PLAYER_TOTAL_DAMAGED = {
                         'battleships': (
-                            player_total_damaged['battleships']
+                            PLAYER_TOTAL_DAMAGED['battleships']
                             + player_damaged_ships['battleships']),
-                        'cruisers': player_total_damaged['cruisers'] + (
+                        'cruisers': PLAYER_TOTAL_DAMAGED['cruisers'] + (
                             player_damaged_ships['cruisers']),
-                        'escorts': player_total_damaged['escorts'] + (
+                        'escorts': PLAYER_TOTAL_DAMAGED['escorts'] + (
                             player_damaged_ships['escorts'])
                     }
 
-                    for key, value in enemy_battle_losses.items():
+                    for key, value in ENEMY_BATTLE_LOSSES.items():
                         print(f'Roth: We destroyed {value} {key}')
                     print('\n')
 
@@ -2548,8 +2550,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
                     print('Roth: Of those...\n')
 
-                    total_crew_calculator()
-                    excess_crew_calculator()
+                    TOTAL_CREW_calculator()
+                    EXCESS_CREW_calculator()
 
                     for key, value in player_destroyed_ships.items():
                         print(f'Roth: {value} of our {key} were destroyed')
@@ -2572,27 +2574,27 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 enemy_group_strength['cruisers'] == 0 and
                 enemy_group_strength['escorts'] == 0):
             print('Roth: We have knocked out all enemy ships, Admiral\n')
-            enemy_groups_destroyed += 1
+            ENEMY_GROUPS_DESTROYED += 1
 
-            player_total_destroyed = {
-                'battleships': player_total_destroyed['battleships'] + (
+            PLAYER_TOTAL_DESTROYED = {
+                'battleships': PLAYER_TOTAL_DESTROYED['battleships'] + (
                     player_destroyed_ships['battleships']),
-                'cruisers': player_total_destroyed['cruisers'] + (
+                'cruisers': PLAYER_TOTAL_DESTROYED['cruisers'] + (
                     player_destroyed_ships['cruisers']),
-                'escorts': player_total_destroyed['escorts'] + (
+                'escorts': PLAYER_TOTAL_DESTROYED['escorts'] + (
                     player_destroyed_ships['escorts'])
             }
 
-            player_total_damaged = {
-                'battleships': player_total_damaged['battleships'] + (
+            PLAYER_TOTAL_DAMAGED = {
+                'battleships': PLAYER_TOTAL_DAMAGED['battleships'] + (
                     player_damaged_ships['battleships']),
-                'cruisers': player_total_damaged['cruisers'] + (
+                'cruisers': PLAYER_TOTAL_DAMAGED['cruisers'] + (
                     player_damaged_ships['cruisers']),
-                'escorts': player_total_damaged['escorts'] + (
+                'escorts': PLAYER_TOTAL_DAMAGED['escorts'] + (
                     player_damaged_ships['escorts'])
             }
 
-            for key, value in enemy_battle_losses.items():
+            for key, value in ENEMY_BATTLE_LOSSES.items():
                 print(f'Roth: We destroyed {value} {key} in that battle')
             print('\n')
 
@@ -2602,8 +2604,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
 
             print('Roth: Of those...\n')
 
-            total_crew_calculator()
-            excess_crew_calculator()
+            TOTAL_CREW_calculator()
+            EXCESS_CREW_calculator()
 
             for key, value in player_destroyed_ships.items():
                 print(f'Roth: {value} of our {key} were destroyed outright')
@@ -2638,7 +2640,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 number_destroyed_player / 20
             )
             sg = supplies_gained_enemy + supplies_gained_player
-            player_supplies += sg
+            PLAYER_SUPPLIES += sg
             print(f'Roth: We salvaged {sg} supplies from destroyed ships')
             print('\n')
 
@@ -2661,36 +2663,36 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         enemy_firepower, enemy_group_strength, number_enemy_ships)
 
 
-def total_crew_calculator():
+def TOTAL_CREW_calculator():
     """
     Function that is called in the fight_engagement and player_fleet_status
     functions to calculate the total crew available to the player
     """
-    global total_crew
-    total_crew = total_crew - ((
-        player_battle_losses['battleships'] * ship_crew['battleship']
-        + player_battle_losses['cruisers'] * ship_crew['cruiser']
-        + player_battle_losses['escorts'] * ship_crew['escort'])
+    global TOTAL_CREW
+    TOTAL_CREW = TOTAL_CREW - ((
+        player_battle_losses['battleships'] * SHIP_CREW['battleship']
+        + player_battle_losses['cruisers'] * SHIP_CREW['cruiser']
+        + player_battle_losses['escorts'] * SHIP_CREW['escort'])
         -
-        (player_battle_losses['battleships'] * recovered_crew['battleship']
-            + player_battle_losses['cruisers'] * recovered_crew['cruiser']
-            + player_battle_losses['escorts'] * recovered_crew['escort']))
-    return total_crew
+        (player_battle_losses['battleships'] * RECOVERED_CREW['battleship']
+            + player_battle_losses['cruisers'] * RECOVERED_CREW['cruiser']
+            + player_battle_losses['escorts'] * RECOVERED_CREW['escort']))
+    return TOTAL_CREW
 
 
-def excess_crew_calculator():
+def EXCESS_CREW_calculator():
     """
     Function that is called in the fight_engagement and
     player_fleet_status functions to calculate the excess crew
     available to the player for boarding actions
     """
-    global excess_crew
-    excess_crew = total_crew - (
-        minimum_ship_crew['battleship'] * player_ships['battleships']
-        + minimum_ship_crew['cruiser'] * player_ships['cruisers']
-        + minimum_ship_crew['escort'] * player_ships['escorts']
+    global EXCESS_CREW
+    EXCESS_CREW = TOTAL_CREW - (
+        MINIMUM_SHIP_CREW['battleship'] * PLAYER_SHIPS['battleships']
+        + MINIMUM_SHIP_CREW['cruiser'] * PLAYER_SHIPS['cruisers']
+        + MINIMUM_SHIP_CREW['escort'] * PLAYER_SHIPS['escorts']
     )
-    return excess_crew
+    return EXCESS_CREW
 
 
 def firepower_comparator(player_firepower, enemy_firepower):
@@ -2776,32 +2778,32 @@ def combat_power_difference_calculator(diff):
     return combat_power_difference
 
 
-def update_enemy_bypassed(enemy_group_strength):
+def update_ENEMY_BYPASSED(enemy_group_strength):
     """
-    Updates global enemy_bypassed dictionary
+    Updates global ENEMY_BYPASSED dictionary
     Keeps track of the number of enemy ships that have been bypassed
     """
-    global enemy_bypassed
-    enemy_bypassed = {
-        'battleships': enemy_bypassed['battleships'] + (
+    global ENEMY_BYPASSED
+    ENEMY_BYPASSED = {
+        'battleships': ENEMY_BYPASSED['battleships'] + (
             enemy_group_strength['battleships']),
-        'cruisers': enemy_bypassed['cruisers'] + (
+        'cruisers': ENEMY_BYPASSED['cruisers'] + (
             enemy_group_strength['cruisers']),
-        'escorts': enemy_bypassed['escorts'] + (
+        'escorts': ENEMY_BYPASSED['escorts'] + (
             enemy_group_strength['escorts'])
     }
-    return enemy_bypassed
+    return ENEMY_BYPASSED
 
 
-def calculate_player_firepower(player_ships):
+def calculate_player_firepower(PLAYER_SHIPS):
     """
     Dynamically calculates player firepower
     based on the number of ships they have
     """
     player_firepower = (
-        (player_ships['battleships'] * ship_firepower['battleship'])
-        + (player_ships['cruisers'] * ship_firepower['cruiser'])
-        + (player_ships['escorts'] * ship_firepower['escort'])
+        (PLAYER_SHIPS['battleships'] * SHIP_FIREPOWER['battleship'])
+        + (PLAYER_SHIPS['cruisers'] * SHIP_FIREPOWER['cruiser'])
+        + (PLAYER_SHIPS['escorts'] * SHIP_FIREPOWER['escort'])
     )
     return player_firepower
 
@@ -2811,17 +2813,17 @@ def boarding_operation(boardable_ships):
     Called when the player wants to board and salvage
     enemy ships after a battle has been won
     """
-    global marines
-    global player_ships
-    global player_supplies
-    global total_crew
-    global excess_crew
-    global marine_experience
-    global salvaged_ships
+    global MARINES
+    global PLAYER_SHIPS
+    global PLAYER_SUPPLIES
+    global TOTAL_CREW
+    global EXCESS_CREW
+    global MARINE_EXPERIENCE
+    global SALVAGED_SHIPS
 
-    available_crew = excess_crew_calculator()
+    available_crew = EXCESS_CREW_calculator()
 
-    boarded_ships = {
+    BOARDED_SHIPS = {
         'battleship': 0,
         'cruiser': 0,
         'escort': 0
@@ -2831,8 +2833,8 @@ def boarding_operation(boardable_ships):
         boardable_ships['cruisers'] == 0 and
             boardable_ships['escorts'] == 0):
         print('Roth: There are no more ships left to board\n')
-    elif marines < 20:
-        print('Roth: We do not have enough Marines')
+    elif MARINES < 20:
+        print('Roth: We do not have enough MARINES')
         print('Roth: We cannot board even one escort')
     elif available_crew < 160:
         print('Roth: We do not have enough crew left to crew a captured ship')
@@ -2840,13 +2842,13 @@ def boarding_operation(boardable_ships):
         for key, value in boardable_ships.items():
             print(f'Roth: There are {value} {key} we can board')
         print('\n')
-        print(f'Roth: We have {marines} marines')
+        print(f'Roth: We have {MARINES} MARINES')
         print(f'Roth: We have {available_crew} sailors available')
-        print(f'Roth: We have {player_supplies} repair supplies')
+        print(f'Roth: We have {PLAYER_SUPPLIES} repair supplies')
         print('\n')
-        for key, value in boarding_tactics.items():
+        for key, value in BOARDING_TACTICS.items():
             print(f'Roth: {key} - {value}')
-        print('Roth: What shall our Marines board first?')
+        print('Roth: What shall our MARINES board first?')
         while True:
             ship_to_board = input(
                 'Enter a number between 1 and 5 to select your tactic:\n')
@@ -2855,22 +2857,22 @@ def boarding_operation(boardable_ships):
                 if boardable_ships['battleships'] == 0:
                     print('Roth: There are no enemy battleships to board')
                     boarding_operation(boardable_ships)
-                elif marines < 500:
-                    print('Roth: We do not have enough Marines')
+                elif MARINES < 500:
+                    print('Roth: We do not have enough MARINES')
                     print('Roth: We cannot board the battleship')
                     print('Roth: We might be able to board an enemy cruiser')
                     boarding_operation(boardable_ships)
                 else:
                     print('Roth: Very well, assault shuttles away')
                     boardable_ships['battleships'] -= 1
-                    marine_casualties = int(500 - (marine_experience * 250))
-                    marines -= marine_casualties
-                    player_ships['battleships'] += 1
-                    boarded_ships['battleship'] += 1
-                    salvaged_ships['battleships'] += 1
-                    player_supplies -= 1
-                    excess_crew -= minimum_ship_crew['battleship']
-                    print(f'Roth: We lost {marine_casualties} Marines')
+                    marine_casualties = int(500 - (MARINE_EXPERIENCE * 250))
+                    MARINES -= marine_casualties
+                    PLAYER_SHIPS['battleships'] += 1
+                    BOARDED_SHIPS['battleship'] += 1
+                    SALVAGED_SHIPS['battleships'] += 1
+                    PLAYER_SUPPLIES -= 1
+                    EXCESS_CREW -= MINIMUM_SHIP_CREW['battleship']
+                    print(f'Roth: We lost {marine_casualties} MARINES')
                     print('Roth: But we took the battleship')
                     boarding_operation(boardable_ships)
 
@@ -2881,22 +2883,22 @@ def boarding_operation(boardable_ships):
                 if boardable_ships['cruisers'] == 0:
                     print('Roth: There are no enemy cruisers to board')
                     boarding_operation(boardable_ships)
-                elif marines < 120:
-                    print('Roth: We do not have enough Marines')
+                elif MARINES < 120:
+                    print('Roth: We do not have enough MARINES')
                     print('Roth: We cannot board an enemy cruiser')
                     print('Roth: We might be able to board an enemy escort')
                     boarding_operation(boardable_ships)
                 else:
                     print('Roth: Very well, assault shuttles away')
                     boardable_ships['cruisers'] -= 1
-                    marine_casualties = int(120 - (marine_experience * 80))
-                    marines -= marine_casualties
-                    player_ships['cruisers'] += 1
-                    boarded_ships['cruiser'] += 1
-                    salvaged_ships['cruisers'] += 1
-                    player_supplies -= 1
-                    excess_crew -= minimum_ship_crew['cruiser']
-                    print(f'Roth: We lost {marine_casualties} Marines')
+                    marine_casualties = int(120 - (MARINE_EXPERIENCE * 80))
+                    MARINES -= marine_casualties
+                    PLAYER_SHIPS['cruisers'] += 1
+                    BOARDED_SHIPS['cruiser'] += 1
+                    SALVAGED_SHIPS['cruisers'] += 1
+                    PLAYER_SUPPLIES -= 1
+                    EXCESS_CREW -= MINIMUM_SHIP_CREW['cruiser']
+                    print(f'Roth: We lost {marine_casualties} MARINES')
                     print('Roth: But we took the cruiser')
                     boarding_operation(boardable_ships)
 
@@ -2910,21 +2912,21 @@ def boarding_operation(boardable_ships):
                 else:
                     print('Roth: Very well, assault shuttles launching')
                     boardable_ships['escorts'] -= 1
-                    marine_casualties = int(20 - (marine_experience * 15))
-                    marines -= marine_casualties
-                    player_ships['escorts'] += 1
-                    boarded_ships['escort'] += 1
-                    salvaged_ships['escorts'] += 1
-                    player_supplies -= 1
-                    excess_crew -= minimum_ship_crew['escort']
-                    print(f'Roth: We lost {marine_casualties} Marines')
+                    marine_casualties = int(20 - (MARINE_EXPERIENCE * 15))
+                    MARINES -= marine_casualties
+                    PLAYER_SHIPS['escorts'] += 1
+                    BOARDED_SHIPS['escort'] += 1
+                    SALVAGED_SHIPS['escorts'] += 1
+                    PLAYER_SUPPLIES -= 1
+                    EXCESS_CREW -= MINIMUM_SHIP_CREW['escort']
+                    print(f'Roth: We lost {marine_casualties} MARINES')
                     print('Roth: but the escort has been added to our screen')
                     boarding_operation(boardable_ships)
 
                 break
 
             elif ship_to_board == '4':
-                marines_required = (
+                MARINES_required = (
                     boardable_ships['battleships'] * 500
                     + boardable_ships['cruisers'] * 120
                     + boardable_ships['escorts'] * 20
@@ -2935,16 +2937,16 @@ def boarding_operation(boardable_ships):
                     + boardable_ships['cruisers']
                     + boardable_ships['escorts']
                 )
-                print(f'Roth: We need {marines_required} Marines to do that')
+                print(f'Roth: We need {MARINES_required} MARINES to do that')
                 print(f'Roth: We need {supplies_required} supplies as well')
 
-                if marines < marines_required:
-                    print('Roth: We do not have sufficient Marines, sir')
+                if MARINES < MARINES_required:
+                    print('Roth: We do not have sufficient MARINES, sir')
                     print("Roth: We can't take all enemy ships simultaneously")
                     print('Roth: We might be able to board some of them')
                     boarding_operation(boardable_ships)
 
-                elif player_supplies < supplies_required:
+                elif PLAYER_SUPPLIES < supplies_required:
                     print('Roth: We cannot repair all of the enemy ships')
                     print('Roth: But we might be able to repair some of them')
                     boarding_operation(boardable_ships)
@@ -2957,33 +2959,33 @@ def boarding_operation(boardable_ships):
                     cruisers = boardable_ships['cruisers']
                     escorts = boardable_ships['escorts']
 
-                    player_ships['battleships'] += battleships
-                    player_ships['cruisers'] += cruisers
-                    player_ships['escorts'] += escorts
+                    PLAYER_SHIPS['battleships'] += battleships
+                    PLAYER_SHIPS['cruisers'] += cruisers
+                    PLAYER_SHIPS['escorts'] += escorts
 
-                    boarded_ships['battleship'] += battleships
-                    boarded_ships['cruiser'] += cruisers
-                    boarded_ships['escort'] += escorts
+                    BOARDED_SHIPS['battleship'] += battleships
+                    BOARDED_SHIPS['cruiser'] += cruisers
+                    BOARDED_SHIPS['escort'] += escorts
 
-                    salvaged_ships['battleships'] += battleships
-                    salvaged_ships['cruisers'] += cruisers
-                    salvaged_ships['escorts'] += escorts
+                    SALVAGED_SHIPS['battleships'] += battleships
+                    SALVAGED_SHIPS['cruisers'] += cruisers
+                    SALVAGED_SHIPS['escorts'] += escorts
 
-                    excess_crew -= (
-                        (minimum_ship_crew['battleship']
+                    EXCESS_CREW -= (
+                        (MINIMUM_SHIP_CREW['battleship']
                             * boardable_ships['battleships'])
-                        + (minimum_ship_crew['cruiser']
+                        + (MINIMUM_SHIP_CREW['cruiser']
                             * boardable_ships['cruisers'])
-                        + (minimum_ship_crew['escort']
+                        + (MINIMUM_SHIP_CREW['escort']
                             * boardable_ships['escorts'])
                     )
 
                     marine_casualties_bb = int(
-                        battleships * (500 - (marine_experience * 250)))
+                        battleships * (500 - (MARINE_EXPERIENCE * 250)))
                     marine_casualties_cc = int(
-                        cruisers * (120 - (marine_experience * 80)))
+                        cruisers * (120 - (MARINE_EXPERIENCE * 80)))
                     marine_casualties_dd = int(
-                        escorts * (20 - (marine_experience * 15)))
+                        escorts * (20 - (MARINE_EXPERIENCE * 15)))
 
                     marine_casualties = (
                         marine_casualties_bb
@@ -2991,14 +2993,14 @@ def boarding_operation(boardable_ships):
                         + marine_casualties_dd
                     )
 
-                    for key, value in boarded_ships.items():
+                    for key, value in BOARDED_SHIPS.items():
                         print(f'Roth: We boarded {value} {key}')
 
-                    print(f'Roth: We lost {marine_casualties} marines')
-                    marines -= marine_casualties
-                    print(f'Roth: We now have {marines} marines')
+                    print(f'Roth: We lost {marine_casualties} MARINES')
+                    MARINES -= marine_casualties
+                    print(f'Roth: We now have {MARINES} MARINES')
 
-                    player_supplies -= (
+                    PLAYER_SUPPLIES -= (
                         boardable_ships['battleships']
                         + boardable_ships['cruisers']
                         + boardable_ships['escorts']
@@ -3012,19 +3014,19 @@ def boarding_operation(boardable_ships):
 
             elif ship_to_board == '5':
                 print('You: We have salvaged enough ships. Scuttle the rest')
-                print('Roth: Indeed, better to save our Marines')
+                print('Roth: Indeed, better to save our MARINES')
                 break
 
             else:
                 print('Please enter a number between 1 and 5')
 
-        marine_experience = (
-            boarded_ships['battleship'] * marine_experience_gains['battleship']
-            + boarded_ships['cruiser'] * marine_experience_gains['cruiser']
-            + boarded_ships['escort'] * marine_experience_gains['escort']
+        MARINE_EXPERIENCE = (
+            BOARDED_SHIPS['battleship'] * MARINE_EXPERIENCE_gains['battleship']
+            + BOARDED_SHIPS['cruiser'] * MARINE_EXPERIENCE_gains['cruiser']
+            + BOARDED_SHIPS['escort'] * MARINE_EXPERIENCE_gains['escort']
         )
 
-        boarded_ships = {
+        BOARDED_SHIPS = {
             'battleship': 0,
             'cruiser': 0,
             'escort': 0
@@ -3036,12 +3038,12 @@ def reset_battle_losses():
     Sets the values of all keys within player_battle_losses,
     player_destroyed_ships,
     player_damaged_ships
-    and enemy_battle_losses to 0
+    and ENEMY_BATTLE_LOSSES to 0
     """
     global player_battle_losses
     global player_destroyed_ships
     global player_damaged_ships
-    global enemy_battle_losses
+    global ENEMY_BATTLE_LOSSES
 
     player_battle_losses = {
         'battleships': 0,
@@ -3061,7 +3063,7 @@ def reset_battle_losses():
         'escorts': 0
     }
 
-    enemy_battle_losses = {
+    ENEMY_BATTLE_LOSSES = {
         'battleships': 0,
         'cruisers': 0,
         'escorts': 0
@@ -3072,87 +3074,87 @@ def player_fleet_status():
     """
     Function that can be called at the start of each mission
     Displays the current status of the player's fleet
-    As well as supplies, mines, missiles, crew and marines
+    As well as supplies, mines, missiles, crew and MARINES
     """
-    player_firepower = calculate_player_firepower(player_ships)
-    for key, value in player_ships.items():
+    player_firepower = calculate_player_firepower(PLAYER_SHIPS)
+    for key, value in PLAYER_SHIPS.items():
         print(f'Roth: We currently have {value} {key}')
     print('')
     print(f"Roth: We currently have {player_firepower} turrets")
-    print(f'Roth: We have enough missiles for {missile_volleys} barrages')
-    print(f'Roth: We have enough mines for {mine_stocks} mine-fields')
-    print(f'Roth: We currently have {player_supplies} supplies\n')
-    if (player_total_destroyed['battleships'] == 0 or
-        player_total_destroyed['cruisers'] == 0 or
-            player_total_destroyed['escorts'] == 0):
+    print(f'Roth: We have enough missiles for {MISSILE_VOLLEYS} barrages')
+    print(f'Roth: We have enough mines for {MINE_STOCKS} mine-fields')
+    print(f'Roth: We currently have {PLAYER_SUPPLIES} supplies\n')
+    if (PLAYER_TOTAL_DESTROYED['battleships'] == 0 or
+        PLAYER_TOTAL_DESTROYED['cruisers'] == 0 or
+            PLAYER_TOTAL_DESTROYED['escorts'] == 0):
         print('Roth: None of our ships have been destroyed')
         print('\n')
     else:
-        for key, value in player_total_destroyed.items():
+        for key, value in PLAYER_TOTAL_DESTROYED.items():
             print(f'Roth: {value} of our {key} have been destroyed')
         print('\n')
-    if (player_total_damaged['battleships'] == 0 or
-        player_total_damaged['cruisers'] == 0 or
-            player_total_damaged['escorts'] == 0):
+    if (PLAYER_TOTAL_DAMAGED['battleships'] == 0 or
+        PLAYER_TOTAL_DAMAGED['cruisers'] == 0 or
+            PLAYER_TOTAL_DAMAGED['escorts'] == 0):
         print('Roth: None of our ships have been damaged')
         print('\n')
     else:
-        for key, value in player_total_damaged.items():
+        for key, value in PLAYER_TOTAL_DAMAGED.items():
             print(f'Roth: {value} of our {key} have been damaged')
         print('\n')
-    if (salvaged_ships['battleships'] == 0 or
-        salvaged_ships['cruisers'] == 0 or
-            salvaged_ships['escorts'] == 0):
+    if (SALVAGED_SHIPS['battleships'] == 0 or
+        SALVAGED_SHIPS['cruisers'] == 0 or
+            SALVAGED_SHIPS['escorts'] == 0):
         print('Roth: No enemy ships have been salvaged')
         print('\n')
     else:
-        for key, value in salvaged_ships.items():
+        for key, value in SALVAGED_SHIPS.items():
             print(f'Roth: {value} enemy {key} have been salvaged')
         print('\n')
-    if osiris_fleet_helped == 1:
+    if OSIRIS_FLEET_HELPED == 1:
         print('Roth: The Osiris defence forces have joined us')
-        for key, value in osiris_group.items():
+        for key, value in OSIRIS_GROUP.items():
             print(f'Roth: They brought {value} {key}')
-    if osiris_more_ships == 1:
+    if OSIRIS_MORE_SHIPS == 1:
         print('Roth: Osiris also released some more ships')
-        for key, value in osiris_extra.items():
+        for key, value in OSIRIS_EXTRA.items():
             print(f'Roth: They gave us {value} {key}')
-    if allied_convoy_joined == 1:
+    if ALLIED_CONVOY_JOINED == 1:
         print('Roth: The allied convoy from Medusa has joined up')
-        for key, value in allied_convoy.items():
+        for key, value in ALLIED_CONVOY.items():
             print(f'Roth: They brought us {value} {key}')
         print('\n')
-    if laconia_ships_helped == 1:
+    if LACONIA_SHIPS_HELPED == 1:
         print('Roth: The allied ships from Laconia have joined up')
-        for key, value in laconia_ships.items():
+        for key, value in LACONIA_SHIPS.items():
             print(f'Roth: They brought us {value} {key}')
         print('\n')
-    print(f'Roth: We currently have {total_crew} sailors in the fleet')
-    if excess_crew <= 0:
+    print(f'Roth: We currently have {TOTAL_CREW} sailors in the fleet')
+    if EXCESS_CREW <= 0:
         print('Roth: We cannot spare any crew for other duties')
     else:
-        print(f'Roth: However, we can spare {excess_crew} for other duties\n')
-    if player_experience == 1:
+        print(f'Roth: However, we can spare {EXCESS_CREW} for other duties\n')
+    if PLAYER_EXPERIENCE == 1:
         print('Roth: Our crews are trained, but green and inexperienced\n')
-    elif player_experience > 1 and player_experience <= 1.1:
+    elif PLAYER_EXPERIENCE > 1 and PLAYER_EXPERIENCE <= 1.1:
         print('Roth: Our crews have gained some battle experience\n')
-    elif player_experience > 1.1 and player_experience <= 1.2:
+    elif PLAYER_EXPERIENCE > 1.1 and PLAYER_EXPERIENCE <= 1.2:
         print('Roth: Our crews are seasoned veterans\n')
-    elif player_experience > 1.2:
+    elif PLAYER_EXPERIENCE > 1.2:
         print('Roth: Our crews are hardened combat veterans\n')
-    print(f'\nRoth: Our ships carry {marines} Marines')
-    if marines < 1800:
-        print('Roth: We have lost Marines in combat and to ship destruction')
-    if marines > 1800:
-        print('Roth: We have picked up some additional Marines')
-    if marine_experience == 1.0:
-        print('Roth: Our Marines are inexperienced in boarding actions\n')
-    elif marine_experience > 1.0 and marine_experience <= 1.3:
-        print('Roth: Our Marines have gained some combat experience\n')
-    elif marine_experience > 1.3 and marine_experience <= 1.6:
-        print('Roth: Our Marines are now seasoned veterans\n')
-    elif marine_experience > 1.7:
-        print('Roth: Our Marines are hardened veterans\n')
+    print(f'\nRoth: Our ships carry {MARINES} MARINES')
+    if MARINES < 1800:
+        print('Roth: We have lost MARINES in combat and to ship destruction')
+    if MARINES > 1800:
+        print('Roth: We have picked up some additional MARINES')
+    if MARINE_EXPERIENCE == 1.0:
+        print('Roth: Our MARINES are inexperienced in boarding actions\n')
+    elif MARINE_EXPERIENCE > 1.0 and MARINE_EXPERIENCE <= 1.3:
+        print('Roth: Our MARINES have gained some combat experience\n')
+    elif MARINE_EXPERIENCE > 1.3 and MARINE_EXPERIENCE <= 1.6:
+        print('Roth: Our MARINES are now seasoned veterans\n')
+    elif MARINE_EXPERIENCE > 1.7:
+        print('Roth: Our MARINES are hardened veterans\n')
 
 
 def ship_capabilities():
@@ -3161,23 +3163,23 @@ def ship_capabilities():
     """
     print('Battleships are the monsters of space combat')
     print('Roth: They are heavily armoured and armed')
-    print(f"Battleships have {ship_firepower['battleship']} turrets")
+    print(f"Battleships have {SHIP_FIREPOWER['battleship']} turrets")
     print('Battleships have 4 missile launchers')
     print('Battleships have 2 mine-tubes')
-    print(f"Battleships have {ship_crew['battleship']} sailors")
-    print('Battleships also carry 40 Marines\n')
+    print(f"Battleships have {SHIP_CREW['battleship']} sailors")
+    print('Battleships also carry 40 MARINES\n')
     print('Cruisers are midweight combatants')
-    print(f"Cruisers have {ship_firepower['cruiser']} turrets")
+    print(f"Cruisers have {SHIP_FIREPOWER['cruiser']} turrets")
     print('Cruisers have 2 missile launchers')
     print('Cruisers have 1 mine-tube')
-    print(f"Cruisers have {ship_crew['cruiser']} sailors")
-    print('Cruisers carry 20 Marines\n')
+    print(f"Cruisers have {SHIP_CREW['cruiser']} sailors")
+    print('Cruisers carry 20 MARINES\n')
     print('Escorts are light screening ships, effective in numbers')
-    print(f"Escorts have {ship_firepower['escort']} turrets")
+    print(f"Escorts have {SHIP_FIREPOWER['escort']} turrets")
     print('Escorts have 1 missile launcher')
     print('Escorts do not carry mine-tubes')
-    print(f"Escorts have {ship_crew['escort']} sailors")
-    print('Escorts do not carry Marines\n')
+    print(f"Escorts have {SHIP_CREW['escort']} sailors")
+    print('Escorts do not carry MARINES\n')
 
 
 def tactics():
@@ -3187,7 +3189,7 @@ def tactics():
     and what the consequences are
     """
     print('You: Broadly speaking, we can use 6 tactics:')
-    for key, value in tactical_library.items():
+    for key, value in TACTICAL_LIBRARY.items():
         print(f'We can {value}')
 
     print('\n')
@@ -3241,9 +3243,9 @@ def tactics():
     print('You: So we should carefully consider using them')
 
     print('You: Once the battle is done, some enemy ships may be salvageable')
-    print('You: We will need to use our Marines to board them')
+    print('You: We will need to use our MARINES to board them')
     print('You: They would make excellent additions to the fleet')
-    print('You: However, we could lose many Marines')
+    print('You: However, we could lose many MARINES')
     print('You: We would then be without an important capability')
     print('\n')
     print('Roth: Thank you Admiral, that was informative')

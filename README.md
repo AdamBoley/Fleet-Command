@@ -21,6 +21,7 @@ Am I responsive thing goes here
     - [Function testing](#function-testing)
     - [Balance testing](#balance-testing)
     - [User story testing](#user-story-testing)
+    - [PEP8 testing](#pep8-testing)
 - [Credits](#credits)
 
 
@@ -536,16 +537,18 @@ Fulfilment - The risks and benefits of choices are either directly presented to 
 
 Fulfilment - As noted in the balance testing section above, using one tactic exclusively leads to failure, either through destruction of all of the player's ships, or by running out of supplies. Conversely, varying tacticsm using tactics that are appropriate to the situation, and making use of the boarding mechanic allow the player to be victorious. 
 
+## PEP8 testing
+
+[This tool](http://pep8online.com/) was used to check how well the code conformed to the PEP8 style guide. This produced a large number of warnings with code W503, refering to line breaks before binary operators. However, research turned up [this page](https://www.flake8rules.com/rules/W503.html), which indicated that the opposite was true. [The PEP8 style guide](https://peps.python.org/pep-0008/#should-a-line-break-before-or-after-a-binary-operator) section on binary operators confirmed this, so I am forced to assume that the tool uses out-of-date checks.  
+
 # Credits
 
-The Lost Fleet series by Jack Campbell
+The Lost Fleet series by Jack Campbell is a favourite of mine, and the battle sequences described in it inspired many concepts in this project, such as the targeting of small parts of enemy groups, the use of Marines in boarding actions, the consideration of supply levels and the overall narrative structure of the game. 
 
-https://www.freecodecamp.org/news/if-name-main-python-example/ - dunder name = dunder main
-for demonstration of best practices
-Allows run.py to be imported to other files
+This [Free Code Camp](https://www.freecodecamp.org/news/if-name-main-python-example/) article was used to implement the dunder name == dunder main code that wraps the main function. Whilst not strictly necessary for a single file program, this was done as a demonstration of best practices, and allows run.py to imported into other files, if the future work of the project demands that. 
 
-Lanchester's Square Law - for combat power calculations - http://www.doolanshire.net/
+[This blog post by a pythonista](http://www.doolanshire.net/) introduced me to Lanchester's Square Law, which allowed me to implement the combat power calculations in the fight_engagement function. 
 
-My Mentor Ronan McLelland
+My Mentor, Ronan McLelland, who, being a Python developer himself, provided advice and guidance on the structure of the project, and the features that could be implemented.  
 
 FD Bartholomew Boley - for his useful contributions to the development process
