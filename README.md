@@ -1,37 +1,3 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome AdamBoley,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
-
-
-
 # Fleet Command
 
 ## Code Institute Python command line interface application
@@ -39,6 +5,24 @@ Happy coding!
 Am I responsive thing goes here
 
 # Table of Contents
+- [Background](#background)
+- [Scope](#scope)
+- [Audience](#audience)
+- [User Stories](#user-stories)
+- [Features](#features)
+- [Function](#function)
+- [Development Choices](#development-choices)
+- [Flow Chart](#flow-chart)
+- [Future Work](#fture-work)
+- [Bugs](#bugs)
+- [Technologies](#technologies)
+- [Deployment](#deployment)
+- [Testing](#testing)
+    - [Function testing](#function-testing)
+    - [Balance testing](#balance-testing)
+    - [User story testing](#user-story-testing)
+- [Credits](#credits)
+
 
 # Background
 
@@ -54,7 +38,7 @@ This project is a homage of sorts to the Lost Fleet series. The project therefor
 
 # Scope
 
-The scope of this project is to create a text-based game that is run in the terminal. Players will be given information via the terminal and then presented with choices about how to proceed. They are then prompted to respond to these choices via key-presses. These decisions are then handled buy the code and the results displayed the user. 
+The scope of this project is to create a text-based naval battle simular game that is run in the terminal. Players will be given information via the terminal and then presented with decisions about how to proceed. They are then prompted to respond to these decisions via key-presses. These decisions are then handled buy the code and the results displayed the user. 
 
 # Audience
 
@@ -62,21 +46,17 @@ The intended audience is fans of military science fiction and fans of tactical c
 
 # User Stories
 
-Users must be able to understand the situation presented by game - strong inductory print statements
+Users must be able to understand the situation presented by game. This will be achieved with strong inductory print statements.
 
-Users must be well-informed by the text content of the game - plenty of print statements with good informational text
+Users must be well-informed by the text content of the game. This will be achieved with plenty of print statements with good informational text.
 
-Users must be able to respond to prompting from the game by key-presses - input statements
+Users must be able to respond to prompting from the game by key-presses. This will be achieved with input statements and IF / ELSE statements that respond based on what has been entered by the user. 
 
-Responses to input prompts must handle incorrect / invalid inputs gracefully - While loops and Try / Except statements
+Responses to input prompts must handle incorrect / invalid inputs gracefully. This will be achieved with While loops and Try / Except statements.
 
-Users must be able to make informed tactical choices in the game - each decision point must have at least several ways of responding to it, each sufficiently different  
+Users must be able to make informed tactical and strategic choices in the game. This will be achieved with each decision point having at least two ways of responding to it.   
 
-Users must be able to meaningfully influence the outcome of the game - users must be able to lose and win based on their decisions, making poor decisions loses the game, making good decisions wins the game
-
-
-
-
+Users must be able to meaningfully influence the outcome of the game. This will be achieved with users being able to lose and win based on their decisions. Making poor decisions should cause players to lose the game, whereas making good decisions should allow players to win the game. 
 
 # Features
 
@@ -195,11 +175,11 @@ In the update_enemy function, the math.ceil method was used so that enemy ship l
 
 The decision to use 2 functions to update the enemy_group_strength, enemy_losses, player_ships and player_losses dictionaries was taken when I realised that the fight_engagement function had become very large, with much repetition. 
 
-The decision to refactor the fight_engagement function so that the firepower_factor and losses_factor variables were calculated dynamically rather than being static depending on tactic and the value of the effective_firepower_difference variable was taken when I realised that adding IF / ELIF statements to capture a sufficient number of situations would make the function very large and difficult to tweak. The dynamic calculation solution is both smaller and far more elegant, with only the bare minimum of repetition. The dynamic calculation approach also models an engagement more realistically - when one side possesses overwhelming strength in numbers or firepower, it suffers very few casualties because enemy firepower is spread out over a large number of targets. When numbers are more even, the player suffers more casualties, which is an incentive to the player to whittle down the enemy numbers before 'going in for the kill', so to speak. 
+The decision to refactor the fight_engagement function so that the firepower_factor and losses_factor variables were calculated dynamically rather than being static depending on tactic and the value of the effective_firepower_difference variable was taken when I realised that adding IF / ELIF statements to capture a sufficient number of situations would make the function very large and difficult to tweak. The dynamic calculation solution using Lanchester's Square Law is both smaller and far more elegant, with only the bare minimum of repetition. The dynamic calculation approach also models an engagement more realistically - when one side possesses overwhelming strength in numbers or firepower, it suffers very few casualties because enemy firepower is spread out over a large number of targets. When numbers are more even, the player suffers more casualties, which is an incentive to the player to whittle down the enemy numbers before 'going in for the kill', so to speak. 
 
 When implementing the concept of experience through the player_experience variable and modification of the update_enemy function, I initially considered two methods of adding experience. The first method mimicked the method employed in many modern Role Playing Games such as the Fallout series, where each action, no matter how small, gives experience - picking a lock gains might give 10XP, whereas persuading a merchant to lower their prices might give 50XP. In Fleet Command, this method would add 0.01 to the player_experience variable each time the player decided to conduct a firing run, i.e. each time the fight_engagement was called. This would give the player's crews a small amount of experience each time they clashed with the enemy. The second method mimicked the method used in table-top roleplay games and wargames such as Dungeons & Dragons, where each player is awarded a set amount of experience points when a quest is completed, no matter what actions each player did. In Fleet Command, this method would add a flat value of 0.1 to the player_experience variable each time they decide to fight an enemy group via the fight_battle function, no matter how many times they engage via the fight_engagement function. Put simply - if the player fights, they gain experience. 
 
-Ultimately, I went with the second method, as the first method would create an incentive for the player to always engage with option 1 - the safest approach. This would quickly bore a player. I also considered that any kind of experience in any field is often not gained in the heat of the moment, but only after a period of analysis and reflection, when new procedures, processes, doctrines and so on can be developed and implemented. 
+Ultimately, I went with the second method, as the first method would create an incentive for the player to always engage with option 1 - the safest approach. This would quickly bore a player, and could lead to players becoming overpowered by virtue of conducting many firing runs. I also considered that any kind of experience in any field is often not gained in the heat of the moment, but only after a period of analysis and reflection, when new procedures, processes, doctrines and so on can be developed and implemented. 
 
 I implemented the concept of experience as a way of balancing out the player's losses - when they fight, losses are pretty much inevitable due to the calculations, but the experience gained by the player's crews counters this. 
 
@@ -222,6 +202,12 @@ For function calls with several arguments, I placed all of the arguments onto in
 For inputs assigned to variables, I used the backslash character to place the continuation text onto new lines
 
 For strings, I tried several methods, such as string concatenation, but I ran into under-indentation and over-indentation errors. I found that indenting one tab and 2 spaces or 6 spaces solved this, but then noted that mixing spaces and tabs is not allowed in Python. This also produced very messy code. I eventually resorted to shortening my print statements so that none went over 79 characters. Whilst initially annoying, after a while I determined that I had probably been too verbose with my text. Reducing line lengths forced me to be clearer and more concise. 
+
+# Flow Chart
+
+A flow chart for the logic of this project was created using LucidChart. This helped map out how the game should work, and also provides a visual companion to the code description in the function section. 
+
+![flow chart](assets/fleet-command.png)
 
 # Future Work
 
@@ -289,15 +275,15 @@ Balance testing was also undertaken as the project neared completion. This teste
 
 # Technologies
 
-Github
+[Github](https://github.com/) was used to host the project repository.
 
-Gitpod
+[Gitpod](https://gitpod.io/) was used to create and edit the project files. The Preview Browser proved useful in seeing the results of minor changes.
 
-Slack
+[Slack](https://slack.com/intl/en-gb/) was used to hold video calls with my Mentor, Ronan McLelland, and discuss the direction of the project and its features.
 
-Heroku
+[LucidChart](https://www.lucidchart.com/) was used to plan out the logic flow for the project's functions
 
-Black
+[Heroku](https://www.heroku.com/) was used to deploy the project
 
 # Deployment
 
@@ -521,6 +507,34 @@ The conditional checks for negative player ship values were also repurposed to c
 <br>**Conclusion** - The number of Marines needed to board enemy ships may need to be reduced, so that players making use of the boarding mechanic early on are not softlocked out of situations later on that require Marines. 
 
 Overall conclusion - Using a single approach leads to defeat. The player must vary their tactics, and fight intelligently. A handful of times, it was noted that the battles didn't end when all enemy ships were destroyed. This may be due to a slight delay in the updating of the global dictionaries. 
+
+## User story testing
+
+This section covers testing of the user stories
+
+1. Users must be able to understand the situation presented by game. This will be achieved with strong inductory print statements.
+
+Fulfilment - The early part of the game contains numerous print statements that inform the user of the content of the game. 
+
+2. Users must be well-informed by the text content of the game. This will be achieved with plenty of print statements with good informational text.
+
+Fulfilment - For Loops are used to provide information to users about many things, such as the number of ships that they have. In other cases, print statements are used to inform the user of pertinent information that they need to make informed decisions. 
+
+3. Users must be able to respond to prompting from the game by key-presses. This will be achieved with input statements and IF / ELSE statements that respond based on what has been entered by the user. 
+
+Fulfilment - The game contains many input statements. Responses to these are handled by If / Else statements directly beneath. 
+
+4. Responses to input prompts must handle incorrect / invalid inputs gracefully. This will be achieved with While loops and Try / Except statements.
+
+Fulfilment - Each input statement has input validation, either by use while loops combined with the break keyword, or by using Try / Except statements. It should be impossible for the program to end as a result of user inputs.  
+
+5. Users must be able to make informed tactical and strategic choices in the game. This will be achieved with each decision point having at least two ways of responding to it. 
+
+Fulfilment - The risks and benefits of choices are either directly presented to the player or are broadly hinted at. In the fight_engagement function, each tactic contains a decision that confirms whether or not the player wants to proceed, which is presented after pertinent information is presented to the player. Most input statements that exist in the mission functions may be responded to by pressing y or n, as they are used to describe situations in which the player must choose or refuse to do something. Input statements elsewhere, such as in the combat functions, may be responded to by entering numbers, as they describe situations in which the player must select how to respond to a situation. 
+
+6. Users must be able to meaningfully influence the outcome of the game. This will be achieved with users being able to lose and win based on their decisions. Making poor decisions should cause players to lose the game, whereas making good decisions should allow players to win the game. 
+
+Fulfilment - As noted in the balance testing section above, using one tactic exclusively leads to failure, either through destruction of all of the player's ships, or by running out of supplies. Conversely, varying tacticsm using tactics that are appropriate to the situation, and making use of the boarding mechanic allow the player to be victorious. 
 
 # Credits
 
