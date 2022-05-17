@@ -159,7 +159,7 @@ MARINES = (
 
 MARINE_EXPERIENCE = 1.0
 
-MARINES_EXPERIENCES_GAINS = {
+MARINE_EXPERIENCE_GAINS = {
     'battleship': 0.05,
     'cruiser': 0.03,
     'escort': 0.01
@@ -3017,9 +3017,9 @@ def boarding_operation(boardable_ships):
                 print('Please enter a number between 1 and 5')
 
         MARINE_EXPERIENCE = (
-            BOARDED_SHIPS['battleship'] * MARINES_EXPERIENCES_GAINS['battleship']
-            + BOARDED_SHIPS['cruiser'] * MARINES_EXPERIENCES_GAINS['cruiser']
-            + BOARDED_SHIPS['escort'] * MARINES_EXPERIENCES_GAINS['escort']
+            BOARDED_SHIPS['battleship'] * MARINE_EXPERIENCE_GAINS['battleship']
+            + BOARDED_SHIPS['cruiser'] * MARINE_EXPERIENCE_GAINS['cruiser']
+            + BOARDED_SHIPS['escort'] * MARINE_EXPERIENCE_GAINS['escort']
         )
 
         BOARDED_SHIPS = {
