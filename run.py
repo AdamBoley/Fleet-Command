@@ -650,7 +650,7 @@ def mission_three():
         Small functions within mission 3
         Called if the player chooses to aid the Osiris Dockyards
         If successful, the player is granted additional supplies
-        and MARINES
+        and Marines
         """
         global PLAYER_EXPERIENCE
         global OSIRIS_DOCKS_HELPED
@@ -671,18 +671,18 @@ def mission_three():
         PLAYER_EXPERIENCE += 0.02
         print('Roth: Enemy support ships have been dealt with')
         print('You: Move escorts into fire support positions')
-        print(f'Roth: We have {MARINES} MARINES')
+        print(f'Roth: We have {MARINES} Marines')
         if MARINES < 100:
-            print('Roth: We do not have enough MARINES to ')
+            print('Roth: We do not have enough Marines to ')
             print('Roth: We cannot launch a counter-boarding operation')
             print('Roth: But our fire support should still turn the tide')
             print('ODY: We are pushing them back with your fire support')
             print('ODY: But it is costing us badly')
             print('ODY: Syndicate boarding parties are surrendering!')
-            print('ODY: Transferring surviving MARINES to your command, sir!')
+            print('ODY: Transferring surviving Marines to your command, sir!')
             MARINES += 500
         elif MARINES <= 800:
-            print('Roth: We have enough MARINES to assist the dockyards')
+            print('Roth: We have enough Marines to assist the dockyards')
             print('Roth: We can launch a limited counter-boarding operation')
             print('Roth: We should drive out the Syndics with some effort')
             print('Roth: Launching assault shuttles now')
@@ -690,10 +690,10 @@ def mission_three():
             print('ODY: Enemy forces are breaking off to block you')
             print('ODY: We are rolling them up, but they are still costing us')
             print('ODY: Enemy forces have been defeated')
-            print('ODY: Transferring surviving MARINES to you command')
+            print('ODY: Transferring surviving Marines to you command')
             MARINES += 750
         elif MARINES > 800:
-            print('Roth: We have enough MARINES to really help the dockyards')
+            print('Roth: We have enough Marines to really help the dockyards')
             print('Roth: We can launch a full counter-boarding operation')
             print('Roth: We should have this done in short order')
             print('Roth: Assault shuttles launching now')
@@ -701,7 +701,7 @@ def mission_three():
             print('ODY: We have them pinned!')
             print('ODY: We are rolling them up quickly!')
             print('ODY: Enemy forces defeated with minimal allied casualties')
-            print('ODY: Transferring surviving MARINES to you command')
+            print('ODY: Transferring surviving Marines to you command')
             MARINES += 1000
         OSIRIS_DOCKS_HELPED = 1
         print('ODY: You are welcome to our stockpiles for your fleet')
@@ -764,7 +764,7 @@ def mission_three():
                         osiris_fleet()
                         break
                     elif engage_decision_two == 'n':
-                        print('You: We have picked up some additonal MARINES')
+                        print('You: We have picked up some additonal Marines')
                         print('You: And also some supplies and munitions')
                         print("You: I can't risk my forces further")
                         print('You: Disengage')
@@ -778,7 +778,7 @@ def mission_three():
                 print('Roth: Nicely done Admiral!')
                 print('Roth: Osiris is secure')
                 print('Roth: In appreciation, Osiris has reinforced us')
-                print('Roth: More supplies, mines, missiles and MARINES')
+                print('Roth: More supplies, mines, missiles and Marines')
                 PLAYER_SHIPS['battleships'] += OSIRIS_EXTRA['battleships']
                 PLAYER_SHIPS['cruisers'] += OSIRIS_EXTRA['cruisers']
                 PLAYER_SHIPS['escorts'] += OSIRIS_EXTRA['escorts']
@@ -1201,14 +1201,14 @@ def mission_six():
             print("Roth: But we can't use a massive orbital bombardment")
             print("Roth: We will want to spare Laconia's factories")
             if MARINES < 300:
-                print('Roth: Unfortunately, we do not have many MARINES')
+                print('Roth: Unfortunately, we do not have many Marines')
                 print('Roth: We cannot launch a counter invasion')
             elif MARINES >= 300:
-                print('Roth: We have enough MARINES for a limited landing')
+                print('Roth: We have enough Marines for a limited landing')
                 print('Roth: Shall we launch shuttles?')
                 while True:
                     counter_invasion = input(
-                        'Press y to land MARINES, or n to leave them to it:\n')
+                        'Press y to land Marines, or n to leave them to it:\n')
                     if counter_invasion == 'y':
                         print('You: We should help the Laconians out')
                         print('You: In spite of their aggravating nature')
@@ -1216,7 +1216,7 @@ def mission_six():
                         print('Roth: Bombardment ships firing now')
                         print('LC: Much obliged Admiral')
                         print('LC: Our forces are counter attacking')
-                        print('Roth: Our MARINES are rolling up the enemy')
+                        print('Roth: Our Marines are rolling up the enemy')
                         print('LC: Your assistance is noted')
                         print('LC: Some supply shuttles are on the way to you')
                         print('LC: On board are some supplies')
@@ -1610,20 +1610,20 @@ def campaign_report():
     elif PLAYER_EXPERIENCE >= 1.7:
         print('Roth: We fought the enemy at every opportunity')
         print('Roth: Our sailors are probably some of the best in human space')
-    starting_MARINES = (
+    starting_marines = (
         (player_starting_ships['battleships'] * 40)
         + (player_starting_ships['cruisers'] * 20)
     )
-    print(f'Roth: We started with {starting_MARINES} MARINES')
-    print(f'Roth: We ended our campaign with {MARINES} MARINES')
+    print(f'Roth: We started with {starting_marines} Marines')
+    print(f'Roth: We ended our campaign with {MARINES} Marines')
     if MARINE_EXPERIENCE == 1.0:
-        print('Roth: Our MARINES gain no combat experience in our campaign')
+        print('Roth: Our Marines gain no combat experience in our campaign')
     elif MARINE_EXPERIENCE > 1.0 and MARINE_EXPERIENCE < 1.3:
-        print('Roth: Our MARINES gained some experience in our campaign')
+        print('Roth: Our Marines gained some experience in our campaign')
     elif MARINE_EXPERIENCE >= 1.3 and MARINE_EXPERIENCE < 1.6:
-        print('Roth: Our MARINES gained a considerable amount of experience')
+        print('Roth: Our Marines gained a considerable amount of experience')
     elif MARINE_EXPERIENCE >= 1.6:
-        print('Roth: Our MARINES gained a lot of combat experience')
+        print('Roth: Our Marines gained a lot of combat experience')
         print('Roth: They are probably some of the best troops in human space')
     print('\n')
     print('You have seen what you accomplished')
@@ -2834,7 +2834,7 @@ def boarding_operation(boardable_ships):
             boardable_ships['escorts'] == 0):
         print('Roth: There are no more ships left to board\n')
     elif MARINES < 20:
-        print('Roth: We do not have enough MARINES')
+        print('Roth: We do not have enough Marines')
         print('Roth: We cannot board even one escort')
     elif available_crew < 160:
         print('Roth: We do not have enough crew left to crew a captured ship')
@@ -2842,13 +2842,13 @@ def boarding_operation(boardable_ships):
         for key, value in boardable_ships.items():
             print(f'Roth: There are {value} {key} we can board')
         print('\n')
-        print(f'Roth: We have {MARINES} MARINES')
+        print(f'Roth: We have {MARINES} Marines')
         print(f'Roth: We have {available_crew} sailors available')
         print(f'Roth: We have {PLAYER_SUPPLIES} repair supplies')
         print('\n')
         for key, value in BOARDING_TACTICS.items():
             print(f'Roth: {key} - {value}')
-        print('Roth: What shall our MARINES board first?')
+        print('Roth: What shall our Marines board first?')
         while True:
             ship_to_board = input(
                 'Enter a number between 1 and 5 to select your tactic:\n')
@@ -2858,7 +2858,7 @@ def boarding_operation(boardable_ships):
                     print('Roth: There are no enemy battleships to board')
                     boarding_operation(boardable_ships)
                 elif MARINES < 500:
-                    print('Roth: We do not have enough MARINES')
+                    print('Roth: We do not have enough Marines')
                     print('Roth: We cannot board the battleship')
                     print('Roth: We might be able to board an enemy cruiser')
                     boarding_operation(boardable_ships)
@@ -2872,7 +2872,7 @@ def boarding_operation(boardable_ships):
                     SALVAGED_SHIPS['battleships'] += 1
                     PLAYER_SUPPLIES -= 1
                     EXCESS_CREW -= MINIMUM_SHIP_CREW['battleship']
-                    print(f'Roth: We lost {marine_casualties} MARINES')
+                    print(f'Roth: We lost {marine_casualties} Marines')
                     print('Roth: But we took the battleship')
                     boarding_operation(boardable_ships)
 
@@ -2884,7 +2884,7 @@ def boarding_operation(boardable_ships):
                     print('Roth: There are no enemy cruisers to board')
                     boarding_operation(boardable_ships)
                 elif MARINES < 120:
-                    print('Roth: We do not have enough MARINES')
+                    print('Roth: We do not have enough Marines')
                     print('Roth: We cannot board an enemy cruiser')
                     print('Roth: We might be able to board an enemy escort')
                     boarding_operation(boardable_ships)
@@ -2898,7 +2898,7 @@ def boarding_operation(boardable_ships):
                     SALVAGED_SHIPS['cruisers'] += 1
                     PLAYER_SUPPLIES -= 1
                     EXCESS_CREW -= MINIMUM_SHIP_CREW['cruiser']
-                    print(f'Roth: We lost {marine_casualties} MARINES')
+                    print(f'Roth: We lost {marine_casualties} Marines')
                     print('Roth: But we took the cruiser')
                     boarding_operation(boardable_ships)
 
@@ -2919,14 +2919,14 @@ def boarding_operation(boardable_ships):
                     SALVAGED_SHIPS['escorts'] += 1
                     PLAYER_SUPPLIES -= 1
                     EXCESS_CREW -= MINIMUM_SHIP_CREW['escort']
-                    print(f'Roth: We lost {marine_casualties} MARINES')
+                    print(f'Roth: We lost {marine_casualties} Marines')
                     print('Roth: but the escort has been added to our screen')
                     boarding_operation(boardable_ships)
 
                 break
 
             elif ship_to_board == '4':
-                MARINES_required = (
+                marines_required = (
                     boardable_ships['battleships'] * 500
                     + boardable_ships['cruisers'] * 120
                     + boardable_ships['escorts'] * 20
@@ -2937,11 +2937,11 @@ def boarding_operation(boardable_ships):
                     + boardable_ships['cruisers']
                     + boardable_ships['escorts']
                 )
-                print(f'Roth: We need {MARINES_required} MARINES to do that')
+                print(f'Roth: We need {marines_required} Marines to do that')
                 print(f'Roth: We need {supplies_required} supplies as well')
 
-                if MARINES < MARINES_required:
-                    print('Roth: We do not have sufficient MARINES, sir')
+                if MARINES < marines_required:
+                    print('Roth: We do not have sufficient Marines, sir')
                     print("Roth: We can't take all enemy ships simultaneously")
                     print('Roth: We might be able to board some of them')
                     boarding_operation(boardable_ships)
@@ -2996,9 +2996,9 @@ def boarding_operation(boardable_ships):
                     for key, value in BOARDED_SHIPS.items():
                         print(f'Roth: We boarded {value} {key}')
 
-                    print(f'Roth: We lost {marine_casualties} MARINES')
+                    print(f'Roth: We lost {marine_casualties} Marines')
                     MARINES -= marine_casualties
-                    print(f'Roth: We now have {MARINES} MARINES')
+                    print(f'Roth: We now have {MARINES} Marines')
 
                     PLAYER_SUPPLIES -= (
                         boardable_ships['battleships']
@@ -3014,7 +3014,7 @@ def boarding_operation(boardable_ships):
 
             elif ship_to_board == '5':
                 print('You: We have salvaged enough ships. Scuttle the rest')
-                print('Roth: Indeed, better to save our MARINES')
+                print('Roth: Indeed, better to save our Marines')
                 break
 
             else:
@@ -3074,7 +3074,7 @@ def player_fleet_status():
     """
     Function that can be called at the start of each mission
     Displays the current status of the player's fleet
-    As well as supplies, mines, missiles, crew and MARINES
+    As well as supplies, mines, missiles, crew and Marines
     """
     player_firepower = calculate_player_firepower(PLAYER_SHIPS)
     for key, value in PLAYER_SHIPS.items():
@@ -3142,19 +3142,19 @@ def player_fleet_status():
         print('Roth: Our crews are seasoned veterans\n')
     elif PLAYER_EXPERIENCE > 1.2:
         print('Roth: Our crews are hardened combat veterans\n')
-    print(f'\nRoth: Our ships carry {MARINES} MARINES')
+    print(f'\nRoth: Our ships carry {MARINES} Marines')
     if MARINES < 1800:
-        print('Roth: We have lost MARINES in combat and to ship destruction')
+        print('Roth: We have lost Marines in combat and to ship destruction')
     if MARINES > 1800:
-        print('Roth: We have picked up some additional MARINES')
+        print('Roth: We have picked up some additional Marines')
     if MARINE_EXPERIENCE == 1.0:
-        print('Roth: Our MARINES are inexperienced in boarding actions\n')
+        print('Roth: Our Marines are inexperienced in boarding actions\n')
     elif MARINE_EXPERIENCE > 1.0 and MARINE_EXPERIENCE <= 1.3:
-        print('Roth: Our MARINES have gained some combat experience\n')
+        print('Roth: Our Marines have gained some combat experience\n')
     elif MARINE_EXPERIENCE > 1.3 and MARINE_EXPERIENCE <= 1.6:
-        print('Roth: Our MARINES are now seasoned veterans\n')
+        print('Roth: Our Marines are now seasoned veterans\n')
     elif MARINE_EXPERIENCE > 1.7:
-        print('Roth: Our MARINES are hardened veterans\n')
+        print('Roth: Our Marines are hardened veterans\n')
 
 
 def ship_capabilities():
@@ -3167,19 +3167,19 @@ def ship_capabilities():
     print('Battleships have 4 missile launchers')
     print('Battleships have 2 mine-tubes')
     print(f"Battleships have {SHIP_CREW['battleship']} sailors")
-    print('Battleships also carry 40 MARINES\n')
+    print('Battleships also carry 40 Marines\n')
     print('Cruisers are midweight combatants')
     print(f"Cruisers have {SHIP_FIREPOWER['cruiser']} turrets")
     print('Cruisers have 2 missile launchers')
     print('Cruisers have 1 mine-tube')
     print(f"Cruisers have {SHIP_CREW['cruiser']} sailors")
-    print('Cruisers carry 20 MARINES\n')
+    print('Cruisers carry 20 Marines\n')
     print('Escorts are light screening ships, effective in numbers')
     print(f"Escorts have {SHIP_FIREPOWER['escort']} turrets")
     print('Escorts have 1 missile launcher')
     print('Escorts do not carry mine-tubes')
     print(f"Escorts have {SHIP_CREW['escort']} sailors")
-    print('Escorts do not carry MARINES\n')
+    print('Escorts do not carry Marines\n')
 
 
 def tactics():
@@ -3243,9 +3243,9 @@ def tactics():
     print('You: So we should carefully consider using them')
 
     print('You: Once the battle is done, some enemy ships may be salvageable')
-    print('You: We will need to use our MARINES to board them')
+    print('You: We will need to use our Marines to board them')
     print('You: They would make excellent additions to the fleet')
-    print('You: However, we could lose many MARINES')
+    print('You: However, we could lose many Marines')
     print('You: We would then be without an important capability')
     print('\n')
     print('Roth: Thank you Admiral, that was informative')
