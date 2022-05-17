@@ -1884,7 +1884,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
                 elif effective_firepower_difference == 0:
                     print('Roth: What a coincidence!')
                     print('Both our fleets have the same nunber of turrets!')
-                # More print statements here refering to 'combat power'
 
                 player_combat_power = player_combat_power_calculator(
                     player_firepower)
@@ -2818,7 +2817,6 @@ def boarding_operation(boardable_ships):
     global total_crew
     global excess_crew
     global marine_experience
-    #  global boarded_ships
     global salvaged_ships
 
     available_crew = excess_crew_calculator()
