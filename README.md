@@ -80,7 +80,25 @@ Users must be able to meaningfully influence the outcome of the game - users mus
 
 # Features
 
-The Fleet Command game consists of a number of missions that the player must navigate.
+The Fleet Command game consists of a number of missions that the player must navigate. When the player starts the game, the player is prompted to enter their name and the name of their flagship. The player is then given asked whether they want to see the status of their fleet, whether they want to view the capabilities of their fleet's ships, and whether they want to see the tactics they can use in battle. These help inform the player as to the nature of the game and how to play it. 
+
+Once these decisions have been resolved, the campaign begins. The campaign consists of 7 missions, with an 8th bonus mission that may be played if the player has done well enough in the main campaign. Each mission presents the player with a situation that is explained to the player. Each mission also contains a number of enemy ships. Each mission also contains choices using input statements. The first choice in each mission is whether or not to actually play the mission, which is usually framed as a decision on whether or not to engage the enemy ships in the mission. If the player chooses yes, the mission's narrative begins, and combat starts. If the player chooses no, the mission is skipped. This does not apply in mission 7, and this is explained below. Other missions have decisions that must be resolved before combat begins.   
+
+If the player chooses to engage in combat, the number of enemy ships and the tactics that can be employed are printed. The player is then prompted to choose a tactic. There are 6 tactics that the player can choose to employ:
+1 - attack 25% of the enemy
+2 - attack 50% of the enemy
+3 - attack 75% of the enemy
+4 - attack 100% of the enemy
+5 - attack 100% of the enemy with a long range missile barrage
+6 - attack 100% of the enemy with a mine-field
+
+Once the player chooses their approach, a series of calculations are performed, with the results printed. Firstly, the number of player ships is printed, so the player knows how many ships they will employ. Then, the number of turrets the player's ships have is printed, so that the player knows how much damage they can do. Next, the number of enemy ships the player will be facing is printed. If the player chooses to engage 50% of the enemy, then the number of enemy ships will be half of the starting enemy ships, rounded up. The number of turrets those enemy ships have is also printed, so that the player knows how much return fire they will face. 
+
+Then the player is informed of how their fleet stacks up against the enemy ships - the differential in turrets, who has the advantage in combat power (more on this concept below), what percentage of the enemy ships are likely to be destroyed, and what percentage of the player's ships are likely to be destroyed. This prompts a further decision for the player to resolve - with this information, does the player want to proceed with their attack? If the player decides that they have a sufficient advantage, or that supply levels determine that they must launch their attack, then more calculations for performed, which determine how many player ships are destroyed and damaged and how many enemy ships are destroyed. The number of ships the player has lost, the number of ships remaining to the player, the number of enemy ships destroyed and the number of enemy ships that remain are then printed, so that the player can evaluate the results of their attack. The player is then given the choice of whether to end the battle, or to re-engage the enemy. If the player chooses to end the battle, mission continues. If no further decisions remain to be resolved in the mission, the mission ends and the next begins. If the player has knocked out all enemy ships, then the number of enemy ships destroyed and the number of player ships destroyed and damaged is printed. The number of supplies that have been salvaged from enemy ships is also printed. 
+
+If all enemy ships have been destroyed, the player is then informed that they may board a small number of enemy ships. These are enemy ships that have been disabled, but are relatively intact, and may be added to the player's fleet provided the player can board, repair and crew them. If the player chooses to initiate a boarding operation...
+
+
 
 # Function 
 
