@@ -3071,6 +3071,7 @@ def player_fleet_status():
     Function that can be called at the start of each mission
     Displays the current status of the player's fleet
     As well as supplies, mines, missiles, crew and Marines
+    Also displays the allied groups that have joined up
     """
     player_firepower = calculate_player_firepower(PLAYER_SHIPS)
     for key, value in PLAYER_SHIPS.items():
