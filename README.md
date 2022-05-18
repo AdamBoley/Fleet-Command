@@ -242,7 +242,7 @@ Commit #23 added functionality to the update_player_ships to check if the calcul
 
 Commit #34 added the boarding mechanic, which allows players to board enemy ships after a battle has been won and add them to their fleet. Testing this mechanic with the first mission revealed that, whilst the player_ships dictionary updates properly, the player_firepower variable does not, since the value of player_firepower is calculated when the program runs for the first time, and is not updated. Further testing revealed that the value of player_firepower stays constant even when the player loses ships as a result of the fight_engagement / update_player loop. Commit #35 fixed this problem by using a new function called calculate_player_firepower to calculate the value of player_firepower dynamically. This function is called in the player_fleet_status function and at the start of the fight_engagement function.
 
-Commit #39 broke the code due to insufficient testing. I removed the globl total_crew and excess_crew dictionaries without modifying the code in the calculate_total_crew and calculate_excess_crew functions. Commit #40 fixed this by adding those dictionaries back in, as well as adding the consideration of crew to the boarding mechanic. 
+Commit #39 broke the code due to insufficient testing. I removed the global total_crew and excess_crew dictionaries without modifying the code in the calculate_total_crew and calculate_excess_crew functions. Commit #40 fixed this by adding those dictionaries back in, as well as adding the consideration of crew to the boarding mechanic. 
 
 During some routine testing related to commit #44, I noted that when the battle in mission two was fought, it was possible for the enemy group to possess a negative number of enemy ships. I suspect that this is related to the player_experience modifier that increases the damage done by the player's ships in the update_enemy function. Commit #44 was dedicated to overhauling the boarding_operation function, so this bug was merely documented for later fixing. Commit #45 fixed this bug by appropriating the code used in the update_player function to solve a similar bug whereby the player could end up with a negative number of ships. This solution checks to see if the number of enemy ships of a specific class is less than 0, and if so, sets the number to 0. 
 
@@ -291,7 +291,7 @@ Several times during testing it was noted that the battles didn't end when all e
 
 [Github](https://github.com/) was used to host the project repository.
 
-[Gitpod](https://gitpod.io/) was used to create and edit the project files. The Preview Browser proved useful in seeing the results of minor changes.
+[Gitpod](https://gitpod.io/) was used to create and edit the project files. 
 
 [Slack](https://slack.com/intl/en-gb/) was used to hold video calls with my Mentor, Ronan McLelland, and discuss the direction of the project and its features.
 
@@ -537,7 +537,9 @@ The conditional checks for negative player ship values were also repurposed to c
 <br>**Outcome** - I was able to win by varying my tactics, using less risky tactics to wear down strong enemy groups, then using riskier tactics when enemy groups were weaker. However, I ended up with more supplies than I started with, and was not able to make good use of the boarding mechanic, as I lost many Marines early on. 
 <br>**Conclusion** - The number of Marines needed to board enemy ships may need to be reduced, so that players making use of the boarding mechanic early on are not softlocked out of situations later on that require Marines. 
 
-Overall conclusion - Using a single approach leads to defeat. The player must vary their tactics, and fight intelligently. A handful of times, it was noted that the battles didn't end when all enemy ships were destroyed. This may be due to a slight delay in the updating of the global dictionaries. 
+Overall conclusion - Using a single approach leads to defeat. The player must vary their tactics, and fight intelligently. A handful of times, it was noted that the battles didn't end when all enemy ships were destroyed. This may be due to a slight delay in the updating of the global dictionaries. This is discussed in the Development Choices section. 
+
+It should be noted that this balance testing is fairly rudimentary, since I have no experience in QA. These were the outcomes when I played the game, though other users may have different experiences. 
 
 ## User story testing
 
@@ -545,27 +547,27 @@ This section covers testing of the user stories
 
 1. Users must be able to understand the situation presented by game. This will be achieved with strong inductory print statements.
 
-Fulfilment - The early part of the game contains numerous print statements that inform the user of the content of the game. 
+- Fulfilment - The early part of the game contains numerous print statements that inform the user of the content of the game. 
 
 2. Users must be well-informed by the text content of the game. This will be achieved with plenty of print statements with good informational text.
 
-Fulfilment - For Loops are used to provide information to users about many things, such as the number of ships that they have. In other cases, print statements are used to inform the user of pertinent information that they need to make informed decisions. 
+- Fulfilment - For Loops are used to provide information to users about many things, such as the number of ships that they have. In other cases, print statements are used to inform the user of pertinent information that they need to make informed decisions. 
 
 3. Users must be able to respond to prompting from the game by key-presses. This will be achieved with input statements and IF / ELSE statements that respond based on what has been entered by the user. 
 
-Fulfilment - The game contains many input statements. Responses to these are handled by If / Else statements directly beneath. 
+- Fulfilment - The game contains many input statements. Responses to these are handled by If / Else statements directly beneath. 
 
 4. Responses to input prompts must handle incorrect / invalid inputs gracefully. This will be achieved with While loops and Try / Except statements.
 
-Fulfilment - Each input statement has input validation, either by use while loops combined with the break keyword, or by using Try / Except statements. It should be impossible for the program to end as a result of user inputs.  
+- Fulfilment - Each input statement has input validation, either by use while loops combined with the break keyword, or by using Try / Except statements. It should be impossible for the program to end as a result of user inputs.  
 
 5. Users must be able to make informed tactical and strategic choices in the game. This will be achieved with each decision point having at least two ways of responding to it. 
 
-Fulfilment - The risks and benefits of choices are either directly presented to the player or are broadly hinted at. In the fight_engagement function, each tactic contains a decision that confirms whether or not the player wants to proceed, which is presented after pertinent information is presented to the player. Most input statements that exist in the mission functions may be responded to by pressing y or n, as they are used to describe situations in which the player must choose or refuse to do something. Input statements elsewhere, such as in the combat functions, may be responded to by entering numbers, as they describe situations in which the player must select how to respond to a situation. 
+- Fulfilment - The risks and benefits of choices are either directly presented to the player or are broadly hinted at. In the fight_engagement function, each tactic contains a decision that confirms whether or not the player wants to proceed, which is presented after pertinent information is presented to the player. Most input statements that exist in the mission functions may be responded to by pressing y or n, as they are used to describe situations in which the player must choose or refuse to do something. Input statements elsewhere, such as in the combat functions, may be responded to by entering numbers, as they describe situations in which the player must select how to respond to a situation. 
 
 6. Users must be able to meaningfully influence the outcome of the game. This will be achieved with users being able to lose and win based on their decisions. Making poor decisions should cause players to lose the game, whereas making good decisions should allow players to win the game. 
 
-Fulfilment - As noted in the balance testing section above, using one tactic exclusively leads to failure, either through destruction of all of the player's ships, or by running out of supplies. Conversely, varying tacticsm using tactics that are appropriate to the situation, and making use of the boarding mechanic allow the player to be victorious. 
+- Fulfilment - As noted in the balance testing section above, using one tactic exclusively leads to failure, either through destruction of all of the player's ships, or by running out of supplies. Conversely, varying tacticsm using tactics that are appropriate to the situation, and making use of the boarding mechanic allow the player to be victorious. 
 
 ## PEP8 testing
 
