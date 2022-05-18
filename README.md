@@ -206,7 +206,11 @@ For inputs assigned to variables, I used the backslash character to place the co
 
 For strings, I tried several methods, such as string concatenation, but I ran into under-indentation and over-indentation errors. I found that indenting one tab and 2 spaces or 6 spaces solved this, but then noted that mixing spaces and tabs is not allowed in Python. This also produced very messy code. I eventually resorted to shortening my print statements so that none went over 79 characters. Whilst initially annoying, after a while I determined that I had probably been too verbose with my text. Reducing line lengths forced me to be clearer and more concise. 
 
+When playing the game, there is no way to exit the terminal unless via a keyboard interrupt. If the player loses the game and chooses not to replay it, they will instead be taken back to the main function. This functions sort of like the main menu of a video game, although with the only real option being to start the game. This is by design - my Mentor said that any situations where the code can stop executing may allow users to access and modify the code via the terminal. Though users are not able to change the source code in this way, I considered that such situations were best avoided, hence the continuous loop to main. 
+
 During development, I chose to use longer commit messages rather than shorter ones, as feedback from my JavaScript and Front-end projects noted that my commit messages there had been too short. Whilst the commit messages in this project may be longer than 50 characters, I considered this to be better and more descriptive than shorter, potentially less descriptive messages. 
+
+During the last stage of development, where I making final adjustments, I noted that the input validation for the tactic selection in fight_engagement had been improperly implemented, causing a crash when the input was not a number. This was fixed by wrapping the extant try / except statements in a while loop and adding break keywords. 
 
 # Flow Chart
 
@@ -279,6 +283,7 @@ Balance testing was also undertaken as the project neared completion. This teste
 
 When using tactics 2, 3 and 4, I expected to lose the game due to heavy casualties. However, this was not the case. After several missions in which various levels of casualties were taken, I was reduced to 1 battleship and 1 cruiser. From there on, these last two ships proved impossible to lose. I determined that this was due to the calculations, which use the math.floor rounding method. The justification for this was that I wanted to model the superior armour and shields that battleships and cruisers carry, allowing them increased durability. The math.floor method rounds the number of player ships that the player would lose to 0, essentially making the player invulnerable.  
 
+After the project was deployed via Heroku, I noted the small size of the terminal. Given the very large number of print statements that inform the player of the situation at hand, the text printed to the terminal frequently has more than 24 lines, forcing me to scroll up to read the text. As a result, I added input statements that asked the player to press enter to continue. 
 
 # Technologies
 
