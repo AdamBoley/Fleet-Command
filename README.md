@@ -261,7 +261,7 @@ This problem was solved by reworking the fight_engagement function so that the f
 During some routine testing, it was noted that the player_fleet_status function works properly, but can give misleading information when called. I noticed that when viewing the fleet status before beginning mission 2 after losing 1 cruiser and 5 escorts in mission 1 and also boarding 2 escorts and 1 cruiser that the function displayed that the fleet had 20 battleships, 50 cruisers and 147 escorts, but was also displaying that 1 cruiser and 3 escorts had been destroyed and that 2 escorts had been damaged. This could cause players to lose confidence in the game and to think that the game was not properly tracking their fleet status. 
 
 I attempted to solve this by creating a salvaged_ships dictionary, which is updated in the boarding_operation function, and which tracks how many ships the player has salvaged and added to their fleet, and then using a loop to display the values of this dictionary in the player_fleet_status function. However, testing this solution revealed that option 5 - the option to board all enemy ships at once - was not working properly, as it was not properly updating the dictionaries. 
-Further inspection of the code in the boarding_operation function revealed the answer as to why - when updating the escort key in the boarded_ships and salvaged_ships dictionaries, I had accidentally set the number of escorts to be increased by the number of cruisers.  
+Further inspection of the code in the boarding_operation function revealed the answer as to why - when updating the escort key in the boarded_ships and salvaged_ships dictionaries, I had accidentally set the number of escorts to be increased by the number of cruisers. Once this had been fixed, the looping through the dictionary produced the expected results.
 
 It was also noted that the number of the player's marines does not update based on how many ships they have lost - as ships are destroyed or damaged, the player would expect their marine strength to go down. This was fixed with some additional code in the update_player function that subtracts marines if any of the player's battleships or cruisers are destroyed. 
 
@@ -277,13 +277,15 @@ I then realised that I had dealt with a similar issue before, when writing the c
 
 Hence, I decided to create a new variable in update_enemy called damage_factor, which multiplies the passed value of firepower_factor and player_experience together. A conditional check checks to see if the value of damage_factor is greater than 1 and if so, corrects it to 1. The damage_factor is then used in the calculations where firepower_factor and player_experience were. This solution worked and had the desired effect of not being able to destroy more enemy ships than are present. 
 
-As the project was nearing completion, testing of the many user input decisions was undertaken. Several bugs were noted, mostly input statements requiring input validation and needing new line commands. These were noted but not fixed during the commit that added the testing and results.
+As the project was nearing completion, testing of the many user input decisions was undertaken. Several bugs were noted, mostly input statements requiring input validation and needing new line commands. These were noted but not fixed during the commit that added the testing and results. The bugs were fixed in subsequent commits.
 
 Balance testing was also undertaken as the project neared completion. This tested the calculations that underpinned the project to determine. The first 4 tests each tested scenarios in which the player exclusively turned to one conventional tactic - tactics 1, 2, 3 and 4. When exclusively using tactic 1, I was just about able to win the game and the bonus mission without running out of supplies, though this took a long time to do. From these tests, I determined that I needed to severely reduce the level of supplies that the player begins with, perhaps to a level of around 30 to 40, and that I needed to tweak the way in which the calculations in the update_player function are performed, and perhaps include conditional checks that watch for very low numbers of player ships. 
 
 When using tactics 2, 3 and 4, I expected to lose the game due to heavy casualties. However, this was not the case. After several missions in which various levels of casualties were taken, I was reduced to 1 battleship and 1 cruiser. From there on, these last two ships proved impossible to lose. I determined that this was due to the calculations, which use the math.floor rounding method. The justification for this was that I wanted to model the superior armour and shields that battleships and cruisers carry, allowing them increased durability. The math.floor method rounds the number of player ships that the player would lose to 0, essentially making the player invulnerable.  
 
 After the project was deployed via Heroku, I noted the small size of the terminal. Given the very large number of print statements that inform the player of the situation at hand, the text printed to the terminal frequently has more than 24 lines, forcing me to scroll up to read the text. As a result, I added input statements that asked the player to press enter to continue. 
+
+Several times during testing it was noted that the battles didn't end when all enemy ships were destroyed. This may be due to a slight delay in the updating of the global dictionaries. Whilst difficult to replicate, I hope that adding input statements that require the user to press enter to continue to the fight_engagement and boarding_operation functions will fix this. These manual interrupts should allow time for the global dictionaries to update whilst the user is pressing the enter key, if indeed the supposition is true.
 
 # Technologies
 
@@ -461,12 +463,16 @@ Choose a ship to board      | key press 3 - Board an escort with no escorts rema
 Choose a ship to board      | key press 4 - stop boarding ships                              | Move to next mission                                 | Move to next mission                                 |
 Choose a ship to board      | key press 5 - Board all remaining enemy ships                  | Move all available ships to player ships             | Move all available ships to player ships             | 
 Choose a ship to board      | Any valid key press with insufficient Marines remaining        | Restate input prompt                                 | Restate input prompt                                 |
-Choose a ship to board      | Any valid key press with insufficient supplies remaining       | Restate input prompt                                 |                                  |
+Choose a ship to board      | Any valid key press with insufficient supplies remaining       | Restate input prompt                                 | Restate input prompt                                 |
 Choose a ship to board      | Invalid key press - NaN or key press > 5                       | Restate input prompt                                 | Restate input prompt                                 |
 
 
 New game decision
-
+Choice                      | Response                                                       | Expected Outcome                                     | Actual Outcome                                       |
+----------------------------| -------------------------------------------------------------- | ---------------------------------------------------- | -----------------------------------------------------|
+Start a new game            | Yes - key press y                                              | Start new game, see new_game print statements        | Start new game, see new_game print statements        |
+Start a new game            | No - key press n                                               | Back to main, see main print statements              | Back to main, see main print statements              |
+Start a new game            | Invalid - key press != y or n                                  | Restate input prompt                                 | Restate input prompt                                 |
 
 ## Balance testing
 
@@ -558,7 +564,9 @@ The Gitpod IDE also displays approximately 65 warnings related to the use of the
 
 The Lost Fleet series by Jack Campbell is a favourite of mine, and the battle sequences described in it inspired many concepts in this project, such as the targeting of small parts of enemy groups, the use of Marines in boarding actions, the consideration of supply levels and the overall narrative structure of the game. 
 
-This [Free Code Camp](https://www.freecodecamp.org/news/if-name-main-python-example/) article was used to implement the dunder name == dunder main code that wraps the main function. Whilst not strictly necessary for a single file program, this was done as a demonstration of best practices, and allows run.py to imported into other files, if the future work of the project demands that. 
+This [Free Code Camp](https://www.freecodecamp.org/news/if-name-main-python-example/) article was used to implement the dunder name == dunder main code that wraps the main function. Whilst not strictly necessary for a single file program, this was done as a demonstration of best practices, and allows run.py to imported into other files, if the future work of the project demands that.
+
+This [Stack Overflow post](https://stackoverflow.com/questions/983354/how-to-make-a-python-script-wait-for-a-pressed-key) was used to implement the 'Press enter to continue' function 
 
 [This blog post by a pythonista](http://www.doolanshire.net/) introduced me to Lanchester's Square Law, which allowed me to implement the combat power calculations in the fight_engagement function. 
 
