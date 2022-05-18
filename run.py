@@ -1902,7 +1902,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
     print('\n')
     print('Roth: How shall we engage?')
     print('\n')
-    input('Press enter to continue\n')
     starting_enemy_ships = {
         'battleships': enemy_group_strength['battleships'],
         'cruisers': enemy_group_strength['cruisers'],
@@ -1939,7 +1938,6 @@ def fight_battle(enemy_firepower, enemy_group_strength):
         for key, value in TACTICAL_LIBRARY.items():
             print(f'{key} - We can {value}')
         print('\n')
-        input('Press enter to continue\n')
         while True:
             try:
                 tactic = int(input(
@@ -3239,22 +3237,24 @@ def player_fleet_status():
     print(f'Roth: We have enough mines for {MINE_STOCKS} mine-fields')
     print(f'Roth: We currently have {PLAYER_SUPPLIES} supplies\n')
     input('Press enter to continue\n')
-    if (PLAYER_TOTAL_DESTROYED['battleships'] == 0 or
-        PLAYER_TOTAL_DESTROYED['cruisers'] == 0 or
+    if (PLAYER_TOTAL_DESTROYED['battleships'] == 0 and
+        PLAYER_TOTAL_DESTROYED['cruisers'] == 0 and
             PLAYER_TOTAL_DESTROYED['escorts'] == 0):
         print('Roth: None of our ships have been destroyed\n')
     else:
         for key, value in PLAYER_TOTAL_DESTROYED.items():
-            print(f'Roth: {value} of our {key} have been destroyed\n')
-    if (PLAYER_TOTAL_DAMAGED['battleships'] == 0 or
-        PLAYER_TOTAL_DAMAGED['cruisers'] == 0 or
+            print(f'Roth: {value} of our {key} have been destroyed')
+        print('\n')
+    if (PLAYER_TOTAL_DAMAGED['battleships'] == 0 and
+        PLAYER_TOTAL_DAMAGED['cruisers'] == 0 and
             PLAYER_TOTAL_DAMAGED['escorts'] == 0):
         print('Roth: None of our ships have been damaged\n')
     else:
         for key, value in PLAYER_TOTAL_DAMAGED.items():
-            print(f'Roth: {value} of our {key} have been damaged\n')
-    if (SALVAGED_SHIPS['battleships'] == 0 or
-        SALVAGED_SHIPS['cruisers'] == 0 or
+            print(f'Roth: {value} of our {key} have been damaged')
+        print('\n')
+    if (SALVAGED_SHIPS['battleships'] == 0 and
+        SALVAGED_SHIPS['cruisers'] == 0 and
             SALVAGED_SHIPS['escorts'] == 0):
         print('Roth: No enemy ships have been salvaged\n')
     else:
@@ -3335,6 +3335,7 @@ def ship_capabilities():
     print('Escorts do not carry mine-tubes')
     print(f"Escorts have {SHIP_CREW['escort']} sailors")
     print('Escorts do not carry Marines\n')
+    input('Press enter to continue\n')
 
 
 def tactics():
@@ -3404,6 +3405,7 @@ def tactics():
     print('Roth: Thank you Admiral, that was informative')
     print('You: You are welcome Roth - watch and learn')
     print('Maybe you will command a fleet youself one day')
+    input('Press enter to continue\n')
 
 
 def main():
