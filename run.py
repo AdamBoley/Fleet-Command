@@ -1680,6 +1680,9 @@ def campaign_report():
     for key, value in PLAYER_TOTAL_DESTROYED.items():
         print(f'Roth: We lost {value} {key} destroyed')
     print('\n')
+    for key, value in SALVAGED_SHIPS.items():
+        print(f'Roth: We salvaged {value} enemy {key}')
+    print('\n')
     input('Press enter to continue\n')
     for key, value in ENEMY_LOSSES.items():
         print(f'Roth: We destroyed {value} enemy {key}')
@@ -1722,7 +1725,7 @@ def campaign_report():
         print('Roth: They are probably some of the best troops in human space')
     print('\n')
     input('Press enter to continue\n')
-    print('You have seen what you accomplished')
+    print('You have seen what you have accomplished')
     print('Can you do better?')
     while True:
         new_game_decision = input('Press y to for a new game or n to quit:\n')
@@ -1898,6 +1901,7 @@ def fight_battle(enemy_firepower, enemy_group_strength):
     """
     Function that is called when the player
     decides to fight an enemy in a mission
+    Contains the fight_engagement function
     """
     print('\n')
     print('Roth: How shall we engage?')
@@ -1918,6 +1922,8 @@ def fight_battle(enemy_firepower, enemy_group_strength):
             enemy_firepower, enemy_group_strength, number_enemy_ships):
         """
         A long, complex function that is called for each firing run
+        prompts player to select a tactic, then calculates the outcome
+        This is the core combat mechanic of the game
         """
         global ENEMY_LOSSES
         global PLAYER_SHIPS
@@ -3307,7 +3313,6 @@ def player_fleet_status():
         print('Roth: Our Marines are now seasoned veterans\n')
     elif MARINE_EXPERIENCE > 1.7:
         print('Roth: Our Marines are hardened veterans\n')
-    input('Press enter to continue\n')
 
 
 def ship_capabilities():

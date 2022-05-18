@@ -2,7 +2,7 @@
 
 ## Code Institute Python command line interface application
 
-Am I responsive thing goes here
+![fleet command responsive](assets/fleet-command-responsive.PNG)
 
 # Table of Contents
 - [Background](#background)
@@ -29,7 +29,7 @@ Am I responsive thing goes here
 
 When choosing video games to play, I find that I gravitate toward strategic wargames - titles like Command & Conquer, Homeworld, Panzer Corps, Wargame: Red Dragon, Distant Star: Revenant Fleet, Total War series, Hearts of Iron, XCOM and Company of Heroes. The one thing that ties these games together is that the developers have implemented various mechanics that mean that a player must consider the strategic layer when making decisions - things like supply lines, numbers of tanks and soldiers, resources, the movement of battlegroups and so on. This adds depth to a game that goes beyond tactical decisions - what targets to shoot, where tanks move and so on. 
 
-I enjoy military science fiction books. In particular, I tend to select books where the authors consider the realities of war in their plots, paying heed to such things as tactics, strategy and logistics. Perhaps one of my most favourite series are the Lost Fleet books, authored by retired US Navy officer John Hemry, writing under the pen name Jack Campbell. As a former naval officer, Campbell is able to give a more realistic depiction than most other authors of how a military force considers tactics, strategy and logistics in operations.
+I enjoy military science fiction books as well. In particular, I tend to select books where the authors consider the realities of war in their plots, paying heed to such things as tactics, strategy and logistics. Perhaps one of my most favourite series are the Lost Fleet books, authored by retired US Navy officer John Hemry, writing under the pen name Jack Campbell. As a former naval officer, Campbell is able to give a more realistic depiction than most other authors of how a military force considers tactics, strategy and logistics in its operations.
 
 The basic plot of the Lost Fleet books involves a 100-year long war between two large interstellar human civilisations - the Alliance, and the Syndicate Worlds. This war is fought primarily using large fleets of space-craft. Since both combatant factions are roughly equally matched in population and industrial output, neither can gain a decisive advantage over the other, leading to the war dragging on for a century. Predictably, casualties on both sides have been huge, and this has led to a problem - officers are often poorly trained, having been rushed through training in order to replace losses. This has in turn led to the militaries of both side being rather poorly led, with both sides often resorting to simplistic tactics that lead to bloodbaths, the officers of both sides not skilled or experienced enough to use more advanced tactics. Into this mess of a war comes the series' protagonist, Captain John Geary, a highly skilled pre-war officer placed in cryogenic stasis in an escape pod when his ship was destroyed in the first battle of the war. Geary assumes command of an Alliance fleet and, using his pre-war skills and knowledge of advanced tactics, inflicts crushing defeats on the Syndicate Worlds, eventually winning the war. 
 
@@ -39,7 +39,7 @@ This project is a homage of sorts to the Lost Fleet series. The project therefor
 
 # Scope
 
-The scope of this project is to create a text-based naval battle simular game that is run in the terminal. Players will be given information via the terminal and then presented with decisions about how to proceed. They are then prompted to respond to these decisions via key-presses. These decisions are then handled buy the code and the results displayed the user. 
+The scope of this project is to create a text-based naval battle simular game that is run in the terminal. Players will be given information via the terminal and then presented with decisions about how to proceed. They are then prompted to respond to these decisions via key-presses. These decisions are then handled by the code and the results displayed the user. 
 
 # Audience
 
@@ -101,7 +101,7 @@ Mission 5 - this mission is another simple engagement against a large enemy grou
 
 Mission 6 - this mission is more of a narrative mission, and takes place in the Laconia system. The enemy group is small, being a splinter of the enemy group from the last mission. It is beseiging the . The player should be able to overcome this group without too much difficulty. The player is then given a choice of whether or not to help out the ground forces of Laconia with the fleet's Marines. If the player chooses to do so, they will gain some additional Marines and supplies. The player is then given the choice of aiding the ships from Laconia that were disabled. If the player chooses to do, they will expend a number of supplies, but gain additional ships. 
 
-Mission 7 - this is the last mission, and is a straight fight. However, the gimmick is that the mission cannot be skipped - the player must engage. Once the fight is done, the player's performance is checked against the victory conditions. There are 3 victory conditions - failure, partial victory and total victory. If the player meets the failure criteria or partial victory criteria, they are taken to the campaign report, which sums up the player's performance. If the player meets the total victory criteria, they are congratulated and given the choice of whether or not to launch the bonus mission. 
+Mission 7 - this is the last mission, and is a straight fight against a potentially very powerful enemy. However, the gimmick is that the mission cannot be skipped - the player must engage. Once the fight is done, the player's performance is checked against the victory conditions. There are 3 victory conditions - failure, partial victory and total victory. If the player meets the failure criteria or partial victory criteria, they are taken to the campaign report, which sums up the player's performance. If the player meets the total victory criteria, they are congratulated and given the choice of whether or not to launch the bonus mission. 
 
 Bonus mission - this mission is only available to players who achieve a total victory, and it simulates an Alliance counter-attack on a Syndicate Worlds' system. The enemy is present in very large numbers. To compensate for these odds, the player's damaged ships are returned to them, and they are reinforced with other ships as well. The large battle should be a fitting conclusion to the campaign, and a fine test of the player's now well-honed skills. 
 
@@ -302,6 +302,19 @@ Several times during testing it was noted that the battles didn't end when all e
 # Deployment
 
 As the project was nearing completion, Heroku and Github suffered security breaches, forcing Heroku to suspend the feature that allows direct linkage to a Github repository for deployment. 
+
+Instead, I deployed this project from the Gitpod terminal using the following steps:
+1. I created a Heroku account
+2. From the Gitpod terminal, I entered the command `heroku login -i`
+3. Then I logged in using my email address and password
+4. Then I entered the command `heroku apps` to see a list of my Heroku apps, and ensure that I had logged in successfully
+5. Then I entered the command `heroku git:remote -a fleet-command` to create the app and set the Heroku remote
+6. Then I made a small change, and added and committed it using `git add .` and `git commit -m "small commit message"`
+7. Then I pushed the code to both Github and Heroku with `git push origin main` and `git push heroku main`
+8. On the Heroku app page, I clicked the Settings tab
+9. Then I add two buildpacks - heroku/python and heroku/nodejs
+10. Then I added a configuration variable of with a key of Port and a value of 8000
+11. Then I clicked Open App to open the deployed app
 
 # Testing
 
@@ -558,7 +571,7 @@ Fulfilment - As noted in the balance testing section above, using one tactic exc
 
 [This tool](http://pep8online.com/) was used to check how well the code conformed to the PEP8 style guide. This produced a large number of warnings with code W503, refering to line breaks before binary operators. However, research turned up [this page](https://www.flake8rules.com/rules/W503.html), which indicated that the opposite was true. [The PEP8 style guide](https://peps.python.org/pep-0008/#should-a-line-break-before-or-after-a-binary-operator) section on binary operators confirmed this, so I am forced to assume that the tool uses out-of-date checks. 
 
-The Gitpod IDE also displays approximately 65 warnings related to the use of the global keyword. I spoke to my Mentor about this and he informed me that professional Python projects tend to make only sparing use of the global keyword, but for cases like this project, it is acceptable. 
+The Gitpod IDE also displays approximately 65 warnings related to the use of the global keyword. I spoke to my Mentor about this and he informed me that professional Python projects tend to make only sparing use of the global keyword, but for cases like this project, it is acceptable. The design of this project necessitates liberal use of the global keyword, as justified in the Design Justifications section
 
 # Credits
 
